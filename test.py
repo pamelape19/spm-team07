@@ -1,1 +1,1 @@
-print("i hate my life")
+print("i AHHHHHHHHHHHHHHHHHHHHHHHHHe")

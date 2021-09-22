@@ -1,0 +1,17 @@
+.menu{
+    position: fixed;
+    vertical-align: middle;
+    top: 0%;
+    left: 0%;
+    /* height: 100%; */
+    width: 100%;
+    background: #F9F9F9;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+
+a:active{
+    font-weight: 600;
+}

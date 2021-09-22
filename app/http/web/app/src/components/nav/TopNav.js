@@ -9,7 +9,7 @@ import avatar from '../../resources/avatar.png';
 class TopNav extends Component{
     render(){
         return (
-            <div>
+            <div class="shadow-sm menu">
                 <Navbar bg="light" expand="lg">
                     <Container>
                         <Navbar.Brand href="#home"><img src={logo} alt=""/> Printrainer </Navbar.Brand>

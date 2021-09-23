@@ -1,0 +1,53 @@
+.card-layout{
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    padding: 30px;
+    margin: 20px;
+}
+
+.course-img{
+    padding: 10px;
+    border-radius: 20%;
+}
+
+h2{
+    padding-left: 0;
+}
+
+.course-desc{
+    color: #5C5C5C;
+    text-align: left;
+}
+
+.course-start-date{
+    color: #5C5C5C;
+    text-align: left;
+    padding: 5px 0;
+}
+
+.progress-bar-col{
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    column-gap: 2%;
+}
+
+.progress-bar-col .percentage{
+    font-weight: bold;
+    text-align: left;
+    margin-top: -5px;
+}
+
+.course-resumption{
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    justify-items: end;
+    padding-right: 30px;
+}
+
+h5{
+    padding-top: 10px;
+}
+
+.resumption-btn{
+    align-self: end;
+}

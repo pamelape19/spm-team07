@@ -1,5 +1,5 @@
 import { React, Component } from 'react';
-import { Card, Button } from 'react-bootstrap';
+import { Card, Button, Nav } from 'react-bootstrap';
 import './completedCardListItem.css';
 import EnrolledClassSample from '../resources/enrolledClassSample.png';
 
@@ -16,7 +16,9 @@ class CompletedCardListItem extends Component{
             typeBtn = <Button variant="primary">View Course</Button>;
         }
         else{
-            typeBtn = <Button variant="primary">Edit Class Content</Button>;
+            typeBtn = <Nav.Link href="/trainers-course" style={{color: '#00000080'}}> 
+                            <Button variant="primary">Edit Class Content</Button>;
+                        </Nav.Link>;
         }
 
         return(

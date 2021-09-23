@@ -32,7 +32,7 @@ class LearnersHome extends Component{
                     <Row md={4} className="g-4">
                     {Array.from({ length: 1 }).map((_, idx) => (
                         <Col>
-                            <CourseCard/>
+                            <CourseCard link="/course-page"/>
                         </Col>
                     ))}
                     </Row>
@@ -42,7 +42,7 @@ class LearnersHome extends Component{
                     <Row md={4} className="g-4">
                     {Array.from({ length: 3 }).map((_, idx) => (
                         <Col>
-                            <CourseCard/>
+                            <CourseCard link="/course-page"/>
                         </Col>
                     ))}
                     </Row>

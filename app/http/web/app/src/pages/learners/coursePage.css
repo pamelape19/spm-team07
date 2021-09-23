@@ -1,0 +1,16 @@
+h1{
+    padding: 0;
+}
+
+p{
+    text-align: left;
+}
+
+.top{
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+}
+
+.enrol-btn{
+    align-self: center;
+}

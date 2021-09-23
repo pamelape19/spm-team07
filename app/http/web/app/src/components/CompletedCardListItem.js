@@ -43,7 +43,6 @@ class CompletedCardListItem extends Component{
                     </div>
                     <div className="view-course">
                         <div className="view-course-btn">
-                            {/* <Button variant="primary">View Course</Button> */}
                             { typeBtn }
                         </div>
                     </div>

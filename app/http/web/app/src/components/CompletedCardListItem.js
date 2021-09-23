@@ -17,7 +17,7 @@ class CompletedCardListItem extends Component{
         }
         else{
             typeBtn = <Nav.Link href="/trainers-course" style={{color: '#00000080'}}> 
-                            <Button variant="primary">Edit Class Content</Button>;
+                            <Button variant="primary">Edit Class Content</Button>
                         </Nav.Link>;
         }
 

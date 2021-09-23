@@ -1,10 +1,19 @@
-.card-layout{
+.card-content-layout{
     display: grid;
     grid-template-columns: 1fr 3fr 1fr;
     padding: 30px;
-    margin: 20px;
+
+    margin-left: 200px;
+    margin-right: 200px;
+}
+.header{
+    margin-top: 150px;
 }
 
+.heading{
+    float:left;
+    margin-left: 205px;
+}
 .course-img{
     padding: 10px;
     border-radius: 20%;
@@ -13,10 +22,14 @@
 h2{
     padding-left: 0;
 }
-
+.chapter-num{
+    font-weight: bold;
+    text-align: left;
+}
 .course-desc{
     color: #5C5C5C;
     text-align: left;
+    margin: 10px 0px;
 }
 
 .course-start-date{
@@ -25,29 +38,17 @@ h2{
     padding: 5px 0;
 }
 
-.progress-bar-col{
-    display: grid;
-    grid-template-columns: 4fr 1fr;
-    column-gap: 2%;
-}
-
-.progress-bar-col .percentage{
-    font-weight: bold;
-    text-align: left;
-    margin-top: -5px;
-}
-
-.course-resumption{
-    display: grid;
-    grid-template-rows: 1fr 1fr;
-    justify-items: end;
-    padding-right: 30px;
-}
-
-h5{
-    padding-top: 10px;
-}
-
-.resumption-btn{
+.upload-content-btn{
     align-self: end;
+}
+
+
+
+.card-text{
+    grid-template-rows: 1fr;
+}
+
+.card-text-repeat{
+    grid-template-rows: 1fr;
+    margin-bottom: 40px;
 }

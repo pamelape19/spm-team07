@@ -1,4 +1,6 @@
 import { Component, React } from "react";
+import { Container } from 'react-bootstrap';
+import CompletedCardListItem from "../../components/CompletedCardListItem";
 
 class TrainersHome extends Component{
     constructor(props){
@@ -6,8 +8,13 @@ class TrainersHome extends Component{
     }
     render(){
         return(
-            <div>
-                trainers home
+            <div style={{ margin: '8% 0' }}>
+                <Container>
+                    <h1>Assigned Classes to Teach</h1>
+                    {Array.from({ length: 4 }).map((_, idx) => (
+                        <CompletedCardListItem view="trainers"/>
+                    ))}
+                </Container>
             </div>
         )
     }

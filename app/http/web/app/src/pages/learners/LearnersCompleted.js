@@ -23,7 +23,7 @@ class LearnersCompleted extends Component{
                     </Nav.Item>
                     </Nav>
                     {Array.from({ length: 4 }).map((_, idx) => (
-                        <CompletedCardListItem/>
+                        <CompletedCardListItem view="learners"/>
                     ))}
                 </Container>
             </div>

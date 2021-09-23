@@ -9,6 +9,16 @@ class CompletedCardListItem extends Component{
 
     }
     render(){
+        const view = this.props.view;
+
+        let typeBtn;
+        if (view == "learners"){
+            typeBtn = <Button variant="primary">View Course</Button>;
+        }
+        else{
+            typeBtn = <Button variant="primary">Edit Class Content</Button>;
+        }
+
         return(
             <div>
                 <Card className="card-layout">
@@ -31,7 +41,8 @@ class CompletedCardListItem extends Component{
                     </div>
                     <div className="view-course">
                         <div className="view-course-btn">
-                            <Button variant="primary">View Course</Button>
+                            {/* <Button variant="primary">View Course</Button> */}
+                            { typeBtn }
                         </div>
                     </div>
                 </Card>

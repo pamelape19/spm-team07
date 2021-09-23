@@ -3,6 +3,7 @@ import Routes from './routes.js';
 import React, { Component, Fragment } from 'react';
 import './App.css';
 import TopNav from './components/nav/TopNav.js';
+import Footer from './components/nav/Footer.js';
 
 class App extends Component{
   constructor(props){
@@ -15,7 +16,7 @@ class App extends Component{
           <div className="App" id="app">
             <Routes/>
           </div>
-          {/* <Footer/> */}
+          <Footer/>
       </Fragment>
     )
   }

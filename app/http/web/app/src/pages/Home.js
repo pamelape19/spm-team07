@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ChapterQuiz from './learners/ChapterQuiz';
 
 class Home extends Component{
     constructor(props){
@@ -7,7 +8,10 @@ class Home extends Component{
     }
     render() {
         return (
-             "starting page!"
+            <div style={{margin: '8% 0'}}>
+                "starting page!"
+                <ChapterQuiz/>
+            </div>
         );
     }
 }

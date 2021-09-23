@@ -8,11 +8,12 @@ import LearnersCompleted from './pages/learners/LearnersCompleted';
 import TrainersHome from './pages/trainers/TrainersHome';
 import TrainersCourse from './pages/trainers/TrainersCourse';
 
+
 class AllRoutes extends Component {
     render(){
         return (
             <Fragment>
-                <Route exact path="/" component={ LearnersHome }/>
+                <Route exact path="/" component={ Home }/>
                 <Route exact path="/learners-home" component={ LearnersHome }/>
                 <Route exact path="/learners-enrolled" component={ LearnersEnrolled }/>
                 <Route exact path="/learners-completed" component={ LearnersCompleted }/>

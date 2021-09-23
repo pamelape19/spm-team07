@@ -1,0 +1,19 @@
+h1{
+    text-align: start;
+    padding: 0px;
+}
+
+p{
+    text-align: start;
+}
+
+.header{
+    padding: 0% 10%
+}
+
+.buttons{
+    display: grid;
+    grid-template-columns: 5fr 1fr 1fr;
+    column-gap: 1%;
+    /* justify-items: end; */
+}

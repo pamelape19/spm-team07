@@ -1,0 +1,54 @@
+.card-content-layout{
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    padding: 30px;
+
+    margin-left: 200px;
+    margin-right: 200px;
+}
+.header{
+    margin-top: 150px;
+}
+
+.heading{
+    float:left;
+    margin-left: 205px;
+}
+.course-img{
+    padding: 10px;
+    border-radius: 20%;
+}
+
+h2{
+    padding-left: 0;
+}
+.chapter-num{
+    font-weight: bold;
+    text-align: left;
+}
+.course-desc{
+    color: #5C5C5C;
+    text-align: left;
+    margin: 10px 0px;
+}
+
+.course-start-date{
+    color: #5C5C5C;
+    text-align: left;
+    padding: 5px 0;
+}
+
+.upload-content-btn{
+    align-self: end;
+}
+
+
+
+.card-text{
+    grid-template-rows: 1fr;
+}
+
+.card-text-repeat{
+    grid-template-rows: 1fr;
+    margin-bottom: 40px;
+}

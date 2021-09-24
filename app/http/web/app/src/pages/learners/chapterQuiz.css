@@ -8,7 +8,15 @@ p{
 }
 
 .header{
-    padding: 0% 10%
+    padding: 0 10%;
+    
+}
+
+.sticky-top{
+    position: sticky;
+    z-index: 10;
+    top: 15%;
+    background-color: white;
 }
 
 .buttons{

@@ -11,11 +11,13 @@ class ChapterQuiz extends Component{
     render(){
         return(
             <div>
-                <Container className = "header">
+                <div className="sticky-top">
+                <Container className="header">
                     <h1> Quiz 1 - Introduction to 3D Printing </h1>
                     <p> Estimated Length: 30 mins</p>
                 </Container>
-                    <hr/>
+                <hr/>
+                </div>
                 <Container className = "questions">
                     <McqQn qn_no = { 1 } qn = "What is 3D Printing?" options = {["lorem ipsum", "ipsum lorem", "lorem ipsum", "ipsum lorem"]} />
                     <McqQn qn_no = { 2 } qn = "3D Printing can print 3D" options = {["True", "False"]}/>

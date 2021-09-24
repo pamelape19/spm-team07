@@ -15,16 +15,16 @@ class CardListItem extends Component{
 
         // conditional rendering for card button
         let courseButton;
-        if (coursebtn == "resume"){
+        if (coursebtn === "resume"){
             courseButton = <Button variant="primary">Resume Course</Button>;
         }
-        if (coursebtn == "start"){
+        if (coursebtn === "start"){
             courseButton = <Button variant="primary">Start Course</Button>;
         }
 
         // conditional rendering 'assigned' badge
         let assignedBadge;
-        if (assigned == "True"){
+        if (assigned === "True"){
             assignedBadge = <Badge pill style={{ background: '#BDE77A', color: '#000000', fontSize: 15 }}>Assigned</Badge>;
         }
         else{

@@ -9,6 +9,7 @@ import TrainersHome from './pages/trainers/TrainersHome';
 import CoursePage from './pages/learners/CoursePage';
 import TrainersCourse from './pages/trainers/TrainersCourse';
 
+
 class AllRoutes extends Component {
     render(){
         return (

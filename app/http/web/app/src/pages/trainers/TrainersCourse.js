@@ -11,7 +11,7 @@ class TrainersCourse extends Component{
             
             <div style={{ margin: '8% 0' }}>
                 <EditCourse/>
-                <div> aaaaaaaa </div>
+                <div>  </div>
             </div>
         )
     }

@@ -8,14 +8,16 @@ class EditCourse extends Component{
     constructor(props){
         super(props);
         this.state = {
-            numChapters: 1,
+            numChapters: 2,
             listChapters: [1],
         }
         // console.log(this.state.listChapters);
         this.handleAdd = this.handleAdd.bind(this);
     }
     handleAdd = () => {
+
         this.setState({
+            
             numChapters: this.state.numChapters + 1,
             listChapters: [...this.state.listChapters, this.state.numChapters],
         });
@@ -24,8 +26,8 @@ class EditCourse extends Component{
         // this.setState({
         //     listChapters: newListChapters
         // });
-
-        // console.log(this.state.listChapters)
+        console.log(this.state.numChapters)
+        console.log(this.state.listChapters)
     }
  
     render(){
@@ -61,7 +63,8 @@ class EditCourse extends Component{
                         </span>
                     </Card>
                     {/* <AddChapter/> */}
-                    {Array.from({ length: this.state.numChapters }).map((_, idx) => (
+                    {Array.from({ length: this.state.listChapters.length }).map((_, idx) => (
+                    
                         <AddChapter chapterItem={this.state.listChapters[idx]}/>
                         
                     ))}

@@ -13,4 +13,4 @@ class Stopwatch extends Component{
         )
     }
 }
-export default Stopwatch
+export default Stopwatch;

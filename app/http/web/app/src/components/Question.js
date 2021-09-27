@@ -1,28 +1,28 @@
 import { React, Component } from 'react';
-
+import { Container } from 'react-bootstrap';
 class Question extends Component{
     constructor(props){
-    super(props);
-    this.state = {
-        correctAnswerRecorded: false,
-        negativeAnswerRecorded: false
-    }
-    this.handleChange = this.handleChange.bind(this);
+        super(props);
+        this.state = {
+            correctAnswerRecorded: false,
+            negativeAnswerRecorded: false
+        };
 
-    } // end of constructor
-    handleChange(score){
+    };
+    handleChange = (e) =>{
         var score = 0;
-        if( score.target.value == this.props.answer) {				
-            if( this.state.correctAnswerRecorded === false ) {					
-                if( this.props.applyNegativeMarking === true && this.state.negativeAnswerRecorded === true ) {
+        if (e.target.value == this.props.answer){
+            if (this.state.correctAnswerRecorded === false){
+                if (this.props.applyNegativeMarking === true && this.state.negativeAnswerRecorded === true){
                     score = 1 + this.props.marks;
-                } else {
+                } else{
                     score = this.props.marks;
                 }
-            }				
+            }
             this.state.correctAnswerRecorded = true;
             this.state.negativeAnswerRecorded = false;
-        } else {				
+        }
+        else {				
             if( this.props.applyNegativeMarking === true && this.state.negativeAnswerRecorded === false ) {
                 if( this.state.correctAnswerRecorded === true ) {
                     score = -1 - this.props.marks;
@@ -41,18 +41,30 @@ class Question extends Component{
         this.props.onAnswered(score);
     }
     render(){
-        var qname = "option" + this.props.number;
-        var qoptions = this.props.options.map(option=>{
-            <div><input type="radio" name={qname} value={option.text} onChange={this.handleChange}/>&nbsp;{option.text}</div>
-        }, this);
+        const qname = "option" + this.props.number;
+        const qoptions = this.props.options.map((option) =>
+            <div>
+                <input type="radio" 
+                    name={qname} 
+                    value={option} 
+                    onChange={(e)=>this.handleChange(e)}
+                />
+                    &nbsp;{option}
+            </div>
+        )
         return(
             <div>
-                <div><strong>Q</strong>: {this.props.question}</div>
-                <div>{qoptions}</div>
-                <br/>
+                <Container style={{padding: '5%'}}>
+                    <div style={{textAlign: 'left'}}>
+                        <strong>Q{this.props.number}</strong>: {this.props.question}
+                    </div>
+                    <div style={{textAlign: 'left', marginLeft: '6%'}}>
+                        {qoptions}
+                    </div>
+                </Container>
             </div>
-        );
+        )
     }
 }
 
-export default Question
+export default Question;

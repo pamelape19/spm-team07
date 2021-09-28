@@ -5,6 +5,10 @@
     grid-template-columns: 3fr 1fr;
 }
 
+.main-body{
+    padding: 2% 15%;
+}
+
 h2{
     padding-left: 0;
     text-align: left;

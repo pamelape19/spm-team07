@@ -6,6 +6,7 @@ import LearnersHome from './pages/learners/LearnersHome';
 import LearnersEnrolled from './pages/learners/LearnersEnrolled';
 import LearnersCompleted from './pages/learners/LearnersCompleted';
 import TrainersHome from './pages/trainers/TrainersHome';
+import HrHome from './pages/hr/HrHome';
 
 class AllRoutes extends Component {
     render(){
@@ -16,6 +17,7 @@ class AllRoutes extends Component {
                 <Route exact path="/learners-enrolled" component={ LearnersEnrolled }/>
                 <Route exact path="/learners-completed" component={ LearnersCompleted }/>
                 <Route exact path="/trainers-home" component={ TrainersHome }/>
+                <Route exact path="/hr-home" component={ HrHome }/>
             </Fragment>
         )
     }

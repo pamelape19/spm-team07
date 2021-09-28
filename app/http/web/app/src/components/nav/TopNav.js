@@ -17,6 +17,8 @@ class TopNav extends Component{
                             <NavLink exact to='/learners-home' style={{padding: 15}}>For Learners</NavLink>
                             <Navbar.Text style={{fontWeight: 400, fontSize: '1.4em'}}> | </Navbar.Text>
                             <NavLink exact to='/trainers-home' style={{padding: 15}}>For Trainers</NavLink>
+                            <Navbar.Text style={{fontWeight: 400, fontSize: '1.4em'}}> | </Navbar.Text>
+                            <NavLink exact to='/hr-home' style={{padding: 15}}>For Hr</NavLink>
                             <img src={avatar} alt="" style={{height: '50px'}}/>
                         </Nav>
                     </Container>

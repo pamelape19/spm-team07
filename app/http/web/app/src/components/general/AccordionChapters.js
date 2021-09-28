@@ -15,24 +15,35 @@ class AccordionChapters extends Component{
         super(props);
     }
     render(){
+        const { chapter, completed, name } = this.props;
+
+        // conditional rendering for when # of chapter is less than # of completed chapters
         let checkMark;
-        if (this.props.chapter < this.props.completed){
-            checkMark = <img src={Check} alt=""/>
+        let openLecture;
+        let openQuiz;
+        if ( chapter < completed ){
+            checkMark = <img src={Check} alt=""/>;
+            openLecture = <a href="#"><p>Lecture materials</p></a>
+            openQuiz = <a href="#"><p>Quiz</p></a>
         }
         else{
-            checkMark = ""
+            checkMark = "";
+            openLecture = <p>Lecture materials</p>
+            openQuiz = <p>Quiz</p>
         }
 
+        // conditional rendering to render resume button for the chapter that user left off from
         let resumeBtn;
-        if (this.props.chapter === this.props.completed){
-            resumeBtn = <Button>Resume</Button>
+        if ( chapter === completed ){
+            resumeBtn = <Button> Resume </Button>
         }
         else{
             resumeBtn = ""
         }
 
+        // conditional rendering for locked chapters (ie. # of chapter is more than # of completed chapters)
         let lockIcon;
-        if (this.props.chapter > this.props.completed){
+        if ( chapter > completed ){
             lockIcon = <img src={ Lock } alt="" style={{marginTop: '-0.5%'}}/>
         }
         else{
@@ -41,41 +52,35 @@ class AccordionChapters extends Component{
 
         return(
             <div>
-                
                 <AccordionItem>
                     <AccordionItemHeading>
                         <AccordionItemButton>
-                            Chapter {this.props.chapter}{" "}{ lockIcon }
+                            Chapter { chapter }{" "}{ lockIcon }
                         </AccordionItemButton>
                     </AccordionItemHeading>
                     <AccordionItemPanel>
                         <div className="accordion-content-layout">
                             <p><u>
-                                {this.props.name}
+                                { name }
                             </u></p>
                             <p>{ resumeBtn }</p>
                         </div>
                         
                         <Container className="accordion-content-layout">
-                            <p>
-                                Lecture materials
-                            </p>
+                            { openLecture }
                             <p>
                                 { checkMark }
                             </p>
                         </Container>
                         <Container className="accordion-content-layout">
-                            <p>
-                                Quiz
-                            </p>
+                            { openQuiz }
                             <p>
                                 { checkMark }
                             </p>
                         </Container>
                         
                     </AccordionItemPanel>
-                </AccordionItem>
-                
+                </AccordionItem> 
             </div>
         )
     }

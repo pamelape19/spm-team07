@@ -1,6 +1,6 @@
 import {React, Component } from 'react';
-import { Card, Button } from 'react-bootstrap';
-import bg from "../resources/courseCardBg.png";
+import { Card } from 'react-bootstrap';
+import bg from "../../resources/courseCardBg.png";
 
 class CourseCard extends Component{
     constructor(props){

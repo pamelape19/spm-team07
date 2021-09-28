@@ -1,7 +1,7 @@
 import { React, Component } from 'react';
 import { Carousel, Row, Col, Container } from 'react-bootstrap';
 import CourseCard from './CourseCard';
-import './courseCarousel.css';
+import './css/courseCarousel.css';
 
 class CourseCarousel extends Component{
     constructor(props){

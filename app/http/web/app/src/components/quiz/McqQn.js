@@ -1,6 +1,6 @@
 import { React, Component } from 'react';
 import { Container, Form } from 'react-bootstrap';
-import "./mcqQn.css";
+import "./css/mcqQn.css";
 
 class McqQn extends Component{
     constructor(props){

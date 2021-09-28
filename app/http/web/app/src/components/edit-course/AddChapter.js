@@ -1,6 +1,6 @@
 import { React, Component } from 'react';
 import { Card, Button, Modal } from 'react-bootstrap';
-import './editCourse.css';
+import './css/editCourse.css';
 
 class AddChapter extends Component{
     constructor(props){

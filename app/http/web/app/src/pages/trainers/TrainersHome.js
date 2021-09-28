@@ -1,6 +1,6 @@
 import { Component, React } from "react";
-import { Container, Col, Nav  } from 'react-bootstrap';
-import CompletedCardListItem from "../../components/CompletedCardListItem";
+import { Container  } from 'react-bootstrap';
+import CompletedCardListItem from "../../components/cards/CompletedCardListItem";
 
 class TrainersHome extends Component{
     constructor(props){

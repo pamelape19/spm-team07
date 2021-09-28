@@ -8,8 +8,8 @@ import LearnersCompleted from './pages/learners/LearnersCompleted';
 import TrainersHome from './pages/trainers/TrainersHome';
 import CoursePage from './pages/learners/CoursePage';
 import TrainersCourse from './pages/trainers/TrainersCourse';
-import test from './pages/trainers/test';
-import HrHome from './pages/hr/HrHome';
+import Test from './pages/trainers/Test';
+import AdminHome from './pages/hr/AdminHome';
 
 
 class AllRoutes extends Component {
@@ -23,8 +23,8 @@ class AllRoutes extends Component {
                 <Route exact path="/trainers-home" component={ TrainersHome }/>
                 <Route exact path="/course-page" component={ CoursePage }/>
                 <Route exact path="/trainers-course" component={ TrainersCourse }/>
-                <Route exact path="/test" component={ test }/>
-                <Route exact path="/hr-home" component={ HrHome }/>
+                <Route exact path="/test" component={ Test }/>
+                <Route exact path="/admin-home" component={ AdminHome }/>
             </Fragment>
         )
     }

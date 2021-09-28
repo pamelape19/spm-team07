@@ -1,6 +1,5 @@
 import { Component, React } from "react";
-import { Container, Col, Nav  } from 'react-bootstrap';
-import EditCourse from "../../components/EditCourse";
+import EditCourse from "../../components/edit-course/EditCourse";
 
 class TrainersCourse extends Component{
     constructor(props){

@@ -1,5 +1,5 @@
 import {React, Component } from 'react';
-import Test from '../../components/Test';
+import Test from '../../components/quiz/Test';
 
 class GradedQuiz extends Component{
     constructor(props){

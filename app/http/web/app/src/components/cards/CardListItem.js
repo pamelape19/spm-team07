@@ -1,7 +1,7 @@
 import { React, Component } from 'react';
 import { Card, Badge, ProgressBar, Button } from 'react-bootstrap';
-import './cardListItem.css';
-import EnrolledClassSample from '../resources/enrolledClassSample.png';
+import './css/cardListItem.css';
+import EnrolledClassSample from '../../resources/enrolledClassSample.png';
 
 class CardListItem extends Component{
     constructor(props){

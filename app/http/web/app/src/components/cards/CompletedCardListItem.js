@@ -1,7 +1,7 @@
 import { React, Component } from 'react';
 import { Card, Button, Nav } from 'react-bootstrap';
-import './completedCardListItem.css';
-import EnrolledClassSample from '../resources/enrolledClassSample.png';
+import './css/completedCardListItem.css';
+import EnrolledClassSample from '../../resources/enrolledClassSample.png';
 
 class CompletedCardListItem extends Component{
     constructor(props){

@@ -1,7 +1,7 @@
 import {React, Component } from 'react';
 import { Container, Button } from 'react-bootstrap';
-import "./chapterQuiz.css";
-import McqQn from '../../components/McqQn';
+import "./css/chapterQuiz.css";
+import McqQn from '../../components/quiz/McqQn';
 
 
 class ChapterQuiz extends Component{

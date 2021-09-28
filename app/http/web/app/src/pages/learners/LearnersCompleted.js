@@ -1,6 +1,6 @@
 import { React, Component } from 'react';
 import { Container, Nav } from 'react-bootstrap';
-import CompletedCardListItem from '../../components/CompletedCardListItem';
+import CompletedCardListItem from '../../components/cards/CompletedCardListItem';
 
 class LearnersCompleted extends Component{
     constructor(props){

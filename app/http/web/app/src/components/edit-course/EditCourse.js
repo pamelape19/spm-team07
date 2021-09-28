@@ -1,8 +1,8 @@
 import { React, Component } from 'react';
 import { Card, Button, Container, Modal } from 'react-bootstrap';
 
-import './editCourse.css';
-import EnrolledClassSample from '../resources/enrolledClassSample.png';
+import './css/editCourse.css';
+import EnrolledClassSample from '../../resources/enrolledClassSample.png';
 import AddChapter from './AddChapter';
 
 class EditCourse extends Component{

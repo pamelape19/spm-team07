@@ -1,8 +1,8 @@
 import { Component, React } from "react";
 import { Container, Row, Col, Nav } from "react-bootstrap";
 import '../pages.css';
-import CourseCard from "../../components/CourseCard";
-import CourseCarousel from "../../components/CourseCarousel";
+import CourseCard from "../../components/cards/CourseCard";
+import CourseCarousel from "../../components/cards/CourseCarousel";
 
 class LearnersHome extends Component{
     constructor(props){

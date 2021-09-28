@@ -1,7 +1,7 @@
 import { React, Component } from 'react';
 import { Container, Button } from 'react-bootstrap';
 import banner from '../../resources/coursePageBanner1.png';
-import './coursePage.css';
+import './css/coursePage.css';
 
 class CoursePage extends Component{
     constructor(props){

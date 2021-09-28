@@ -45,21 +45,21 @@ class Question extends Component{
         const qoptions = this.props.options.map((option) =>
             <div>
                 <input type="radio" 
-                    name={qname} 
-                    value={option} 
-                    onChange={(e)=>this.handleChange(e)}
+                    name={ qname } 
+                    value={ option } 
+                    onChange={ (e) => this.handleChange(e) }
                 />
-                    &nbsp;{option}
+                    &nbsp;{ option }
             </div>
         )
         return(
             <div>
-                <Container style={{padding: '5%'}}>
-                    <div style={{textAlign: 'left'}}>
-                        <strong>Q{this.props.number}</strong>: {this.props.question}
+                <Container style={{ padding: '5%' }}>
+                    <div style={{ textAlign: 'left' }}>
+                        <strong>Q{ this.props.number }</strong>: { this.props.question }
                     </div>
-                    <div style={{textAlign: 'left', marginLeft: '6%'}}>
-                        {qoptions}
+                    <div style={{ textAlign: 'left', marginLeft: '6%' }}>
+                        { qoptions }
                     </div>
                 </Container>
             </div>

@@ -27,14 +27,16 @@ class Test extends Component{
     };
     render(){
         var totalmarks = 0;
-        const marksArray = this.props.questions.map((question) => question.marks );
+        const { name, time, questions, applyNegativeMarking } = this.props;
+
+        const marksArray = this.props.questions.map( (question) => question.marks );
         const reducer = (previousValue, currentValue) => previousValue + currentValue;
         totalmarks = marksArray.reduce(reducer);
         return(
             <div>
                 <Container className="header">					
-                    <h1>{this.props.name}</h1>
-                    <div>Estimated Length: {this.props.time} mins</div>
+                    <h1>{ name }</h1>
+                    <div>Estimated Length: { time } mins</div>
                 </Container>
                 <hr/>
                 <table className="table">
@@ -42,16 +44,16 @@ class Test extends Component{
                         <td className="col-md-2"></td>
                         <td className="col-md-5">
                             <QuestionPaper 
-                                questions={this.props.questions}
-                                applyNegativeMarking={this.props.applyNegativeMarking}
-                                onSubmitted={(result)=>this.handleChange(result)} 
-                                onTimeChange={(timeElapsed)=>this.handleStopWatch(timeElapsed)} 
-                                timeAllotted={this.props.time}
+                                questions={ questions }
+                                applyNegativeMarking={ applyNegativeMarking }
+                                onSubmitted={ (result) => this.handleChange(result) } 
+                                onTimeChange={ (timeElapsed) => this.handleStopWatch(timeElapsed) } 
+                                timeAllotted={ time }
                             />
                          </td>
                          <td className="col-md-3">
-                          <Stopwatch timeElapsed={this.state.timeElapsed} />
-                          <ScoreCard score={this.state.totalscore} testSubmitted={this.state.testSubmitted} percentage={Math.round(this.state.totalscore*100/totalmarks)}/>					
+                          <Stopwatch timeElapsed={ this.state.timeElapsed } />
+                          <ScoreCard score={ this.state.totalscore } testSubmitted={ this.state.testSubmitted } percentage={ Math.round(this.state.totalscore*100/totalmarks) }/>					
                         </td>
                         <td className="col-md-3"></td>
                     </tr>

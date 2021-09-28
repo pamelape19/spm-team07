@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 
-class Home extends Component{
+class ModalComponent extends Component{
     constructor(props){
         super(props);
         this.state = {
@@ -11,35 +11,33 @@ class Home extends Component{
         this.handleClose = this.handleClose.bind(this);
     }
     handleShow(){
-        console.log(this.state.show)
         this.setState(({
             show: true
         }))
-        console.log(this.state.show)
     }
     handleClose(){
-        console.log('close')
         this.setState({
             show: false
         })
     }
 
     render() {
+        const { btnName, title, body } = this.props;
         return (
-            <div style={{margin: '8% 0'}}>
-                <Button variant="primary" onClick={this.handleShow}>
-                    Launch demo modal
+            <div style={{ margin: '8% 0' }}>
+                <Button variant="primary" onClick={ this.handleShow }>
+                    { btnName }
                 </Button>
-                <Modal show={this.state.show} onHide={this.handleClose} style={{marginTop: '5%'}}>
+                <Modal show={ this.state.show } onHide={ this.handleClose } style={{ marginTop: '5%' }}>
                     <Modal.Header>
-                        <Modal.Title>Modal heading</Modal.Title>
+                        <Modal.Title>{ title }</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+                    <Modal.Body>{ body }</Modal.Body>
                     <Modal.Footer>
-                        <Button variant="secondary" onClick={this.handleClose}>
+                        <Button variant="secondary" onClick={ this.handleClose }>
                             Close
                         </Button>
-                        <Button variant="primary" onClick={this.handleClose}>
+                        <Button variant="primary" onClick={ this.handleClose }>
                             Save Changes
                         </Button>
                     </Modal.Footer>
@@ -49,4 +47,4 @@ class Home extends Component{
     }
 }
 
-export default Home;
+export default ModalComponent;

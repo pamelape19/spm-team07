@@ -10,7 +10,7 @@ class Home extends Component{
     }
     render() {
         return (
-            <div style={{margin: '8% 0'}}>
+            <div style={{ margin: '8% 0' }}>
                 "starting page!"
                 <GradedQuiz/>
             </div>

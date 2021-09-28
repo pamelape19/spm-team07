@@ -1,9 +1,10 @@
 import { React, Component } from 'react';
-import { Card, Button, Container, Modal } from 'react-bootstrap';
+import { Card, Container } from 'react-bootstrap';
 
 import './css/editCourse.css';
 import EnrolledClassSample from '../../resources/enrolledClassSample.png';
 import AddChapter from './AddChapter';
+import ModalComponent from '../general/ModalComponent';
 
 class EditCourse extends Component{
     constructor(props){
@@ -11,12 +12,8 @@ class EditCourse extends Component{
         this.state = {
             numChapters: 2,
             listChapters: [1],
-            show: false,
         }
-        // console.log(this.state.listChapters);
         this.handleAdd = this.handleAdd.bind(this);
-        this.handleShow = this.handleShow.bind(this);
-        this.handleClose = this.handleClose.bind(this);
     }
     handleAdd = () => {
 
@@ -25,26 +22,7 @@ class EditCourse extends Component{
             numChapters: this.state.numChapters + 1,
             listChapters: [...this.state.listChapters, this.state.numChapters],
         });
-        // var newListChapters = this.state.listChapters;
-        // newListChapters.push(this.state.numChapters);
-        // this.setState({
-        //     listChapters: newListChapters
-        // });
-        console.log(this.state.numChapters)
-        console.log(this.state.listChapters)
-    }
-    handleShow(){
-        console.log(this.state.show)
-        this.setState(({
-            show: true
-        }))
-        console.log(this.state.show)
-    }
-    handleClose(){
-        console.log('close')
-        this.setState({
-            show: false
-        })
+
     }
  
     render(){
@@ -76,41 +54,22 @@ class EditCourse extends Component{
                         </div>
 
                         <span>
-                            <Button variant="primary" onClick={this.handleShow}>
-                                Upload Content
-                            </Button>
-                            <Modal show={this.state.show} onHide={this.handleClose} style={{marginTop: '5%'}}>
-                                <Modal.Header>
-                                    <Modal.Title>Modal heading</Modal.Title>
-                                </Modal.Header>
-                                <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-                                <Modal.Footer>
-                                    <Button variant="secondary" onClick={this.handleClose}>
-                                        Close
-                                    </Button>
-                                    <Button variant="primary" onClick={this.handleClose}>
-                                        Save Changes
-                                    </Button>
-                                </Modal.Footer>
-                            </Modal>  
+                            <ModalComponent btnName="Upload Content" title="upload content modal" body="text in modal"/>
                         </span>
                     </Card>
-                    {/* <AddChapter/> */}
+
                     {Array.from({ length: this.state.listChapters.length }).map((_, idx) => (
                     
-                        <AddChapter chapterItem={this.state.listChapters[idx]}/>
+                        <AddChapter chapterItem={ this.state.listChapters[idx] }/>
                         
                     ))}
 
                     {/* add chapter button */}
-                    <button onClick={this.handleAdd} className="add-chapter-btn">
+                    <button onClick={ this.handleAdd } className="add-chapter-btn">
                         <div>
                             +
                         </div>
                     </button>
-
-                  
-
                         
                 </Container>
             </div>

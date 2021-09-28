@@ -7,9 +7,8 @@ class AdminHome extends Component{
     }
     render(){
         return(
-            <div style={{margin: '8% 0'}}>
+            <div style={{ margin: '8% 0' }}>
                 Admin Home page
-
             </div>
         )
     }

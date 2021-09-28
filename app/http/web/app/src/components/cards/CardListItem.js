@@ -6,26 +6,25 @@ import EnrolledClassSample from '../../resources/enrolledClassSample.png';
 class CardListItem extends Component{
     constructor(props){
         super(props);
-
     }
     render(){
-        const perc = this.props.perc;
-        const coursebtn = this.props.coursebtn;
-        const assigned = this.props.assigned;
+        const { perc, coursebtn, assigned } = this.props;
 
         // conditional rendering for card button
         let courseButton;
         if (coursebtn === "resume"){
-            courseButton = <Button variant="primary">Resume Course</Button>;
+            courseButton = <Button variant="primary"> Resume Course </Button>;
         }
         if (coursebtn === "start"){
-            courseButton = <Button variant="primary">Start Course</Button>;
+            courseButton = <Button variant="primary"> Start Course </Button>;
         }
 
         // conditional rendering 'assigned' badge
         let assignedBadge;
         if (assigned === "True"){
-            assignedBadge = <Badge pill style={{ background: '#BDE77A', color: '#000000', fontSize: 15 }}>Assigned</Badge>;
+            assignedBadge = <Badge pill style={{ background: '#BDE77A', color: '#000000', fontSize: 15 }}>
+                                Assigned
+                            </Badge>;
         }
         else{
             assignedBadge = "";

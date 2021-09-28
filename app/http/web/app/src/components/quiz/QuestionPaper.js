@@ -20,12 +20,12 @@ class QuestionPaper extends Component{
     handleSubmitted = (e) => {
         var result = this.state.totalscore;
         this.props.onSubmitted( result );			
-        clearInterval(this.interval);
+        clearInterval( this.interval );
     }
     tick(){
         if( this.state.timeElapsed > 0 ) {
             this.setState({
-                timeElapsed: ((60*this.state.timeElapsed - 1)/60).toFixed(2)
+                timeElapsed: ( (60*this.state.timeElapsed - 1)/60 ).toFixed(2)
             });  
             this.props.onTimeChange( this.state.timeElapsed );
         } else {
@@ -44,21 +44,27 @@ class QuestionPaper extends Component{
             <tr>
                 <td>
                     <Question 
-                        question={question.qtext}
-                        number={question.no} 
-                        options={question.options} 
-                        answer={question.ans} 
-                        marks={question.marks} 
-                        applyNegativeMarking={this.props.applyNegativeMarking} 
-                        onAnswered={(score)=>this.handleChange(score)}
+                        question={ question.qtext }
+                        number={ question.no } 
+                        options={ question.options } 
+                        answer={ question.ans } 
+                        marks={ question.marks } 
+                        applyNegativeMarking={ this.props.applyNegativeMarking } 
+                        onAnswered={ (score)=>this.handleChange(score) }
                     />
                 </td>
             </tr>
         );
         return(
             <div>					
-                <table className="table table-striped">{questionAnswers}</table>
-                <div><input type="button" className="btn btn-primary" value="Submit" onClick={(e)=>this.handleSubmitted(e)}/></div>
+                <table className="table table-striped">{ questionAnswers }</table>
+                <div>
+                    <input type="button"
+                        className="btn btn-primary" 
+                        value="Submit" 
+                        onClick={ (e)=>this.handleSubmitted(e) }
+                    />
+                </div>
             </div>
         )
     }

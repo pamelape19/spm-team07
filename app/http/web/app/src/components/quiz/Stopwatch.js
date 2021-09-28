@@ -5,10 +5,11 @@ class Stopwatch extends Component{
         super(props);
     }
     render(){
+        const { timeElapsed } = this.props;
         return(
             <div className="list-group">
                 <div className="list-group-item active">Time Left (In Minutes)</div>
-                <div className="list-group-item"><h1>{this.props.timeElapsed}</h1></div>
+                <div className="list-group-item"><h1>{ timeElapsed }</h1></div>
             </div>
         )
     }

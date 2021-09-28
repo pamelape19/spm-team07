@@ -9,6 +9,7 @@ import TrainersHome from './pages/trainers/TrainersHome';
 import CoursePage from './pages/learners/CoursePage';
 import TrainersCourse from './pages/trainers/TrainersCourse';
 import test from './pages/trainers/test';
+import HrHome from './pages/hr/HrHome';
 
 
 class AllRoutes extends Component {
@@ -23,6 +24,7 @@ class AllRoutes extends Component {
                 <Route exact path="/course-page" component={ CoursePage }/>
                 <Route exact path="/trainers-course" component={ TrainersCourse }/>
                 <Route exact path="/test" component={ test }/>
+                <Route exact path="/hr-home" component={ HrHome }/>
             </Fragment>
         )
     }

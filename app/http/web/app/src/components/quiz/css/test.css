@@ -28,3 +28,21 @@ h1{
 .aside{
     margin-top: 12%;
 }
+
+.stopwatch-row{
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+}
+
+.stopwatch-col{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.minutes{
+    justify-self: flex-end;
+}
+
+.seconds{
+    justify-self: flex-start;
+}

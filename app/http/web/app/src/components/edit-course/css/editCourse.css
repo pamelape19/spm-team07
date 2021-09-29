@@ -1,12 +1,12 @@
-.header{
+.edit-course-header{
     margin-top: 10%;
-    padding:  0 15%;
+    padding:  0 15.5%;
     display: grid;
     grid-template-columns: 3fr 1fr;
 }
 
 .main-body{
-    padding: 2% 15%;
+    padding: 0% 15%;
 }
 
 h2{
@@ -20,13 +20,17 @@ h2{
     padding: 5px 0;
 }
 
+.img-grid{
+    grid-column-end: end;
+}
+
 .course-img{
     padding: 5%;
     border-radius: 20%;
 }
 
 .class-materials{
-    padding: 0 15%;
+    padding: 1% 15%;
 }
 
 .course-desc{
@@ -34,10 +38,6 @@ h2{
     text-align: left;
     margin: 10px 0px;
 }
-
-/* .chapter{
-    position: absolute;
-} */
 
 .card-content-layout{
     display: grid;
@@ -64,16 +64,6 @@ h2{
     text-align: left;
     align-self: center;
 }
-
-
-/* .card-text{
-    grid-template-rows: 1fr;
-}
-
-.card-text-repeat{
-    grid-template-rows: 1fr;
-    margin-bottom: 40px;
-} */
 
 .add-chapter-btn{
     padding: 0.5em 0.9em;

@@ -1,5 +1,6 @@
 import { React, Component } from 'react';
 import { Card, Button, Nav } from 'react-bootstrap';
+
 import './css/completedCardListItem.css';
 import EnrolledClassSample from '../../resources/enrolledClassSample.png';
 

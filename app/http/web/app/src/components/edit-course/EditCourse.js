@@ -1,10 +1,11 @@
 import { React, Component } from 'react';
 import { Card, Container } from 'react-bootstrap';
 
-import './css/editCourse.css';
-import EnrolledClassSample from '../../resources/enrolledClassSample.png';
 import AddChapter from './AddChapter';
 import ModalComponent from '../general/ModalComponent';
+
+import './css/editCourse.css';
+import EnrolledClassSample from '../../resources/enrolledClassSample.png';
 
 class EditCourse extends Component{
     constructor(props){
@@ -28,7 +29,7 @@ class EditCourse extends Component{
     render(){
         return(
             <div>
-                <Container className="header">
+                <Container className="edit-course-header">
                     <div>
                         <h2>
                             HP Printer 1337 Tutorial
@@ -38,7 +39,7 @@ class EditCourse extends Component{
                             Trainer: xxxxxxxxxxxxxxx
                         </div>
                     </div>
-                    <span>
+                    <span className="img-grid">
                         <img src={ EnrolledClassSample } alt="" className="course-img"/>
                     </span>
                 </Container>

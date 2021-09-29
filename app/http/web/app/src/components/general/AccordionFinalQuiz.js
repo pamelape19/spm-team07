@@ -7,7 +7,6 @@ import {
     AccordionItemPanel,
 } from 'react-accessible-accordion';
 import '../cards/css/accordionStyle.css';
-import Check from '../../resources/check.png';
 import Lock from '../../resources/lock.png';
 
 class AccordionFinalQuiz extends Component{
@@ -20,7 +19,6 @@ class AccordionFinalQuiz extends Component{
         // conditional rendering to control access to final quiz
         let openQuiz;
         if ( completed >= totalChapters ){
-            checkMark = <img src={Check} alt=""/>;
             openQuiz = <a href="/final-quiz"><p>Final Quiz</p></a>
         }
         else{

@@ -16,9 +16,9 @@
     padding: 8px;
   }
   
-  #scores tr:nth-child(even){background-color: #f2f2f2;}
+  /* #scores tr:nth-child(even){background-color: #f2f2f2;} */
   
-  #scores tr:hover {background-color: #ddd;}
+  /* #scores tr:hover {background-color: #ddd;} */
   
   #scores th {
     padding-top: 12px;

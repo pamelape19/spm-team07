@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import ChapterQuiz from './learners/ChapterQuiz';
-import GradedQuiz from './learners/GradedQuiz';
+// import GradedQuiz from './learners/GradedQuiz';
 import QuizAttempt from './learners/QuizAttempt';
 
 

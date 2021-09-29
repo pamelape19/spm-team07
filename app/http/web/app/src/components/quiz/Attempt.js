@@ -15,11 +15,12 @@ class Attempt extends Component{
      }
     renderTableData() {
         return this.state.students.map((student, index) => {
-           const { id, score } = student //destructuring
+           const { no, score, percentage } = student //destructuring
            return (
-              <tr key={id}>
-                 <td>{id}</td>
+              <tr key={no}>
+                 <td>{no}</td>
                  <td>{score}</td>
+                 <td>{percentage}</td>
               </tr>
            )
         })

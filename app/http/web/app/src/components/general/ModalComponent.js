@@ -22,17 +22,14 @@ class ModalComponent extends Component{
     }
 
     render() {
-        const { btnName, title, body } = this.props;
+        const { btnName, body } = this.props;
         return (
             <div style={{ margin: '8% 0' }}>
                 <Button variant="primary" onClick={ this.handleShow }>
                     { btnName }
                 </Button>
-                <Modal show={ this.state.show } onHide={ this.handleClose } style={{ marginTop: '5%' }}>
-                    <Modal.Header>
-                        <Modal.Title>{ title }</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>{ body }</Modal.Body>
+                <Modal show={ this.state.show } onHide={ this.handleClose } style={{ marginTop: '12%' }}>
+                    <Modal.Body style={{padding: '10% 5%'}}>{ body }</Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={ this.handleClose }>
                             Close

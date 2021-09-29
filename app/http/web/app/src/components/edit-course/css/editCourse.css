@@ -1,12 +1,12 @@
-.header{
+.edit-course-header{
     margin-top: 10%;
-    padding:  0 15%;
+    padding:  0 15.5%;
     display: grid;
     grid-template-columns: 3fr 1fr;
 }
 
 .main-body{
-    padding: 2% 15%;
+    padding: 0% 15%;
 }
 
 h2{
@@ -20,29 +20,30 @@ h2{
     padding: 5px 0;
 }
 
+.img-grid{
+    grid-column-end: end;
+}
+
 .course-img{
     padding: 5%;
     border-radius: 20%;
 }
 
 .class-materials{
-    padding: 0 15%;
+    padding: 1% 15%;
 }
 
 .course-desc{
     color: #5C5C5C;
     text-align: left;
     margin: 10px 0px;
+    align-self: center;
 }
-
-/* .chapter{
-    position: absolute;
-} */
 
 .card-content-layout{
     display: grid;
     grid-template-columns: 4fr 1fr;
-    padding: 10px 30px;
+    padding: 15px 30px;
 }
 
 .chapter-details{
@@ -65,16 +66,6 @@ h2{
     align-self: center;
 }
 
-
-/* .card-text{
-    grid-template-rows: 1fr;
-}
-
-.card-text-repeat{
-    grid-template-rows: 1fr;
-    margin-bottom: 40px;
-} */
-
 .add-chapter-btn{
     padding: 0.5em 0.9em;
     border-radius: 50%;
@@ -84,4 +75,41 @@ h2{
     margin-top: -1.5em;
     position: absolute;
     z-index: 10;
+}
+
+input{
+    border: 1px solid #E0E0E0;
+    background-color: white;
+    width: 400px;
+}
+
+.title-input{
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+}
+
+.done-btn, .trash-btn{
+    margin-left: 15px;
+    background-color: white;
+    border: 0;
+}
+
+.lecture-browse-btn, .course-design-browse-btn{
+    align-self: center;
+    /* background-color: #007BFF;
+    color: white; */
+    border: 1px solid #E0E0E0;
+    background-color: white;
+    margin-bottom: 3%;
+}
+
+.lecture-modal-body, .course-design-modal-body{
+    text-align: center;
+}
+
+.lecture-btn, .course-design-btn{
+    background-color: white;
+    border:0;
+    margin:0;
+    padding: 0;
 }

@@ -94,7 +94,7 @@ input{
     border: 0;
 }
 
-.lecture-browse-btn, .quiz-browse-btn, .course-design-browse-btn{
+.lecture-browse-btn, .course-design-browse-btn{
     align-self: center;
     /* background-color: #007BFF;
     color: white; */
@@ -103,6 +103,13 @@ input{
     margin-bottom: 3%;
 }
 
-.lecture-modal-body, .quiz-modal-body, .course-design-modal-body{
+.lecture-modal-body, .course-design-modal-body{
     text-align: center;
+}
+
+.lecture-btn, .quiz-btn{
+    background-color: white;
+    border:0;
+    margin:0;
+    padding: 0;
 }

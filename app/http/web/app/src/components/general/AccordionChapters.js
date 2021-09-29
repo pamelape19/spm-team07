@@ -24,7 +24,7 @@ class AccordionChapters extends Component{
         if ( chapter < completed ){
             checkMark = <img src={Check} alt=""/>;
             openLecture = <a href="#"><p>Lecture materials</p></a>
-            openQuiz = <a href="#"><p>Quiz</p></a>
+            openQuiz = <a href="/chapter-quiz"><p>Quiz</p></a>
         }
         else{
             checkMark = "";
@@ -44,7 +44,7 @@ class AccordionChapters extends Component{
         // conditional rendering for locked chapters (ie. # of chapter is more than # of completed chapters)
         let lockIcon;
         if ( chapter > completed ){
-            lockIcon = <img src={ Lock } alt="" style={{marginTop: '-0.5%'}}/>
+            lockIcon = <img src={ Lock } alt="" style={{ marginTop: '-0.5%' }}/>
         }
         else{
             lockIcon = ""

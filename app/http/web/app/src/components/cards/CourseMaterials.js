@@ -6,6 +6,7 @@ import { Accordion } from 'react-accessible-accordion';
 import './css/accordionStyle.css';
 import AccordionTop from '../general/AccordionTop';
 import AccordionChapters from '../general/AccordionChapters';
+import AccordionFinalQuiz from '../general/AccordionFinalQuiz';
 
 class CourseMaterials extends Component{
     constructor(props){
@@ -13,6 +14,8 @@ class CourseMaterials extends Component{
     }
 
     render(){
+        const numCompleted = 2;
+        const totalChapters = 3;
         return(
             <div style={{ margin: '8% 0' }}>
                  <Container className="header">
@@ -32,9 +35,10 @@ class CourseMaterials extends Component{
                 <Container className="main-body">
                     <Accordion>
                         <AccordionTop/>
-                        {Array.from({ length: 3 }).map((_, idx) => (
-                            <AccordionChapters chapter={idx + 1} name="What is 3d printing" completed={2}/>
+                        {Array.from({ length: totalChapters }).map((_, idx) => (
+                            <AccordionChapters chapter={ idx + 1 } name="What is 3d printing" completed={ numCompleted }/>
                         ))}
+                        <AccordionFinalQuiz completed={ numCompleted } totalChapters={ totalChapters }/>
                     </Accordion>
                 </Container>
             </div>

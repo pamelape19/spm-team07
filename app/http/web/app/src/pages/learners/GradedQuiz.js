@@ -29,6 +29,20 @@ class GradedQuiz extends Component{
                                 options : ["Sonia Gandhi", "Narendra Modi", "Manmohan Singh", "Rahul Gandhi"],
                                 ans : "Sonia Gandhi",
                                 marks : 4
+                            },
+                            {
+                                no : "3",
+                                qtext : "Who is Prime Minister of India?",
+                                options : ["Sonia Gandhi", "Narendra Modi", "Manmohan Singh", "Rahul Gandhi"],
+                                ans : "Sonia Gandhi",
+                                marks : 4
+                            },
+                            {
+                                no : "4",
+                                qtext : "Who is Prime Minister of India?",
+                                options : ["Sonia Gandhi", "Narendra Modi", "Manmohan Singh", "Rahul Gandhi"],
+                                ans : "Sonia Gandhi",
+                                marks : 4
                             }
                         ]
                     }

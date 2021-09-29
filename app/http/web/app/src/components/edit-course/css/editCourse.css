@@ -93,3 +93,16 @@ input{
     background-color: white;
     border: 0;
 }
+
+.lecture-browse-btn, .quiz-browse-btn, .course-design-browse-btn{
+    align-self: center;
+    /* background-color: #007BFF;
+    color: white; */
+    border: 1px solid #E0E0E0;
+    background-color: white;
+    margin-bottom: 3%;
+}
+
+.lecture-modal-body, .quiz-modal-body, .course-design-modal-body{
+    text-align: center;
+}

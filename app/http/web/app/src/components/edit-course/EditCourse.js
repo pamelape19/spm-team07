@@ -13,6 +13,7 @@ class EditCourse extends Component{
         this.state = {
             numChapters: 2,
             listChapters: [1],
+            courseId: 111
         }
         this.handleAdd = this.handleAdd.bind(this);
     }
@@ -27,6 +28,11 @@ class EditCourse extends Component{
     }
  
     render(){
+        const uploadCourseDesign = <div className="course-design-modal-body">
+                                        <input type="file" className="course-design-browse-btn" id={ 'course-design' + this.state.courseId }/><br/>
+                                        <b>Note: </b>
+                                        All files should be at least 720p and less than 4.0. GB.
+                                    </div>
         return(
             <div>
                 <Container className="edit-course-header">
@@ -51,7 +57,7 @@ class EditCourse extends Component{
                             Class Design Document
                         </div>
                         <span>
-                            <ModalComponent btnName="Upload Content" title="upload content modal" body="text in modal"/>
+                            <ModalComponent btnName="Upload Content" body={ uploadCourseDesign }/>
                         </span>
                     </Card>
 

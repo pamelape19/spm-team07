@@ -50,6 +50,18 @@ class AddChapter extends Component{
         else{
             titleBtn = <Button variant="primary" onClick={ this.showEditTitle } hidden={ this.state.hideAddTitleBtn }>Edit Title</Button>
         }
+        
+        const uploadLecture = <div className="lecture-modal-body">
+                                <input type="file" className="lecture-browse-btn" id={ 'lecture' + chapterItem}/><br/>
+                                <b>Note: </b>
+                                All files should be at least 720p and less than 4.0. GB.
+                            </div>
+        const uploadQuiz = <div className="quiz-modal-body">
+                                <input type="file" className="quiz-browse-btn" id={ 'quiz' + chapterItem}/><br/>
+                                <b>Note: </b>
+                                All files should be at least 720p and less than 4.0. GB.
+                            </div>
+
         return(
             <div>
                 <Card className="chapter">
@@ -73,7 +85,7 @@ class AddChapter extends Component{
                             Lecture materials
                         </div>
                         <span> 
-                            <ModalComponent btnName="Upload Content" title="upload content modal" body="text in modal"/>
+                            <ModalComponent btnName="Upload Content" body={ uploadLecture }/>
                         </span>
                     </div>
                     <div className="card-content-layout">
@@ -81,7 +93,7 @@ class AddChapter extends Component{
                             Quiz 
                         </div>
                         <span> 
-                            <ModalComponent btnName="Upload Content" title="upload content modal" body="text in modal"/>
+                            <ModalComponent btnName="Upload Content" body={ uploadQuiz }/>
                         </span>
                     </div>
                 </Card>

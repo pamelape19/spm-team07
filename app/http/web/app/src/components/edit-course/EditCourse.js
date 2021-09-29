@@ -47,13 +47,9 @@ class EditCourse extends Component{
                 <Container className="class-materials">
                     
                     <Card className="card-content-layout">
-
-                        <div className="card-text">
-                            <div className="course-desc"> 
-                                Class Design Document
-                            </div>
+                        <div className="course-desc"> 
+                            Class Design Document
                         </div>
-
                         <span>
                             <ModalComponent btnName="Upload Content" title="upload content modal" body="text in modal"/>
                         </span>

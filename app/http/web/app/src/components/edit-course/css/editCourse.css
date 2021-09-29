@@ -37,12 +37,13 @@ h2{
     color: #5C5C5C;
     text-align: left;
     margin: 10px 0px;
+    align-self: center;
 }
 
 .card-content-layout{
     display: grid;
     grid-template-columns: 4fr 1fr;
-    padding: 10px 30px;
+    padding: 15px 30px;
 }
 
 .chapter-details{
@@ -74,4 +75,21 @@ h2{
     margin-top: -1.5em;
     position: absolute;
     z-index: 10;
+}
+
+input{
+    border: 1px solid #E0E0E0;
+    background-color: white;
+    width: 400px;
+}
+
+.title-input{
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+}
+
+.done-btn, .trash-btn{
+    margin-left: 15px;
+    background-color: white;
+    border: 0;
 }

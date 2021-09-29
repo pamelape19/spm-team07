@@ -3,7 +3,7 @@ import { Container } from 'react-bootstrap';
 import QuestionPaper from './QuestionPaper';
 import Stopwatch from './Stopwatch';
 import ScoreCard from './ScoreCard';
-
+import './css/test.css';
 
 class Test extends Component{
     constructor(props){
@@ -34,30 +34,30 @@ class Test extends Component{
         totalmarks = marksArray.reduce(reducer);
         return(
             <div>
-                <Container className="header">					
-                    <h1>{ name }</h1>
-                    <div>Estimated Length: { time } mins</div>
+                <div className="sticky-top">
+                    <Container className="header">					
+                        <h1>{ name }</h1>
+                        <div></div>
+                        <p>Estimated Length: { time } mins</p>
+                    </Container>
+                    <hr/>
+                </div>
+                <Container className="main-body">
+                <div className="body-layout">
+                    <QuestionPaper 
+                        questions={ questions }
+                        applyNegativeMarking={ applyNegativeMarking }
+                        onSubmitted={ (result) => this.handleChange(result) } 
+                        onTimeChange={ (timeElapsed) => this.handleStopWatch(timeElapsed) } 
+                        timeAllotted={ time }
+                    />
+                    <div className="aside">
+                        <Stopwatch timeElapsed={ this.state.timeElapsed } />
+                        <ScoreCard score={ this.state.totalscore } testSubmitted={ this.state.testSubmitted } percentage={ Math.round(this.state.totalscore*100/totalmarks) }/>
+                    </div>
+                </div>
                 </Container>
-                <hr/>
-                <table className="table">
-                    <tr>
-                        <td className="col-md-2"></td>
-                        <td className="col-md-5">
-                            <QuestionPaper 
-                                questions={ questions }
-                                applyNegativeMarking={ applyNegativeMarking }
-                                onSubmitted={ (result) => this.handleChange(result) } 
-                                onTimeChange={ (timeElapsed) => this.handleStopWatch(timeElapsed) } 
-                                timeAllotted={ time }
-                            />
-                         </td>
-                         <td className="col-md-3">
-                          <Stopwatch timeElapsed={ this.state.timeElapsed } />
-                          <ScoreCard score={ this.state.totalscore } testSubmitted={ this.state.testSubmitted } percentage={ Math.round(this.state.totalscore*100/totalmarks) }/>					
-                        </td>
-                        <td className="col-md-3"></td>
-                    </tr>
-                </table>
+
             </div>
         )
         

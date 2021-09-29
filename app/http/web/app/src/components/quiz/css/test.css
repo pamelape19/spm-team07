@@ -1,0 +1,30 @@
+.sticky-top{
+    position: sticky;
+    z-index: 10;
+    top: 10%;
+    background-color: white;
+}
+
+.header{
+    padding: 0 10%;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    margin-bottom: -40px;
+}
+
+h1{
+    margin-top: 5%;
+}
+
+.body-layout{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+}
+
+.main-body{
+    padding: 0 10%;
+}
+
+.aside{
+    margin-top: 12%;
+}

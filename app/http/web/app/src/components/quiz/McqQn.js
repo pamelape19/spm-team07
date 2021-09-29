@@ -7,7 +7,7 @@ class McqQn extends Component{
         super(props);
     }
     render(){
-        const { qn_no, qn } = this.props;
+        const { qn_no, qn, options } = this.props;
 
         return(
             <div>
@@ -17,7 +17,7 @@ class McqQn extends Component{
                     </div>
                     <div className = "options">
                         <Form>
-                            {this.props.options.map((option) => (
+                            {options.map((option) => (
                                 <Form.Check 
                                     type='radio'
                                     id = {`default-radio - ${ option }`}

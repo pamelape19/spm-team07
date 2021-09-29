@@ -7,6 +7,7 @@ class QuestionPaper extends Component{
         this.state = {
             totalscore: 0,
             timeElapsed: this.props.timeAllotted,
+            showAnswer: false
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmitted = this.handleSubmitted.bind(this);
@@ -21,6 +22,9 @@ class QuestionPaper extends Component{
         var result = this.state.totalscore;
         this.props.onSubmitted( result );			
         clearInterval( this.interval );
+        this.setState({
+            showAnswer: true,
+        })
     }
     tick(){
         if( this.state.timeElapsed > 0 ) {
@@ -44,13 +48,14 @@ class QuestionPaper extends Component{
             <tr>
                 <td>
                     <Question 
-                        question={ question.qtext }
-                        number={ question.no } 
-                        options={ question.options } 
-                        answer={ question.ans } 
-                        marks={ question.marks } 
-                        applyNegativeMarking={ this.props.applyNegativeMarking } 
-                        onAnswered={ (score)=>this.handleChange(score) }
+                        question = { question.qtext }
+                        number = { question.no } 
+                        options = { question.options } 
+                        answer = { question.ans } 
+                        marks = { question.marks } 
+                        applyNegativeMarking = { this.props.applyNegativeMarking } 
+                        onAnswered = { (score)=>this.handleChange(score) }
+                        showAnswer = { this.state.showAnswer }
                     />
                 </td>
             </tr>

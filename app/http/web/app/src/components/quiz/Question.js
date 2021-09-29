@@ -1,15 +1,62 @@
 import { React, Component } from 'react';
 import { Container } from 'react-bootstrap';
+
+import Correct from '../../resources/green-check.png';
+import Cross from '../../resources/cross.png';
+
 class Question extends Component{
     constructor(props){
         super(props);
         this.state = {
             correctAnswerRecorded: false,
-            negativeAnswerRecorded: false
+            negativeAnswerRecorded: false,
+            selectAns: "",
         };
+        this.showAns = this.showAns.bind(this)
 
     };
+    
+    // method to show tick or cross after submission of answer
+    showAns = ( option ) => {
+        if ( this.props.showAnswer === true && this.state.correctAnswerRecorded){
+            if (option === this.props.answer){
+                return (
+                    <img src={ Correct } alt="" style={{width: 30}}/>
+                )
+            }
+            else{
+                return(
+                    <span>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </span>
+                )
+            }
+        }
+        if (this.props.showAnswer === true && this.state.correctAnswerRecorded === false){
+            if (option === this.props.answer){
+                return (
+                    <img src={ Correct } alt="" style={{width: 30}}/>
+                )
+            }
+            else if (option === this.state.selectAns){
+                return (
+                    <img src={ Cross } alt="" style={{width: 30}}/>
+                )
+            }
+            else{
+                return(
+                    <span>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </span>
+                )
+            }
+        }
+    }
     handleChange = (e) =>{
+        this.setState({
+            selectAns: e.target.value,
+        })
+
         var score = 0;
         if (e.target.value == this.props.answer){
             if (this.state.correctAnswerRecorded === false){
@@ -39,19 +86,28 @@ class Question extends Component{
             this.state.correctAnswerRecorded = false;
         }
         this.props.onAnswered(score);
+
+        
     }
     render(){
         const qname = "option" + this.props.number;
         const qoptions = this.props.options.map((option) =>
-            <div>
-                <input type="radio" 
-                    name={ qname } 
-                    value={ option } 
-                    onChange={ (e) => this.handleChange(e) }
-                />
-                    &nbsp;{ option }
+            <div className="form-layout">
+                <span>
+                    { this.showAns(option) }
+                </span>
+                <span>
+                    {" "}
+                    <input type="radio" 
+                        name={ qname } 
+                        value={ option } 
+                        onChange={ (e) => this.handleChange(e) }
+                    />
+                        &nbsp;{ option }
+                </span>
             </div>
         )
+        
         return(
             <div>
                 <Container style={{ padding: '5%' }}>

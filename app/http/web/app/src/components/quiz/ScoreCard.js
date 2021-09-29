@@ -7,7 +7,7 @@ class ScoreCard extends Component{
     render(){
         const { testSubmitted, score, percentage } = this.props;
         var status = "Test not submitted!";
-        if( testSubmitted == true ) {
+        if( testSubmitted === true ) {
             if( percentage < 50 ) {
                 status = "Sorry, you could not pass the test. Try again later!"
             } else {

@@ -12,7 +12,7 @@ class CompletedCardListItem extends Component{
     render(){
         const view = this.props.view;
         let typeBtn;
-        if (view == "learners"){
+        if (view === "learners"){
             typeBtn = <Button variant="primary">
                         View Course
                       </Button>;

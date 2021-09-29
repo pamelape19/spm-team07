@@ -58,7 +58,7 @@ class Question extends Component{
         })
 
         var score = 0;
-        if (e.target.value == this.props.answer){
+        if (e.target.value === this.props.answer){
             if (this.state.correctAnswerRecorded === false){
                 if (this.props.applyNegativeMarking === true && this.state.negativeAnswerRecorded === true){
                     score = 1 + this.props.marks;
@@ -66,8 +66,10 @@ class Question extends Component{
                     score = this.props.marks;
                 }
             }
-            this.state.correctAnswerRecorded = true;
-            this.state.negativeAnswerRecorded = false;
+            this.setState({
+                correctAnswerRecorded: true,
+                negativeAnswerRecorded: false,
+            })
         }
         else {				
             if( this.props.applyNegativeMarking === true && this.state.negativeAnswerRecorded === false ) {
@@ -82,8 +84,10 @@ class Question extends Component{
                     score = -this.props.marks;
                 } 
             }
-            this.state.negativeAnswerRecorded = true;
-            this.state.correctAnswerRecorded = false;
+            this.setState({
+                negativeAnswerRecorded: true,
+                correctAnswerRecorded: false,
+            })
         }
         this.props.onAnswered(score);
 

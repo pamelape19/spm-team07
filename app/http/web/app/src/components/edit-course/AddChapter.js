@@ -68,6 +68,7 @@ class AddChapter extends Component{
             quizAdded: true,
             hideTrashQuiz: false,
         })
+        window.location = "http://localhost:3000/create-quiz";
     }
     clearQuiz(){
         this.setState({
@@ -105,7 +106,7 @@ class AddChapter extends Component{
         // conditional rendering for quiz's button
         let quizBtn;
         if ( this.state.quizAdded === false ){
-            quizBtn = <Button variant="primary" onClick={ this.showEditQuiz } href="#">Create Quiz</Button>
+            quizBtn = <Button variant="primary" onClick={ this.showEditQuiz }>Create Quiz</Button>
         }
         else{
             quizBtn = <Button variant="primary" onClick={ this.showEditQuiz } href="#">Edit Quiz</Button>

@@ -5,7 +5,7 @@
     background-color: white;
 }
 
-.header{
+.chapter-quiz-header{
     padding: 0 10%;
     display: grid;
     grid-template-rows: 1fr 1fr;

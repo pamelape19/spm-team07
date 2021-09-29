@@ -12,7 +12,7 @@ class ChapterQuiz extends Component{
         return(
             <div>
                 <div className="sticky-top">
-                <Container className="header">
+                <Container className="chapter-quiz-header">
                     <h1> Quiz 1 - Introduction to 3D Printing </h1>
                     <div></div>
                     <p> Estimated Length: 30 mins</p>

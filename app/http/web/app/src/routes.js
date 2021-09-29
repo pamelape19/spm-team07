@@ -13,6 +13,7 @@ import AdminHome from './pages/hr/AdminHome';
 import CourseMaterials from './components/cards/CourseMaterials';
 import ChapterQuiz from './pages/learners/ChapterQuiz';
 import GradedQuiz from './pages/learners/GradedQuiz';
+import CreateQuiz from './pages/trainers/CreateQuiz';
 
 
 class AllRoutes extends Component {
@@ -31,6 +32,7 @@ class AllRoutes extends Component {
                 <Route exact path="/course-materials" component={ CourseMaterials }/>
                 <Route exact path="/chapter-quiz" component={ ChapterQuiz }/>
                 <Route exact path="/final-quiz" component={ GradedQuiz }/>
+                <Route exact path="/create-quiz" component={ CreateQuiz }/>
             </Fragment>
         )
     }

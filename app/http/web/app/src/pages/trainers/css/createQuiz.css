@@ -1,0 +1,53 @@
+/* first page */
+.quiz-creation{
+    padding: 0 15%
+}
+
+div{
+    text-align: left;
+}
+
+.row{
+    padding: 1% 0;
+}
+.quiz-form{
+    margin-top: 5%;
+}
+
+.create-btn{
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    margin-top: 10%;
+}
+
+/* second page */
+
+.sticky-top{
+    position: sticky;
+    z-index: 10;
+    top: 10%;
+    background-color: white;
+}
+
+.create-quiz-header{
+    padding: 0 15%;
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    /* grid-template-rows: 1fr 1fr; */
+    /* margin-bottom: -40px; */
+}
+
+h1{
+    margin-top: 5%;
+}
+
+.done-btn{
+    margin-top: 25%;
+    text-align: right;
+}
+
+.mcq-btns{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 10%;
+}

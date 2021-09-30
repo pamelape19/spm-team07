@@ -1,9 +1,7 @@
 /* first page */
 .quiz-creation{
-    padding: 0 15%
-}
-
-div{
+    padding: 0 15%;
+    margin-top: 5%;
     text-align: left;
 }
 
@@ -37,11 +35,7 @@ div{
     /* margin-bottom: -40px; */
 }
 
-h1{
-    margin-top: 5%;
-}
-
-.done-btn{
+.creation-done-btn{
     margin-top: 25%;
     text-align: right;
 }
@@ -50,4 +44,16 @@ h1{
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 10%;
+}
+
+.mcq-spaced-options{
+    margin: 10px;
+    padding: 5px;
+}
+
+.set-ans{
+    background-color: white;
+    border: 0;
+    text-decoration: underline;
+    margin-left: 3%;
 }

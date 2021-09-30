@@ -109,7 +109,7 @@ class AddChapter extends Component{
             quizBtn = <Button variant="primary" onClick={ this.showEditQuiz }>Create Quiz</Button>
         }
         else{
-            quizBtn = <Button variant="primary" onClick={ this.showEditQuiz } href="#">Edit Quiz</Button>
+            quizBtn = <Button variant="primary" href="#">Edit Quiz</Button>
         }
         
         return(

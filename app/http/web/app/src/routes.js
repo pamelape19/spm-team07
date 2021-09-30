@@ -14,7 +14,7 @@ import CourseMaterials from './components/cards/CourseMaterials';
 import ChapterQuiz from './pages/learners/ChapterQuiz';
 import GradedQuiz from './pages/learners/GradedQuiz';
 import CreateQuiz from './pages/trainers/CreateQuiz';
-
+import IndividualTrainer from './pages/hr/IndividualTrainer';
 
 class AllRoutes extends Component {
     render(){
@@ -33,6 +33,7 @@ class AllRoutes extends Component {
                 <Route exact path="/chapter-quiz" component={ ChapterQuiz }/>
                 <Route exact path="/final-quiz" component={ GradedQuiz }/>
                 <Route exact path="/create-quiz" component={ CreateQuiz }/>
+                <Route exact path="/individual-trainer" component={ IndividualTrainer }/>
             </Fragment>
         )
     }

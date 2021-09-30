@@ -14,6 +14,7 @@ class TrainersHome extends Component{
                     <h1>Assigned Classes to Teach</h1>
                     {Array.from({ length: 4 }).map((_, idx) => (
                         <CompletedCardListItem  view="trainers"/>
+                        
                     ))}
                 </Container>
             </div>

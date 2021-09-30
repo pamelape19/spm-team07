@@ -1,5 +1,5 @@
 import { Component, React } from "react";
-import '../pages.css';
+import "./css/homePage.css";
 
 class AdminHome extends Component{
     constructor(props){
@@ -8,7 +8,8 @@ class AdminHome extends Component{
     render(){
         return(
             <div style={{ margin: '8% 0' }}>
-                Admin Home page
+                <div class="ah"> Admin Home page </div>
+                 
             </div>
         )
     }

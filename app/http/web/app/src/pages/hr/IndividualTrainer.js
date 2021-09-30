@@ -1,67 +1,55 @@
 import { React, Component } from 'react';
 import { Container, Button } from 'react-bootstrap';
-import dubibird from '../../resources/dubibird.png';
-import "./css/individualtrainer.css";
 
+import Dubibird from '../../resources/dubibird.png';
+import "./css/individualtrainer.css";
 
 class IndividualTrainer extends Component{
     constructor(props){
         super(props);
         this.state = {
-            completedCourse: ["a","b"],
-            currentlyLearning:[]
+            completedCourses: ["Printer 9110 Servicing","Printer 9110 Introduction"],
+            currentlyLearnings:["Introduction to 3D printing", "Printer 3110 Introduction"]
         }
  
     }
     render(){
         return(
-            <div style={{margin: '3% 0'}}>
+            <div style={{margin: '10% 0'}}>
                 {/* <img src={banner} alt="" style={{width: '100%'}}/> */}
-                <Container style={{marginTop: '5%'}}>
-                    
-                    <div className="content"> 
-                        <img src={dubibird} alt="" className="imageclass"  />
+                <Container className="indiv-trainer-content">
+                    <div className="bg-box">
+                        <h3 class="indiv-trainer-learner"> Learner </h3>  
+                        <div className="learner-profile-layout">
+                            <div>
+                                <div className="indiv-trainer-headerspace">
+                                    <span className="headertext"> Name: </span>  Mr dubibird 
+                                </div>
+                                <div className="indiv-trainer-headerspace">
+                                    <span className="headertext"> Title: </span> Senior engineer 
+                                </div>
+                                <div className="indiv-trainer-headerspace">
+                                    <span className="headertext"> Currently learning: </span> 
+                                </div>
+                                {this.state.currentlyLearnings.map((currentlyLearning) =>
+                                    <div className="indiv-trainer-headerspace">
+                                        { currentlyLearning }
+                                    </div>
+                                )}
+                                <div className="indiv-trainer-headerspace">
+                                    <span className="indiv-trainer-headertext"> Courses completed: </span> 
+                                </div>
+                                {this.state.completedCourses.map((completedCourse) =>
+                                    <div className="indiv-trainer-headerspace">
+                                        { completedCourse }
+                                    </div>
+                                )}
 
-                        <div className="headerspace name"> 
-
-                            <h3 class="learner">  Learner </h3>  
-                            <br></br>
-                            <span className="headertext"> Name: </span>  Mr dubibird 
- 
+                            </div>
+                            <img src={ Dubibird } alt="" className="indiv-trainer-imageclass"  />
                         </div>
-
-                        <div className="headerspace"> 
-                            <span className="headertext"> Title: </span> Senior engineer 
-                        </div>
-
-                        <div className="headerspace">                     
-                            <span className="headertext"> Currently learning: </span> 
-                            <br></br>                          
-                            Introduction to 3D printing
-                            <br></br>
-                            Printer 3110 Introduction
-                             
-                            {this.state.completedCourse.map((item, idx) => (
-                                <br></br>
-
-                            ))}
-                        </div>
-
-                        <div className="headerspace"> 
-                            <span className="headertext"> Courses completed:  </span> 
-                            <br></br>
-                            Printer 9110 Servicing
-                            <br></br>
-                            Printer 9110 Introduction
-
-                        </div>
-
-
-                    </div>
-                        <div class="assign"> 
-                            <Button variant="primary">Assign Learner </Button>
-                        </div>
-                     
+                        <Button variant="primary" className="assign-learner-btn">Assign Learner </Button>
+                    </div>    
                 </Container>
             </div>
         )

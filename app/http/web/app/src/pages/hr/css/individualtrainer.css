@@ -1,41 +1,37 @@
-.content{
-    height: 700px;
+.indiv-trainer-content{
+    padding: 0 10%;
+}
+
+.bg-box{
     background-color: rgb(195, 192, 192);
-    margin-top: 130px;
 }
 
-.headerspace{
-    text-align: left;
-    margin: 50px;
-    position: relative;
-    top: 40px;
-     
+.indiv-trainer-learner{
+    padding-top: 4%;
 }
 
-.name{
-    position: relative;
-    top: 50px;
+.learner-profile-layout{
+    display: grid;
+    grid-template-columns: 4fr 1fr;
 }
 
-.headertext{
-    font-weight: bold;
-    margin-right: 5px;
-}
-
-.imageclass{
-    margin: 50px;
-    margin-right: 100px;
-    float:right;
+.indiv-trainer-imageclass{
     object-fit: cover;
     width: 155px;
     height: 200px;
+    margin-top: 5%;
 }
 
-.assign{
-    margin-top: -90px;
-    position: relative;
+.indiv-trainer-headerspace{
+    text-align: left;
+    margin-left: 5%;
+    padding: 1%;     
 }
 
-.learner{
-    margin-left: 46%;
+.indiv-trainer-headertext{
+    font-weight: bold;
+}
+
+.assign-learner-btn{
+    margin: 4% 0%;
 }

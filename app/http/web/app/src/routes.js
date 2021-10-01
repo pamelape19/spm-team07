@@ -16,6 +16,7 @@ import GradedQuiz from './pages/learners/GradedQuiz';
 import CreateQuiz from './pages/trainers/CreateQuiz';
 import IndividualTrainer from './pages/hr/IndividualTrainer';
 import CreateCourse from './pages/hr/CreateCourse';
+import ManageLearners from './pages/hr/ManageLearners';
 
 class AllRoutes extends Component {
     render(){
@@ -36,6 +37,7 @@ class AllRoutes extends Component {
                 <Route exact path="/create-quiz" component={ CreateQuiz }/>
                 <Route exact path="/individual-trainer" component={ IndividualTrainer }/>
                 <Route exact path="/create-course" component={ CreateCourse }/>
+                <Route exact path="/manage-learners" component={ ManageLearners }/>
             </Fragment>
         )
     }

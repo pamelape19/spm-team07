@@ -1,0 +1,16 @@
+.label-course-create{
+    text-align: left;
+    margin-left: 30px;
+    font-weight: bold;
+}
+
+.form-course-create{
+    padding-top: 50px;
+    margin-top: 200px;
+}
+
+.form-container{
+    background-color: rgb(195, 192, 192);
+    padding-bottom: 50px;
+    border-radius: 5px;
+}

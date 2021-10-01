@@ -1,6 +1,7 @@
 import { React, Component } from 'react';
 import {Button } from 'react-bootstrap';
 import Question from './Question';
+import './css/test.css';
 
 class QuestionPaper extends Component{
     constructor(props){
@@ -20,7 +21,7 @@ class QuestionPaper extends Component{
             totalscore: this.state.totalscore + score
         });
       }
-    handleSubmitted = (e) => {
+    handleSubmitted(){
         var result = this.state.totalscore;
         this.props.onSubmitted( result );			
         clearInterval( this.interval );
@@ -49,41 +50,55 @@ class QuestionPaper extends Component{
     render(){
         
         const questionAnswers = this.props.questions.map((question) =>
-            <tr>
-                <td>
-                    <Question 
-                        question = { question.qtext }
-                        number = { question.no } 
-                        options = { question.options } 
-                        answer = { question.ans } 
-                        marks = { question.marks } 
-                        applyNegativeMarking = { this.props.applyNegativeMarking } 
-                        onAnswered = { (score)=>this.handleChange(score) }
-                        showAnswer = { this.state.showAnswer }
-                    />
-                </td>
-            </tr>
-            
+            <Question 
+                question = { question.qtext }
+                number = { question.no } 
+                options = { question.options } 
+                answer = { question.ans } 
+                marks = { question.marks } 
+                applyNegativeMarking = { this.props.applyNegativeMarking } 
+                onAnswered = { (score)=>this.handleChange(score) }
+                showAnswer = { this.state.showAnswer }
+                totalscore = { this.state.totalscore }
+                totalmarks = { this.props.totalmarks }
+            />
         );
-        let doneBtn;
-        
-            doneBtn = <Button variant="primary" href="/quiz-attempt" 
-            hidden={ this.state.hideDoneBtn }>Done</Button>
+
+        let btnShown;
+        if ( this.state.hideDoneBtn === false ){
+            btnShown = <div className="after-quiz-submit-btns">
+                            <div></div>
+                            <Button 
+                                variant="primary" 
+                                href="/quiz-attempt" 
+                                hidden={ this.state.hideDoneBtn }
+                            >
+                                Quiz Submissions
+                            </Button>
+                            <Button 
+                                variant="secondary" 
+                                href="/final-quiz" 
+                                hidden={ this.state.hideDoneBtn }
+                            >
+                                Re-attempt
+                            </Button>
+                            <div></div>
+                        </div>
+        }
+        else{
+            btnShown = <input type="button"
+                            className="btn btn-primary" 
+                            value="Submit" 
+                            onClick={ this.handleSubmitted }
+                        />
+        }
         
         
         return(
             <div>					
-                <table className="table table-striped">{ questionAnswers }</table>
-                <div>
-                    <input type="button"
-                        className="btn btn-primary" 
-                        value="Submit" 
-                        onClick={ (e)=>this.handleSubmitted(e) }
-                    />
-                </div>
-                <div>
-                    {doneBtn}
-                </div>
+                { questionAnswers }
+                
+                { btnShown }
                 
             </div>
         )

@@ -50,6 +50,7 @@ class Test extends Component{
                         onSubmitted={ (result) => this.handleChange(result) } 
                         onTimeChange={ (timeElapsed) => this.handleStopWatch(timeElapsed) } 
                         timeAllotted={ time }
+                        totalmarks = { totalmarks }
                     />
                     <div className="test-aside">
                         <Stopwatch timeElapsed={ this.state.timeElapsed } />

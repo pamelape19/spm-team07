@@ -80,7 +80,7 @@ h2{
 input{
     border: 1px solid #E0E0E0;
     background-color: white;
-    width: 400px;
+    /* width: 400px; */
 }
 
 .title-input{

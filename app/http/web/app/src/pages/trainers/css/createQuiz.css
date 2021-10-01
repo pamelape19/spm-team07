@@ -49,6 +49,7 @@
 .mcq-spaced-options{
     margin: 10px;
     padding: 5px;
+    
 }
 
 .set-ans{
@@ -56,4 +57,10 @@
     border: 0;
     text-decoration: underline;
     margin-left: 3%;
+}
+
+.qns-and-options-input{
+    border: 1px solid #E0E0E0;
+    background-color: white;
+    width: 400px;
 }

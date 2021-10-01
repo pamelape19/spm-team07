@@ -2,3 +2,13 @@ h1, h2{
     text-align: left;
     padding-top: 1%;
 }
+
+.learners-container{
+    padding-top: 1%
+}
+
+.learners-course-cards-layout{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-column-gap: 6%;
+}

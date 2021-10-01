@@ -12,38 +12,45 @@ class CourseCarousel extends Component{
             <div>
                 <Carousel prevLabel="" nextLabel="">
                     <Carousel.Item interval={ 10000 }>
-                        <Container>
-                            <Row md={ 4 } className="g-4">
-                            {Array.from({ length: 4 }).map((_, idx) => (
-                                <Col>
-                                    <CourseCard link="/course-page"/>
-                                </Col>
-                            ))}
-                            </Row>
+                        <Container className="carousel-container">
+                            <center>
+                                <Row md={ 4 } className="g-4">
+                                {Array.from({ length: 4 }).map((_, idx) => (
+                                    <Col>
+                                        <CourseCard link="/course-page"/>
+                                    </Col>
+                                ))}
+                                </Row>
+                            </center>
                         </Container>
                     </Carousel.Item>
                     <Carousel.Item interval={ 10000 }>
-                        <Container>
-                            <Row md={ 4 } className="g-4">
-                            {Array.from({ length: 4 }).map((_, idx) => (
-                                <Col>
-                                    <CourseCard link="/course-page"/>
-                                </Col>
-                            ))}
-                            </Row>
+                        <Container className="carousel-container">
+                            <center>
+                                <Row md={ 4 } className="g-4">
+                                {Array.from({ length: 4 }).map((_, idx) => (
+                                    <Col>
+                                        <CourseCard link="/course-page"/>
+                                    </Col>
+                                ))}
+                                </Row>
+                            </center>
                         </Container>
                     </Carousel.Item>
                     <Carousel.Item interval={ 10000 }>
-                        <Container>
-                            <Row md={ 4 } className="g-4">
-                            {Array.from({ length: 4 }).map((_, idx) => (
-                                <Col>
-                                    <CourseCard link="/course-page"/>
-                                </Col>
-                            ))}
-                            </Row>
+                        <Container className="carousel-container">
+                            <center>
+                                <Row md={ 4 } className="g-4">
+                                {Array.from({ length: 4 }).map((_, idx) => (
+                                    <Col>
+                                        <CourseCard link="/course-page"/>
+                                    </Col>
+                                ))}
+                                </Row>
+                            </center>
                         </Container>
                     </Carousel.Item>
+                    
                 </Carousel>
             </div>
         )

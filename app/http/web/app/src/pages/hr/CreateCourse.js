@@ -1,5 +1,5 @@
 import { React, Component } from 'react';
-import { Container, Button } from 'react-bootstrap';
+import { Container, Button, Nav } from 'react-bootstrap';
 
 import "./css/createCourse.css";
 
@@ -11,6 +11,21 @@ class CreateCourse extends Component{
     render(){
         return(
             <div style={{margin: '3% 0'}}>
+                 <Container>
+                    <h1>Courses</h1>
+                    <Nav variant="tabs" defaultActiveKey="/learners-home" style={{margin: 10}}>
+                    <Nav.Item>
+                        <Nav.Link href="/admin-home" style={{color: '#00000080'}}>Manage Trainers</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                        <Nav.Link href="/manage-learners" style={{color: '#00000080'}}>Manage Learners</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                        <Nav.Link href="/create-course" style={{color: '#000000', fontWeight: 'bold'}}>Manage Courses</Nav.Link>
+                    </Nav.Item>
+                    </Nav>
+                </Container>
+
                 {/* <img src={banner} alt="" style={{width: '100%'}}/> */}
                 <Container style={{marginTop: '5%'}} class="contentthing">
 

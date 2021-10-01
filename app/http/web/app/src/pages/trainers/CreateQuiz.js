@@ -11,11 +11,15 @@ class CreateQuiz extends Component{
         this.state = {
             firstPage: true,
             totalQuestions: 0,
-            questionTypes: []
+            questionTypes: [],
+            quizDuration: 1
         };
         this.secondPage = this.secondPage.bind(this);
         this.createMcq = this.createMcq.bind(this);
         this.createTF = this.createTF.bind(this);
+        this.creationDone = this.creationDone.bind(this);
+        this.cancelCreation = this.cancelCreation.bind(this);
+        this.updateQuizDuration = this.updateQuizDuration.bind(this);
     }
     secondPage(){
         this.setState({
@@ -34,6 +38,18 @@ class CreateQuiz extends Component{
             questionTypes: [...this.state.questionTypes, "tf"]
         })
     }
+    creationDone(){
+        window.location = "http://localhost:3000/trainers-course"
+    }
+    cancelCreation(){
+        window.location = "http://localhost:3000/trainers-course"
+    }
+    updateQuizDuration(value){
+        this.setState({
+            quizDuration: value
+        })
+    }
+
     render(){
         let page;
         if ( this.state.firstPage === true ){
@@ -52,12 +68,19 @@ class CreateQuiz extends Component{
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label">Duration (min)</label>
                                     <div class="col-sm-9">
-                                    <input type="number" class="form-control" id="duration" placeholder="Enter duration of quiz"/>
+                                    <input type="number" 
+                                        class="form-control" 
+                                        id="duration"
+                                        min="1" 
+                                        placeholder="Please enter quiz duration"
+                                        onChange={ e => this.updateQuizDuration(e.target.value)}
+                                    />
                                     </div>
                                 </div>
                             </div>
                             <div className="create-btn">
                                 <div></div>
+                                <button  type="submit" class="btn btn-secondary" onClick={ this.cancelCreation }>Cancel</button>
                                 <button type="submit" class="btn btn-primary" onClick={ this.secondPage }>Create</button>
                             </div>
                         </form>
@@ -79,10 +102,10 @@ class CreateQuiz extends Component{
                     <Container className="create-quiz-header">
                         <div>
                             <h1> Quiz 1 - Introduction to 3D Printing </h1>
-                            <p> Estimated Length: 30 mins</p>
+                            <p> Estimated Length: { this.state.quizDuration } mins</p>
                         </div>
                         <div className="creation-done-btn">
-                            <button type="submit" class="btn btn-primary">Done</button>
+                            <button type="submit" class="btn btn-primary" onClick={ this.creationDone }>Done</button>
                         </div>
                     </Container>
                     <hr/>

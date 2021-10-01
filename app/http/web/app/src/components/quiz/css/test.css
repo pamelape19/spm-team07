@@ -1,48 +1,56 @@
-.sticky-top{
+.test-sticky-top{
     position: sticky;
     z-index: 10;
-    top: 10%;
+    top: 8%;
     background-color: white;
 }
 
-.header{
+.test-header{
     padding: 0 10%;
     display: grid;
-    grid-template-rows: 1fr 1fr;
-    margin-bottom: -40px;
+    grid-template-rows: 1fr;
+    margin-bottom: -20px;
 }
 
-h1{
+.test-main-body{
+    padding: 0 10%;
+}
+
+.test-name{
     margin-top: 5%;
 }
 
-.body-layout{
+.test-body-layout{
     display: grid;
     grid-template-columns: 2fr 1fr;
+    padding: 5% 0;
 }
 
-.main-body{
-    padding: 0 10%;
-}
 
-.aside{
+.test-aside{
     margin-top: 12%;
 }
 
-.stopwatch-row{
+.test-stopwatch-row{
     display: grid;
     grid-template-rows: 1fr 1fr;
 }
 
-.stopwatch-col{
+.test-stopwatch-col{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
 }
 
-.minutes{
+.test-minutes{
     justify-self: flex-end;
 }
 
-.seconds{
+.test-seconds{
     justify-self: flex-start;
+}
+
+.after-quiz-submit-btns{
+    display: grid;
+    grid-template-columns: 1fr 2fr 2fr 1fr;
+    grid-column-gap: 3%;
 }

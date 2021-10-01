@@ -2,3 +2,7 @@
 .carousel-control-prev /*, .carousel-indicators */ {
     filter: invert(100%);
 }
+
+.carousel-container{
+    padding: 0 5%;
+}

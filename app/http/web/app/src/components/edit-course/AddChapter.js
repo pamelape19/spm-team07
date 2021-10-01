@@ -6,6 +6,7 @@ import ModalComponent from '../general/ModalComponent';
 import './css/editCourse.css';
 import Done from '../../resources/check.png';
 import Trash from '../../resources/trash.png';
+// import CreateQuiz from '../../pages/trainers/CreateQuiz';
 
 class AddChapter extends Component{
     constructor(props){
@@ -18,7 +19,8 @@ class AddChapter extends Component{
             hideTrashLecture: true,
             hideUploadLectureBtn: false,
             quizAdded: false,
-            hideTrashQuiz: true
+            hideTrashQuiz: true,
+            chapterTitle: ""
         }
         this.showEditTitle = this.showEditTitle.bind(this);
         this.editCompleted = this.editCompleted.bind(this);
@@ -27,6 +29,7 @@ class AddChapter extends Component{
         this.clearLecture = this.clearLecture.bind(this);
         this.showEditQuiz = this.showEditQuiz.bind(this);
         this.clearQuiz = this.clearQuiz.bind(this);
+        this.addChapterTitle = this.addChapterTitle.bind(this);
     }
     // functions for add title button
     showEditTitle(){
@@ -76,6 +79,11 @@ class AddChapter extends Component{
             hideTrashQuiz: true,
         })
     }
+    addChapterTitle(value){
+        this.setState({
+            chapterTitle: value
+        })
+    }
     render(){
         const chapterItem = this.props.chapterItem;
         const uploadLecture = <div className="lecture-modal-body">
@@ -106,7 +114,7 @@ class AddChapter extends Component{
         // conditional rendering for quiz's button
         let quizBtn;
         if ( this.state.quizAdded === false ){
-            quizBtn = <Button variant="primary" onClick={ this.showEditQuiz }>Create Quiz</Button>
+            quizBtn = <Button variant="primary" onClick={ this.showEditQuiz } >Create Quiz</Button>
         }
         else{
             quizBtn = <Button variant="primary" href="#">Edit Quiz</Button>
@@ -119,7 +127,7 @@ class AddChapter extends Component{
                         <div className="chapter-num"> 
                             Chapter { chapterItem }
                             <span style={{ marginLeft: 20 }} hidden={ this.state.hideEditTitle }>
-                                <input type="text"/>
+                                <input type="text" onChange={ e => this.addChapterTitle(e.target.value) }/>
                                 <button className="done-btn" onClick={ this.editCompleted }><img src={ Done } alt=""/></button>
                                 <button className="trash-btn" onClick={ this.clearTitle }><img src={ Trash } alt=""/></button>
                             </span>

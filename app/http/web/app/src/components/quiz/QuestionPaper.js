@@ -1,5 +1,7 @@
 import { React, Component } from 'react';
+import {Button } from 'react-bootstrap';
 import Question from './Question';
+import './css/test.css';
 
 class QuestionPaper extends Component{
     constructor(props){
@@ -7,7 +9,8 @@ class QuestionPaper extends Component{
         this.state = {
             totalscore: 0,
             timeElapsed: this.props.timeAllotted,
-            showAnswer: false
+            showAnswer: false,
+            hideDoneBtn: true
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmitted = this.handleSubmitted.bind(this);
@@ -18,12 +21,13 @@ class QuestionPaper extends Component{
             totalscore: this.state.totalscore + score
         });
       }
-    handleSubmitted = (e) => {
+    handleSubmitted(){
         var result = this.state.totalscore;
         this.props.onSubmitted( result );			
         clearInterval( this.interval );
         this.setState({
             showAnswer: true,
+            hideDoneBtn: false
         })
     }
     tick(){
@@ -44,32 +48,58 @@ class QuestionPaper extends Component{
         clearInterval(this.interval);
     }
     render(){
+        
         const questionAnswers = this.props.questions.map((question) =>
-            <tr>
-                <td>
-                    <Question 
-                        question = { question.qtext }
-                        number = { question.no } 
-                        options = { question.options } 
-                        answer = { question.ans } 
-                        marks = { question.marks } 
-                        applyNegativeMarking = { this.props.applyNegativeMarking } 
-                        onAnswered = { (score)=>this.handleChange(score) }
-                        showAnswer = { this.state.showAnswer }
-                    />
-                </td>
-            </tr>
+            <Question 
+                question = { question.qtext }
+                number = { question.no } 
+                options = { question.options } 
+                answer = { question.ans } 
+                marks = { question.marks } 
+                applyNegativeMarking = { this.props.applyNegativeMarking } 
+                onAnswered = { (score)=>this.handleChange(score) }
+                showAnswer = { this.state.showAnswer }
+                totalscore = { this.state.totalscore }
+                totalmarks = { this.props.totalmarks }
+            />
         );
+
+        let btnShown;
+        if ( this.state.hideDoneBtn === false ){
+            btnShown = <div className="after-quiz-submit-btns">
+                            <div></div>
+                            <Button 
+                                variant="primary" 
+                                href="/quiz-attempt" 
+                                hidden={ this.state.hideDoneBtn }
+                            >
+                                Quiz Submissions
+                            </Button>
+                            <Button 
+                                variant="secondary" 
+                                href="/final-quiz" 
+                                hidden={ this.state.hideDoneBtn }
+                            >
+                                Re-attempt
+                            </Button>
+                            <div></div>
+                        </div>
+        }
+        else{
+            btnShown = <input type="button"
+                            className="btn btn-primary" 
+                            value="Submit" 
+                            onClick={ this.handleSubmitted }
+                        />
+        }
+        
+        
         return(
             <div>					
-                <table className="table table-striped">{ questionAnswers }</table>
-                <div>
-                    <input type="button"
-                        className="btn btn-primary" 
-                        value="Submit" 
-                        onClick={ (e)=>this.handleSubmitted(e) }
-                    />
-                </div>
+                { questionAnswers }
+                
+                { btnShown }
+                
             </div>
         )
     }

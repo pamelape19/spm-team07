@@ -27,25 +27,27 @@ class LearnersHome extends Component{
                     <h2>Recommended for you</h2>
                 </Container>
                 <CourseCarousel/>
-                <Container style={{paddingTop: '1%'}}>
+
+                <Container className="learners-container">
                     <h2>3D Printing</h2>
-                    <Row md={4} className="g-4">
-                    {Array.from({ length: 1 }).map((_, idx) => (
-                        <Col>
+                    <center>
+                        <div className="learners-course-cards-layout">
+                        {Array.from({ length: 4 }).map((_, idx) => (
                             <CourseCard link="/course-page"/>
-                        </Col>
-                    ))}
-                    </Row>
+                        ))}
+                        </div>
+                    </center>
                 </Container>
-                <Container style={{paddingTop: '1%'}}>
+
+                <Container className="learners-container">
                     <h2>HP Printer</h2>
-                    <Row md={4} className="g-4">
-                    {Array.from({ length: 3 }).map((_, idx) => (
-                        <Col>
+                    <center>
+                        <div className="learners-course-cards-layout">
+                        {Array.from({ length: 3 }).map((_, idx) => (
                             <CourseCard link="/course-page"/>
-                        </Col>
-                    ))}
-                    </Row>
+                        ))}
+                        </div>
+                    </center>
                 </Container>
 
             </div>

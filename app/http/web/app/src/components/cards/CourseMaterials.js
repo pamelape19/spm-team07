@@ -17,7 +17,7 @@ class CourseMaterials extends Component{
     }
 
     render(){
-        const numCompleted = 2;
+        const numCompleted = 3;
         const totalChapters = 3;
         return(
             <div style={{ margin: '8% 0' }}>

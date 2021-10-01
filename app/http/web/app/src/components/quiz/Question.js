@@ -17,38 +17,43 @@ class Question extends Component{
     };
     
     // method to show tick or cross after submission of answer
+    // var percScore = this.props.totalscore*100 / this.props.totalmarks;
     showAns = ( option ) => {
-        if ( this.props.showAnswer === true && this.state.correctAnswerRecorded){
-            if (option === this.props.answer){
-                return (
-                    <img src={ Correct } alt="" style={{width: 30}}/>
-                )
-            }
-            else{
-                return(
-                    <span>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    </span>
-                )
+        if ( (this.props.totalscore*100 / this.props.totalmarks) > 50 ){
+            if ( this.props.showAnswer === true && this.state.correctAnswerRecorded){
+                if ( option === this.props.answer ){
+                    return (
+                        <img src={ Correct } alt="" style={{width: 30}}/>
+                    )
+                }
+                else{
+                    return(
+                        <span>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </span>
+                    )
+                }
             }
         }
-        if (this.props.showAnswer === true && this.state.correctAnswerRecorded === false){
-            if (option === this.props.answer){
-                return (
-                    <img src={ Correct } alt="" style={{width: 30}}/>
-                )
-            }
-            else if (option === this.state.selectAns){
-                return (
-                    <img src={ Cross } alt="" style={{width: 30}}/>
-                )
-            }
-            else{
-                return(
-                    <span>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    </span>
-                )
+        if ( (this.props.totalscore*100 / this.props.totalmarks) > 50 ){
+            if (this.props.showAnswer === true && this.state.correctAnswerRecorded === false){
+                if (option === this.props.answer){
+                    return (
+                        <img src={ Correct } alt="" style={{width: 30}}/>
+                    )
+                }
+                else if (option === this.state.selectAns){
+                    return (
+                        <img src={ Cross } alt="" style={{width: 30}}/>
+                    )
+                }
+                else{
+                    return(
+                        <span>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </span>
+                    )
+                }
             }
         }
     }
@@ -96,7 +101,7 @@ class Question extends Component{
     render(){
         const qname = "option" + this.props.number;
         const qoptions = this.props.options.map((option) =>
-            <div className="form-layout">
+            <div>
                 <span>
                     { this.showAns(option) }
                 </span>

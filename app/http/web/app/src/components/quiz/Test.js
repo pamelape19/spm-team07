@@ -34,24 +34,25 @@ class Test extends Component{
         totalmarks = marksArray.reduce(reducer);
         return(
             <div>
-                <div className="sticky-top">
-                    <Container className="header">					
-                        <h1>{ name }</h1>
+                <div className="test-sticky-top">
+                    <Container className="test-header">					
+                        <h1 class = "test-name">{ name }</h1>
                         <div></div>
                         <p>Estimated Length: { time } mins</p>
                     </Container>
                     <hr/>
                 </div>
-                <Container className="main-body">
-                <div className="body-layout">
+                <Container className="test-main-body">
+                <div className="test-body-layout">
                     <QuestionPaper 
                         questions={ questions }
                         applyNegativeMarking={ applyNegativeMarking }
                         onSubmitted={ (result) => this.handleChange(result) } 
                         onTimeChange={ (timeElapsed) => this.handleStopWatch(timeElapsed) } 
                         timeAllotted={ time }
+                        totalmarks = { totalmarks }
                     />
-                    <div className="aside">
+                    <div className="test-aside">
                         <Stopwatch timeElapsed={ this.state.timeElapsed } />
                         <ScoreCard score={ this.state.totalscore } testSubmitted={ this.state.testSubmitted } percentage={ Math.round(this.state.totalscore*100/totalmarks) }/>
                     </div>

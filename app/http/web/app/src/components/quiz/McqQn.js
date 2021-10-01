@@ -11,14 +11,14 @@ class McqQn extends Component{
 
         return(
             <div>
-                <Container className = "question-block">
-                    <div className = "question">
+                <Container className = "mcq-question-block">
+                    <div className = "mcq-question">
                         { qn_no }. { qn }
                     </div>
                     <div className = "options">
                         <Form>
                             {options.map((option) => (
-                                <Form.Check 
+                                <Form.Check className = "mcq-form-check"
                                     type='radio'
                                     id = {`default-radio - ${ option }`}
                                     label =  { option } 

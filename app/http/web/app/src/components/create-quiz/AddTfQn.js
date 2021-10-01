@@ -12,7 +12,7 @@ class AddTfQn extends Component{
         return(
             <div>
                 <Container className="quiz-creation">
-                    { qnNo }. <input type="text" placeholder="Enter question" className="mcq-spaced-options"/>
+                    { qnNo }. <input type="text" placeholder="Enter question" className="mcq-spaced-options qns-and-options-input"/>
                     <Container>
                         <div class="form-check" className="mcq-spaced-options">
                             <input class="form-check-input" type="radio" name="mcqRadios" id="option1" value="option1" disabled/>

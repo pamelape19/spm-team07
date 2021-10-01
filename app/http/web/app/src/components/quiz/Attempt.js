@@ -9,18 +9,32 @@ class Attempt extends Component{
     }
     renderTableHeader() {
         let header = Object.keys(this.state.students[0])
-        return header.map((key) => {
-           return <th key="SCORE">{key.toUpperCase()}</th>
+      //   let header_1 = <th>ATTEMPT NO</th>
+      //   let header_2 = <th> SCORE</th>
+      //   let headers = header_1 + header_2
+      //   return headers
+        return header.map((value,index) => {
+           return <th key = {index}>{value.toUpperCase()}</th>
         })
      }
     renderTableData() {
         return this.state.students.map((student, index) => {
-           const { no, score, percentage } = student //destructuring
+           const { no, score, result } = student //destructuring
+         //   console.log(passed)
+           if (result){
+              var outcome = "pass"
+              var text = "Pass"
+           }
+           else{
+            var outcome = "fail"
+            var text = "Fail"
+
+           }
            return (
-              <tr key={no}>
-                 <td>{no}</td>
-                 <td>{score}</td>
-                 <td>{percentage}</td>
+              <tr key={no} >
+                 <td >{no}</td>
+                 <td  id = {outcome}>{score}</td>
+                 <td id = {outcome}>{text}</td>
               </tr>
            )
         })

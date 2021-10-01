@@ -10,6 +10,15 @@
     border: 3px solid #ddd;
     width: 100%;
   }
+
+  #pass{
+    background-color: #B8EF5F;
+  }
+
+  #fail{
+    background-color: #FFDBDB;
+  }
+  
   
   #scores td, #scores th {
     border: 1px solid #ddd;

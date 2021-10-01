@@ -12,10 +12,10 @@ class QuizAttempt extends Component{
                 <Attempt 
                 students = {
                     [
-                        { no: 1, score: 21, percentage: 30},
-                        { no: 2, score: 19, percentage: 40 },
-                        { no: 3, score: 16, percentage: 50},
-                        { no: 4, score: 25, percentage: 60}
+                        { no: 1, score: "10/30", result: false},
+                        { no: 2, score: "14/30", result: false },
+                        { no: 3, score: "16/30", result: true},
+                        { no: 4, score: "20/30", result: true}
                      ]
                 }
                 />

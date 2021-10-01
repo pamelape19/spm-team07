@@ -11,7 +11,7 @@ class CoursePage extends Component{
         return(
             <div style={{margin: '3% 0'}}>
                 <img src={banner} alt="" style={{width: '100%'}}/>
-                <Container style={{marginTop: '5%'}}>
+                <Container className="course-page-container">
                     <div className='top'>
                         <div>
                             <h1>Basics of 3D Printing</h1>

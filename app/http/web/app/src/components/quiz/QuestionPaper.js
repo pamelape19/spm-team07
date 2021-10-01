@@ -1,4 +1,5 @@
 import { React, Component } from 'react';
+import {Button } from 'react-bootstrap';
 import Question from './Question';
 
 class QuestionPaper extends Component{
@@ -7,7 +8,8 @@ class QuestionPaper extends Component{
         this.state = {
             totalscore: 0,
             timeElapsed: this.props.timeAllotted,
-            showAnswer: false
+            showAnswer: false,
+            hideDoneBtn: true
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmitted = this.handleSubmitted.bind(this);
@@ -24,6 +26,7 @@ class QuestionPaper extends Component{
         clearInterval( this.interval );
         this.setState({
             showAnswer: true,
+            hideDoneBtn: false
         })
     }
     tick(){
@@ -44,6 +47,7 @@ class QuestionPaper extends Component{
         clearInterval(this.interval);
     }
     render(){
+        
         const questionAnswers = this.props.questions.map((question) =>
             <tr>
                 <td>
@@ -59,7 +63,14 @@ class QuestionPaper extends Component{
                     />
                 </td>
             </tr>
+            
         );
+        let doneBtn;
+        
+            doneBtn = <Button variant="primary" href="/quiz-attempt" 
+            hidden={ this.state.hideDoneBtn }>Done</Button>
+        
+        
         return(
             <div>					
                 <table className="table table-striped">{ questionAnswers }</table>
@@ -70,6 +81,10 @@ class QuestionPaper extends Component{
                         onClick={ (e)=>this.handleSubmitted(e) }
                     />
                 </div>
+                <div>
+                    {doneBtn}
+                </div>
+                
             </div>
         )
     }

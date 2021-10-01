@@ -1,13 +1,13 @@
-.question-block{
+.mcq-question-block{
     text-align: left;
     padding-left: 10%;
 }
 
-div.form-check{
+.mcq-form-check{
     padding-left: 7%;
 }
 
-div.question{
+.mcq-question{
     padding-top: 0.5%;
     font-weight: 500;
 }

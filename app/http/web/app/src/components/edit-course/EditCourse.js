@@ -98,7 +98,7 @@ class EditCourse extends Component{
 
                     {/* add chapter button */}
                     <button onClick={ this.handleAdd } className="add-chapter-btn">
-                        <div>
+                        <div style={{fontSize: '1.5em'}}>
                             +
                         </div>
                     </button>

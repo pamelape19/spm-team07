@@ -4,6 +4,9 @@ import TrainersCard from "../../components/cards/TrainersCard";
 
 import 'react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css';
 import "./css/homePage.css";
+import { Card, Button, Nav } from 'react-bootstrap';
+
+import '../pages.css';
 
 class AdminHome extends Component{
     constructor(props){
@@ -36,6 +39,11 @@ class AdminHome extends Component{
                     ))}
                     </Row>
                 </Container>
+                
+                <Button variant="primary"> Manage Employees </Button>
+                <Button variant="primary"> Manage Trainers </Button>
+                <Button variant="primary"> Manage Learners </Button>
+                <Button variant="primary"> Manage Courses </Button>
             </div>
         )
     }

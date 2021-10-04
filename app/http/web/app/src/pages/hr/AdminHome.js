@@ -1,6 +1,8 @@
 import { Component, React } from "react";
 import { Row, Col, Nav, Container } from 'react-bootstrap';
 import TrainersCard from "../../components/cards/TrainersCard";
+import CourseCard from "../../components/cards/CourseCard";
+import AddCourseCard from "../../components/cards/AddCourseCard";
 
 // import 'react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css';
 import "./css/homePage.css";
@@ -17,33 +19,45 @@ class AdminHome extends Component{
             
             <div style={{ margin: '8% 0' }}>
                 <Container>
-                    <h1>Printrainer Management</h1>
-                    <Nav variant="tabs" defaultActiveKey="/learners-home" style={{margin: 10}}>
-                    <Nav.Item>
-                        <Nav.Link href="/admin-home" style={{color: '#000000', fontWeight: 'bold'}}>Manage Trainers</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                        <Nav.Link href="/manage-learners" style={{color: '#00000080'}}>Manage Learners</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                        <Nav.Link href="/create-course" style={{color: '#00000080'}}>Manage Courses</Nav.Link>
-                    </Nav.Item>
-                    </Nav>
-                </Container>
-                <Container style={{paddingTop: '1%'}}>
-                    <Row md={4} className="g-4">
-                    {Array.from({ length: 1 }).map((_, idx) => (
-                        <Col>
-                            <TrainersCard link="/individual-trainer"/>
-                        </Col>
-                    ))}
-                    </Row>
+                    <h1>Courses</h1>
                 </Container>
                 
-                <Button variant="primary"> Manage Employees </Button>
-                <Button variant="primary"> Manage Trainers </Button>
-                <Button variant="primary"> Manage Learners </Button>
-                <Button variant="primary"> Manage Courses </Button>
+                <Container className="learners-container">
+                    <h2>HP Printer</h2>
+                    <center>
+                        <div className="learners-course-cards-layout">
+                        {Array.from({ length: 2 }).map((_, idx) => (
+                            <CourseCard link="/course-page"/>
+                        ))}
+                        <AddCourseCard link="/create-course" courseName="HP Printer"/>
+                        </div>
+                    </center>
+                </Container>
+
+                <Container className="learners-container">
+                    <h2>3D Printing</h2>
+                    <center>
+                        <div className="learners-course-cards-layout">
+                        {Array.from({ length: 3 }).map((_, idx) => (
+                            <CourseCard link="/course-page"/>
+                        ))}
+                        <AddCourseCard link="/create-course"/>
+                        </div>
+                    </center>
+                </Container>
+
+                <Container className="learners-container">
+                    <h2>Printer Maintenance</h2>
+                    <center>
+                        <div className="learners-course-cards-layout">
+                        {Array.from({ length: 6 }).map((_, idx) => (
+                            <CourseCard link="/course-page"/>
+                        ))}
+                        <AddCourseCard link="/create-course"/>
+                        </div>
+                    </center>
+                </Container>
+                
             </div>
         )
     }

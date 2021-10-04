@@ -11,19 +11,12 @@ class CreateCourse extends Component{
     render(){
         return(
             <div style={{margin: '3% 0'}}>
-                 <Container>
-                    <h1>Courses</h1>
-                    <Nav variant="tabs" defaultActiveKey="/learners-home" style={{margin: 10}}>
-                    <Nav.Item>
-                        <Nav.Link href="/admin-home" style={{color: '#00000080'}}>Manage Trainers</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                        <Nav.Link href="/manage-learners" style={{color: '#00000080'}}>Manage Learners</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                        <Nav.Link href="/create-course" style={{color: '#000000', fontWeight: 'bold'}}>Manage Courses</Nav.Link>
-                    </Nav.Item>
-                    </Nav>
+                 <Container className="create-course-layout">
+                     <div></div>
+                     <div>
+                        <h1>HP Printer</h1>
+                        <h4>Basics of 3D Printing</h4>
+                    </div>
                 </Container>
 
                 {/* <img src={banner} alt="" style={{width: '100%'}}/> */}

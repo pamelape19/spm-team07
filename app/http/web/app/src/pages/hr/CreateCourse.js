@@ -55,10 +55,7 @@ class CreateCourse extends Component{
                         <div>
                         <Card style={{ width: '12rem', height: '12rem', borderRadius: '25px', borderStyle:'2px dashed',marginTop:20 }}>
                         <div style={{ padding: 20}}>
-                            {/* <Card.Text style={{textAlign: 'right', fontStyle:'italic', color:'#B9B9B9'}}>3 left</Card.Text> */}
-                            {/* <Card.Title style={{textAlign: 'left', fontStyle:'bold', marginTop:20}}>Class 2</Card.Title> */}
                             <Card.Text style={{ paddingTop: 60, textAlign: 'center', color:'#B9B9B9'}}>Add Class </Card.Text>
-                            {/* <Card.Text>DDMMYY 00:00</Card.Text><br/> */}
                         </div>
                         </Card>
                         </div>

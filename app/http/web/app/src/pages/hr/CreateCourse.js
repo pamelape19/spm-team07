@@ -1,5 +1,6 @@
 import { React, Component } from 'react';
-import { Container, Button, Nav } from 'react-bootstrap';
+import { Container, Button, Card } from 'react-bootstrap';
+import pic from "../../resources/course_pic.png";
 
 import "./css/createCourse.css";
 
@@ -12,10 +13,57 @@ class CreateCourse extends Component{
         return(
             <div style={{margin: '3% 0'}}>
                  <Container className="create-course-layout">
-                     <div></div>
                      <div>
-                        <h1>HP Printer</h1>
-                        <h4>Basics of 3D Printing</h4>
+                     <img src={pic} alt=""/></div>
+                     <div>
+                        <h1>Basics of 3D Printing</h1>
+                        <h4>Course Description</h4>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                            Sed euismod enim varius risus fringilla feugiat. 
+                            Fusce finibus libero sapien, non iaculis ligula pharetra nec. 
+                            Aenean et sem egestas, interdum arcu eu, rutrum turpis. 
+                            In tempus porta orci, eget lobortis neque congue porttitor. 
+                            Pellentesque fermentum ante massa, auctor maximus quam sodales sit amet. </p>
+                        <h4>Pre-requisites</h4>
+                        <ul>
+                            <li>Lorem ipsum dolor sit amet</li>
+                            <li>Lorem ipsum dolor sit amet</li>
+                            <li>Lorem ipsum dolor sit amet</li>
+                        </ul>
+                        <h4>Classes</h4>
+                        <Container className="create-course-layout">
+                        <div>
+                        <Card style={{ width: '12rem', height: '12rem', backgroundColor:'#ECF6FF', borderRadius: '25px', boxShadow: '0 0 10px 0 rgba(100, 100, 100, 0.26)' }}>
+                        <div style={{ padding: 20}}>
+                            <Card.Text style={{textAlign: 'right', fontStyle:'italic', color:'#B9B9B9'}}>FULL</Card.Text>
+                            <Card.Title style={{textAlign: 'left', fontStyle:'bold', marginTop:20}}>Class 1</Card.Title>
+                            <Card.Text style={{ marginBottom: 0}}>DDMMYY 00:00 - </Card.Text>
+                            <Card.Text>DDMMYY 00:00</Card.Text><br/>
+                        </div>
+                        </Card>
+                        </div>
+                        <div>
+                        <Card style={{ width: '12rem', height: '12rem', backgroundColor:'#ECF6FF', borderRadius: '25px', boxShadow: '0 0 10px 0 rgba(100, 100, 100, 0.26)' }}>
+                        <div style={{ padding: 20}}>
+                            <Card.Text style={{textAlign: 'right', fontStyle:'italic', color:'#B9B9B9'}}>3 left</Card.Text>
+                            <Card.Title style={{textAlign: 'left', fontStyle:'bold', marginTop:20}}>Class 2</Card.Title>
+                            <Card.Text style={{ marginBottom: 0}}>DDMMYY 00:00 - </Card.Text>
+                            <Card.Text>DDMMYY 00:00</Card.Text><br/>
+                        </div>
+                        </Card>
+                        </div>
+                        <div>
+                        <Card style={{ width: '12rem', height: '12rem', borderRadius: '25px', borderStyle:'2px dashed',marginTop:20 }}>
+                        <div style={{ padding: 20}}>
+                            {/* <Card.Text style={{textAlign: 'right', fontStyle:'italic', color:'#B9B9B9'}}>3 left</Card.Text> */}
+                            {/* <Card.Title style={{textAlign: 'left', fontStyle:'bold', marginTop:20}}>Class 2</Card.Title> */}
+                            <Card.Text style={{ paddingTop: 60, textAlign: 'center', color:'#B9B9B9'}}>Add Class </Card.Text>
+                            {/* <Card.Text>DDMMYY 00:00</Card.Text><br/> */}
+                        </div>
+                        </Card>
+                        </div>
+                        </Container>
+
                     </div>
                 </Container>
 

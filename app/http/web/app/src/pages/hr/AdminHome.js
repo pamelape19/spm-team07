@@ -2,9 +2,9 @@ import { Component, React } from "react";
 import { Row, Col, Nav, Container } from 'react-bootstrap';
 import TrainersCard from "../../components/cards/TrainersCard";
 
-import 'react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css';
+// import 'react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css';
 import "./css/homePage.css";
-import { Card, Button, Nav } from 'react-bootstrap';
+import { Card, Button } from 'react-bootstrap';
 
 import '../pages.css';
 

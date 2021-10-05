@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, useParams } from 'react-router-dom';
 
 import Home from './pages/Home';
 import LearnersHome from './pages/learners/LearnersHome';
@@ -28,7 +28,7 @@ class AllRoutes extends Component {
                 <Route exact path="/learners-enrolled" component={ LearnersEnrolled }/>
                 <Route exact path="/learners-completed" component={ LearnersCompleted }/>
                 <Route exact path="/trainers-home" component={ TrainersHome }/>
-                <Route exact path="/course-page" component={ CoursePage }/>
+                <Route path="/course-page/:slug" component={ CoursePage }/>
                 <Route exact path="/trainers-course" component={ TrainersCourse }/>
                 {/* <Route exact path="/test" component={ Test }/> */}
                 <Route exact path="/admin-home" component={ AdminHome }/>

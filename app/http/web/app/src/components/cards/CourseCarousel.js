@@ -8,18 +8,17 @@ class CourseCarousel extends Component{
         super(props);
     }
     render(){
+        const { courses } = this.props;
         return(
             <div>
                 <Carousel prevLabel="" nextLabel="">
                     <Carousel.Item interval={ 10000 }>
                         <Container className="carousel-container">
                             <center>
-                                <Row md={ 4 } className="g-4">
-                                {Array.from({ length: 4 }).map((_, idx) => (
-                                    <Col>
-                                        <CourseCard link="/course-page"/>
-                                    </Col>
-                                ))}
+                                <Row xs={1} md={4} className="g-4">
+                                    {courses.slice(0,4).map((course)=>(
+                                        <Col><CourseCard link="/course-page" name={course.course_name}/></Col>
+                                    ))}
                                 </Row>
                             </center>
                         </Container>
@@ -27,12 +26,10 @@ class CourseCarousel extends Component{
                     <Carousel.Item interval={ 10000 }>
                         <Container className="carousel-container">
                             <center>
-                                <Row md={ 4 } className="g-4">
-                                {Array.from({ length: 4 }).map((_, idx) => (
-                                    <Col>
-                                        <CourseCard link="/course-page"/>
-                                    </Col>
-                                ))}
+                                <Row xs={1} md={4} className="g-4">
+                                    {courses.slice(0,4).map((course)=>(
+                                        <Col><CourseCard link="/course-page" name={course.course_name}/></Col>
+                                    ))}
                                 </Row>
                             </center>
                         </Container>
@@ -40,12 +37,10 @@ class CourseCarousel extends Component{
                     <Carousel.Item interval={ 10000 }>
                         <Container className="carousel-container">
                             <center>
-                                <Row md={ 4 } className="g-4">
-                                {Array.from({ length: 4 }).map((_, idx) => (
-                                    <Col>
-                                        <CourseCard link="/course-page"/>
-                                    </Col>
-                                ))}
+                                <Row xs={1} md={4} className="g-4">
+                                    {courses.slice(0,4).map((course)=>(
+                                        <Col><CourseCard link="/course-page" name={course.course_name}/></Col>
+                                    ))}
                                 </Row>
                             </center>
                         </Container>

@@ -6,11 +6,33 @@ import CourseCarousel from "../../components/cards/CourseCarousel";
 
 class LearnersHome extends Component{
     constructor(props){
-        super(props)
+        super(props);
+        this.state = {
+            courses: [],
+            isLoaded: false,
+        }
     }
+
+    componentDidMount(){
+        fetch('http://127.0.0.1:5000/course')
+        .then(res => res.json())
+        .then(result => {
+            this.setState({
+                isLoaded: true,
+                courses: result.data.courses
+            });
+        });
+    }
+    
     render(){
+        const {courses, isLoaded} = this.state;
+
+        if (!isLoaded){
+            return(<div>Loading</div>)
+        } else{
         return(
             <div style={{margin: '8% 0'}}>
+
                 <Container>
                     <h1>Courses</h1>
                     <Nav variant="tabs" defaultActiveKey="/learners-home" style={{margin: 10}}>
@@ -26,33 +48,25 @@ class LearnersHome extends Component{
                     </Nav>
                     <h2>Recommended for you</h2>
                 </Container>
-                <CourseCarousel/>
+                <CourseCarousel courses={courses}/>
 
                 <Container className="learners-container">
-                    <h2>3D Printing</h2>
+                    <h2>Courses</h2>
                     <center>
-                        <div className="learners-course-cards-layout">
-                        {Array.from({ length: 4 }).map((_, idx) => (
-                            <CourseCard link="/course-page"/>
-                        ))}
-                        </div>
-                    </center>
-                </Container>
+                       
+                        <Row xs={1} md={4} className="g-4">
+                            {courses.map((course)=>(
+                                <Col><CourseCard link="/course-page" name={course.course_name}/></Col>
+                            ))}
+                        </Row>
 
-                <Container className="learners-container">
-                    <h2>HP Printer</h2>
-                    <center>
-                        <div className="learners-course-cards-layout">
-                        {Array.from({ length: 3 }).map((_, idx) => (
-                            <CourseCard link="/course-page"/>
-                        ))}
-                        </div>
                     </center>
                 </Container>
 
             </div>
         )
     }
+}
 }
 
 export default LearnersHome;

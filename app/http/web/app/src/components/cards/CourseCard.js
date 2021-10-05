@@ -16,8 +16,6 @@ class CourseCard extends Component{
                         <div style={{ padding: 20 }}>
                             <Card.Title style={{textAlign: 'left'}}>Basics of 3D Printing</Card.Title>
                             <Card.Text>Classes offered - 2</Card.Text>
-                            <Card.Text>Start - DDMMYY</Card.Text>
-                            <Card.Text>End - DDMMYY</Card.Text>
                         </div>
                     </Card>
                 </a>

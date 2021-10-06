@@ -10,11 +10,11 @@ class AddCourseCard extends Component{
         return(
             <div>
                 <a style={{ cursor: 'pointer'}} href={ link }>
-                    <Card style={{ width: '16rem', height:'16rem', boxShadow: '0 0 10px 0 rgba(100, 100, 100, 0.26)' }}>
-                        {/* <Card.Img variant="top" src={ bg } /> */}
+                    <Card style={{ width: '16rem', height:'18rem', boxShadow: '0 0 10px 0 rgba(100, 100, 100, 0.26)' }}>
                         <div style={{ padding: 20, alignItems: 'center', margin: 40}}>
-                            <Card.Title style={{justifyContent: 'center', paddingTop: "40%"}} className="mb-2 text-muted">Add Course</Card.Title>
-                            {/* <Card.Text>Add Course</Card.Text> */}
+                            <Card.Title style={{justifyContent: 'center', paddingTop: "50%"}} className="mb-2 text-muted">
+                                Add Course
+                            </Card.Title>
                         </div>
                     </Card>
                 </a>

@@ -1,65 +1,61 @@
 import { Component, React } from "react";
-import { Row, Col, Nav, Container } from 'react-bootstrap';
-import TrainersCard from "../../components/cards/TrainersCard";
+import { Row, Col, Container } from 'react-bootstrap';
+// import TrainersCard from "../../components/cards/TrainersCard";
 import CourseCard from "../../components/cards/CourseCard";
 import AddCourseCard from "../../components/cards/AddCourseCard";
 
-// import 'react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css';
 import "./css/homePage.css";
-import { Card, Button } from 'react-bootstrap';
+// import { Card, Button } from 'react-bootstrap';
 
 import '../pages.css';
 
 class AdminHome extends Component{
     constructor(props){
-        super(props)
+        super(props);
+        this.state = {
+            courses: [],
+            isLoaded: false,
+        }
+    }
+    componentDidMount(){
+        fetch('http://127.0.0.1:5000/course')
+        .then(res => res.json())
+        .then(result => {
+            this.setState({
+                isLoaded: true,
+                courses: result.data.courses
+            });
+        });
     }
     render(){
-        return(
-            
-            <div style={{ margin: '8% 0' }}>
-                <Container>
-                    <h1>Courses</h1>
-                </Container>
+        const {courses, isLoaded} = this.state;
+        if (!isLoaded){
+            return(<div>Loading</div>)
+        } else{
+            return(
                 
-                <Container className="learners-container">
-                    <h2>HP Printer</h2>
-                    <center>
-                        <div className="learners-course-cards-layout">
-                        {Array.from({ length: 2 }).map((_, idx) => (
-                            <CourseCard link="/course-page"/>
-                        ))}
-                        <AddCourseCard link="/create-course" courseName="HP Printer"/>
-                        </div>
-                    </center>
-                </Container>
+                <div style={{ margin: '8% 0' }}>
+                    
+                    <Container className="learners-container">
+                        <h2 style={{padding: '1% 2%'}}>Courses</h2>
 
-                <Container className="learners-container">
-                    <h2>3D Printing</h2>
-                    <center>
-                        <div className="learners-course-cards-layout">
-                        {Array.from({ length: 3 }).map((_, idx) => (
-                            <CourseCard link="/course-page"/>
-                        ))}
-                        <AddCourseCard link="/create-course"/>
-                        </div>
-                    </center>
-                </Container>
+                        <center>
+                       
+                            <Row xs={1} md={4} className="g-4">
+                                <AddCourseCard link="/create-course"/>
+                                {courses.map((course)=>(
+                                    <Col>
+                                        <CourseCard link="/admin-course-page" name={course.course_name}/>
+                                    </Col>
+                                ))}
+                            </Row>
 
-                <Container className="learners-container">
-                    <h2>Printer Maintenance</h2>
-                    <center>
-                        <div className="learners-course-cards-layout">
-                        {Array.from({ length: 6 }).map((_, idx) => (
-                            <CourseCard link="/course-page"/>
-                        ))}
-                        <AddCourseCard link="/create-course"/>
-                        </div>
-                    </center>
-                </Container>
-                
-            </div>
-        )
+                        </center>
+                    </Container>
+
+                </div>
+            )
+        }
     }
 }
 

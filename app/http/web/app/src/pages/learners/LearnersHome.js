@@ -34,7 +34,6 @@ class LearnersHome extends Component{
             <div style={{margin: '8% 0'}}>
 
                 <Container>
-                    <h1>Courses</h1>
                     <Nav variant="tabs" defaultActiveKey="/learners-home" style={{margin: 10}}>
                     <Nav.Item>
                         <Nav.Link href="/learners-home" style={{color: '#000000', fontWeight: 'bold'}}>Home</Nav.Link>
@@ -56,7 +55,9 @@ class LearnersHome extends Component{
                        
                         <Row xs={1} md={4} className="g-4">
                             {courses.map((course)=>(
-                                <Col><CourseCard link="/course-page" name={course.course_name}/></Col>
+                                <Col>
+                                    <CourseCard link="/course-page" name={course.course_name}/>
+                                </Col>
                             ))}
                         </Row>
 

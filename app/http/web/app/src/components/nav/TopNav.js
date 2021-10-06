@@ -10,7 +10,7 @@ class TopNav extends Component{
     render(){
         return (
             <div class="shadow-sm menu">
-                <Navbar bg="light" expand="lg">
+                <Navbar expand="lg">
                     <Container>
                         <Navbar.Brand exact to='/'><img src={ logo } alt=""/> Printrainer </Navbar.Brand>
                         <Nav className="mr-auto">

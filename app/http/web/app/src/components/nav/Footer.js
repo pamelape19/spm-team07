@@ -6,7 +6,7 @@ class Footer extends Component{
     }
     render(){
         return (
-            <div style={{ background: "#F9F9F9", color: "#000000", padding: 10, marginBottom: 0 }}>
+            <div style={{ background: "#ECF6FF", color: "#000000", padding: 10, marginBottom: 0 }}>
                 <center>
                     ©2021. Software Project Management.
                 </center>

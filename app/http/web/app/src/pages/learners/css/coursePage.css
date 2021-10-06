@@ -16,5 +16,8 @@ p{
 }
 
 .course-page-container{
-    padding: 1% 12%;
+    padding: 5% 7%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 1%;
 }

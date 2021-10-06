@@ -18,6 +18,7 @@ import IndividualTrainer from './pages/hr/IndividualTrainer';
 import CreateCourse from './pages/hr/CreateCourse';
 import ManageLearners from './pages/hr/ManageLearners';
 import QuizAttempt from './pages/learners/QuizAttempt';
+import AdminCoursePage from './pages/hr/AdminCoursePage';
 
 class AllRoutes extends Component {
     render(){
@@ -28,7 +29,9 @@ class AllRoutes extends Component {
                 <Route exact path="/learners-enrolled" component={ LearnersEnrolled }/>
                 <Route exact path="/learners-completed" component={ LearnersCompleted }/>
                 <Route exact path="/trainers-home" component={ TrainersHome }/>
-                <Route path="/course-page/:slug" component={ CoursePage }/>
+                <Route exact path="/course-page" component={ CoursePage }/>
+                <Route exact path="/admin-course-page" component={ AdminCoursePage }/>
+                {/* <Route path="/course-page/:slug" component={ CoursePage }/> */}
                 <Route exact path="/trainers-course" component={ TrainersCourse }/>
                 {/* <Route exact path="/test" component={ Test }/> */}
                 <Route exact path="/admin-home" component={ AdminHome }/>

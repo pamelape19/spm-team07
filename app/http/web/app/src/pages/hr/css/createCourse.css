@@ -1,10 +1,3 @@
-
-
-.create-course-layout{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-}
-
 .assign{
     margin-top: -90px;
     position: relative;
@@ -17,15 +10,15 @@
     font-weight: bold;
 }
 
-.form-course-create{
-    padding-top: 50px;
-    margin-top: 200px;
+.create-course-form{
+    margin-top: 5%;
 }
 
-.form-container{
-    background-color: rgb(195, 192, 192);
-    padding-bottom: 50px;
-    border-radius: 5px;
+.create-course-btn-layout{
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 2fr;
+    grid-column-gap: 2%;
+    margin-top: 5%;
 }
 
 h4{

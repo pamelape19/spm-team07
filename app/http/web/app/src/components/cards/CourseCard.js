@@ -11,7 +11,7 @@ class CourseCard extends Component{
         return(
             <div>
                 <a style={{ cursor: 'pointer'}} href={ link }>
-                    <Card style={{ width: '16rem', boxShadow: '0 0 10px 0 rgba(100, 100, 100, 0.26)' }}>
+                    <Card style={{ width: '16rem', boxShadow: '0 0 10px 0 rgba(100, 100, 100, 0.26)', height: '18rem' }}>
                         <Card.Img variant="top" src={ bg } />
                         <div style={{ padding: 20 }}>
                             <Card.Title style={{textAlign: 'left'}}>{name}</Card.Title>

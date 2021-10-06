@@ -19,6 +19,7 @@ import CreateCourse from './pages/hr/CreateCourse';
 import ManageLearners from './pages/hr/ManageLearners';
 import QuizAttempt from './pages/learners/QuizAttempt';
 import AdminCoursePage from './pages/hr/AdminCoursePage';
+import EditClassList from './pages/hr/EditClassList';
 
 class AllRoutes extends Component {
     render(){
@@ -43,6 +44,7 @@ class AllRoutes extends Component {
                 <Route exact path="/create-course" component={ CreateCourse }/>
                 <Route exact path="/manage-learners" component={ ManageLearners }/>
                 <Route exact path="/quiz-attempt" component={ QuizAttempt }/>
+                <Route exact path="/edit-classlist" component={ EditClassList }/>
             </Fragment>
         )
     }

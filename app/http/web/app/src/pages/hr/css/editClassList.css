@@ -1,0 +1,12 @@
+.classlist-layout{
+    display: grid;
+    grid-template-columns: 3fr 1fr 3fr;
+    margin-top: 5%;
+}
+
+.edit-class-btn-layout{
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 2fr;
+    grid-column-gap: 2%;
+    margin-top: 5%;
+}

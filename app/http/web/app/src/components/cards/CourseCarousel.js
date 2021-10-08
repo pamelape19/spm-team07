@@ -17,7 +17,7 @@ class CourseCarousel extends Component{
                             <center>
                                 <Row xs={1} md={4} className="g-4">
                                     {courses.slice(0,4).map((course)=>(
-                                        <Col><CourseCard link="/course-page" name={course.course_name}/></Col>
+                                        <Col><CourseCard link="/course-page" link={"/course-page/" + course.course_name} name={course.course_name}/></Col>
                                     ))}
                                 </Row>
                             </center>
@@ -28,7 +28,7 @@ class CourseCarousel extends Component{
                             <center>
                                 <Row xs={1} md={4} className="g-4">
                                     {courses.slice(0,4).map((course)=>(
-                                        <Col><CourseCard link="/course-page" name={course.course_name}/></Col>
+                                        <Col><CourseCard link="/course-page" link={"/course-page/" + course.course_name} name={course.course_name}/></Col>
                                     ))}
                                 </Row>
                             </center>
@@ -39,7 +39,7 @@ class CourseCarousel extends Component{
                             <center>
                                 <Row xs={1} md={4} className="g-4">
                                     {courses.slice(0,4).map((course)=>(
-                                        <Col><CourseCard link="/course-page" name={course.course_name}/></Col>
+                                        <Col><CourseCard link="/course-page" link={"/course-page/" + course.course_name} name={course.course_name}/></Col>
                                     ))}
                                 </Row>
                             </center>

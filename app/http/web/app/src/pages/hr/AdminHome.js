@@ -45,7 +45,7 @@ class AdminHome extends Component{
                                 <AddCourseCard link="/create-course"/>
                                 {courses.map((course)=>(
                                     <Col>
-                                        <CourseCard link="/admin-course-page" name={course.course_name}/>
+                                        <CourseCard link={"/admin-course-page/" + course.course_name} name={course.course_name}/>
                                     </Col>
                                 ))}
                             </Row>

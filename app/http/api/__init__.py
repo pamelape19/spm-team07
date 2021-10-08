@@ -139,30 +139,25 @@ def get_all_course():
 class CLASS (db.Model):
     __tablename__ = 'CLASS'
     CNo = db.Column(db.Integer, primary_key=True)
-    Start_date = db.Column(db.DateTime, nullable=False)
-    End_date = db.Column(db.DateTime, nullable=False)
-    Start_time = db.Column(db.DateTime, nullable=False)
-    End_time = db.Column(db.DateTime, nullable=False)
+    Start_datetime = db.Column(db.DateTime, nullable=False)
+    End_datetime = db.Column(db.DateTime, nullable=False)
     Capacity = db.Column(db.Integer, nullable=False)
     Course_name = db.Column(db.String(200), primary_key=True)
 
-    def __init__(self, CNo, Start_date, End_date, Start_time, End_time, Capacity, Course_name):
+    def __init__(self, CNo, Start_datetime, End_datetime, Capacity, Course_name):
         self.CNo = CNo
-        self.Start_date = Start_date
-        self.End_date = End_date
-        self.Start_time = Start_time
-        self.End_time = End_time
+        self.Start_datetime = Start_datetime
+        self.End_datetime = End_datetime
         self.Capacity = Capacity
         self.Course_name = Course_name
 
     def json(self):
-        return {"CNo": self.CNo, "Start_date": self.Start_date, "End_date": self.End_date,
-                "Start_time": self.Start_time, "End_time": self.End_time, "Capacity": self.Capacity, "Course_name": self.Course_name}
+        return {"CNo": self.CNo, "Start_date": self.Start_datetime, "End_date": self.End_datetime, "Capacity": self.Capacity, "Course_name": self.Course_name}
 
 
 @app.route("/classes")
 def get_all_classes():
-    classlist = COURSE.query.all()
+    classlist = CLASS.query.all()
     if len(classlist):
         return jsonify(
             {
@@ -257,7 +252,7 @@ def get_all_chapter():
 
 
 # course_material database
-class COURSE_MATERIAL (db.Model):
+# class COURSE_MATERIAL (db.Model):
     __tablename__ = 'COURSE_MATERIAL'
     material_name  = db.Column(db.String(100), nullable=False)
     type  = db.Column(db.String(64), nullable=False)
@@ -280,8 +275,8 @@ class COURSE_MATERIAL (db.Model):
         "material_id": self.material_id, "CNo": self.CNo, "course_name": self.course_name}
 
 
-@app.route("/course_material")
-def get_all_course_material():
+# @app.route("/course_material")
+# def get_all_course_material():
     course_material_list = COURSE_MATERIAL.query.all()
     if len(course_material_list):
         return jsonify(
@@ -345,7 +340,7 @@ class QUIZ_QUESTION (db.Model):
     __tablename__ = 'QUIZ_QUESTION'
     question = db.Column(db.String(1000), nullable=False)
     questionNo = db.Column(db.Integer, nullable=False, primary_key=True )
-    # question_type = db.Column(db.Enum(mcqtype), nullable=False ) mot sure
+    question_type = db.Column(db.Enum('mcq', 't/f'), nullable=False ) 
     quizID= db.Column(db.String(50),nullable=False, primary_key=True)
 
     def __init__(self, question, questionNo, question_type,quizID):

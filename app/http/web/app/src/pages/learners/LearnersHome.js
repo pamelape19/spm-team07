@@ -56,7 +56,7 @@ class LearnersHome extends Component{
                         <Row xs={1} md={4} className="g-4">
                             {courses.map((course)=>(
                                 <Col>
-                                    <CourseCard link="/course-page" name={course.course_name}/>
+                                    <CourseCard link={"/course-page/" + course.course_name} name={course.course_name}/>
                                 </Col>
                             ))}
                         </Row>

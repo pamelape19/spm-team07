@@ -9,6 +9,53 @@ import CoursePagePic from "../../resources/course_pic.png";
 class CoursePage extends Component{
     constructor(props){
         super(props);
+        this.state = {
+            courseNameState : "",
+            courseDescState: "",
+            courseObjState: "",
+            coursePreReqState: ""
+        }
+    }
+    componentDidMount(){
+        let tokenString = window.location.href.split('/');
+        console.log(tokenString);
+        let tokenWords = tokenString[4].split('%20');
+        console.log(tokenWords)
+        let courseName = tokenWords.join(" ");
+        console.log(courseName)
+        this.setState({
+            courseNameState: courseName
+        })
+
+        fetch('http://localhost:5000/course')
+        .then(res => res.json())
+        .then(result => {
+            console.log(result);
+            let courses = result.data.courses;
+            console.log(courses)
+            const course = courses.map((course) => {
+                if (course.course_name === this.state.courseNameState){
+                    this.setState({
+                        courseDescState: course.description,
+                        courseObjState: course.objectives,
+                    })
+                    if (course.prereq_name === null){
+                        this.setState({
+                            coursePreReqState: "None"
+                        })
+                    }
+                    else{
+                        this.setState({
+                            coursePreReqState: course.prereq_name
+                        })
+                    }
+                }
+
+            })
+        })
+
+
+
     }
     render(){
         return(
@@ -18,20 +65,18 @@ class CoursePage extends Component{
                      <div>
                         <img src={ CoursePagePic } alt="" style={{ width: '75%' }}/></div>
                      <div>
-                        <h1>Basics of 3D Printing</h1>
+                        <h1>{ this.state.courseNameState }</h1>
                         <h4>Course Description</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                            Sed euismod enim varius risus fringilla feugiat. 
-                            Fusce finibus libero sapien, non iaculis ligula pharetra nec. 
-                            Aenean et sem egestas, interdum arcu eu, rutrum turpis. 
-                            In tempus porta orci, eget lobortis neque congue porttitor. 
-                            Pellentesque fermentum ante massa, auctor maximus quam sodales sit amet. </p>
+                        <p>{ this.state.courseDescState }</p>
+                        <h4>Course Objective</h4>
+                        <p>{ this.state.courseObjState }</p>
                         <h4>Pre-requisites</h4>
-                        <ul>
+                        <p>{ this.state.coursePreReqState }</p>
+                        {/* <ul>
                             <li>Lorem ipsum dolor sit amet</li>
                             <li>Lorem ipsum dolor sit amet</li>
                             <li>Lorem ipsum dolor sit amet</li>
-                        </ul>
+                        </ul> */}
                         <h4>Classes</h4>
                         <Container className="create-course-layout">
                         <div>

@@ -30,7 +30,7 @@ class AllRoutes extends Component {
                 <Route exact path="/learners-enrolled" component={ LearnersEnrolled }/>
                 <Route exact path="/learners-completed" component={ LearnersCompleted }/>
                 <Route exact path="/trainers-home" component={ TrainersHome }/>
-                <Route exact path="/course-page" component={ CoursePage }/>
+                <Route exact path="/course-page/:slug" component={ CoursePage }/>
                 <Route exact path="/admin-course-page" component={ AdminCoursePage }/>
                 {/* <Route path="/course-page/:slug" component={ CoursePage }/> */}
                 <Route exact path="/trainers-course" component={ TrainersCourse }/>

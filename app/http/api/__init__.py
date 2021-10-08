@@ -163,7 +163,7 @@ def get_all_classes():
             {
                 "code": 200,
                 "data": {
-                    "engineers": [classes.json() for classes in classlist]
+                    "classes": [classes.json() for classes in classlist]
                 }
             }
         )

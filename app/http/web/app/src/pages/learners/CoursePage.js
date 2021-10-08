@@ -13,16 +13,16 @@ class CoursePage extends Component{
             courseNameState : "",
             courseDescState: "",
             courseObjState: "",
-            coursePreReqState: ""
+            coursePreReqState: "",
+            allClasses: [],
+            numClasses: 0,
+            courseClasses: []
         }
     }
     componentDidMount(){
         let tokenString = window.location.href.split('/');
-        console.log(tokenString);
         let tokenWords = tokenString[4].split('%20');
-        console.log(tokenWords)
         let courseName = tokenWords.join(" ");
-        console.log(courseName)
         this.setState({
             courseNameState: courseName
         })
@@ -30,9 +30,7 @@ class CoursePage extends Component{
         fetch('http://localhost:5000/course')
         .then(res => res.json())
         .then(result => {
-            console.log(result);
             let courses = result.data.courses;
-            console.log(courses)
             const course = courses.map((course) => {
                 if (course.course_name === this.state.courseNameState){
                     this.setState({
@@ -54,10 +52,36 @@ class CoursePage extends Component{
             })
         })
 
+        fetch('http://127.0.0.1:5000/classes')
+        .then(res => res.json())
+        .then(result => {
+            this.setState({
+                allClasses: result.data.classes
+            })
+            const courseClass = this.state.allClasses.map((courseClass)=>{
+                if ( courseClass.Course_name === this.state.courseNameState ){
+                    this.setState ({ 
+                        courseClasses: [...this.state.courseClasses, [courseClass.CNo, courseClass.Capacity, courseClass.Start_date, courseClass.End_date]]
+                    })
+                }
 
+            })
+        })
 
     }
+
+
+
+    
     render(){
+        const { courseClasses, courseNameState, courseDescState, courseObjState, coursePreReqState } = this.state;
+
+        const classInfo = courseClasses.map((classInfo)=>
+            <Col>
+                <ClassCard classNum={ classInfo[0] } capacity={ classInfo[1] } startDateTime={ classInfo[2] } endDateTime={ classInfo[3] }/>
+            </Col>
+        )
+
         return(
             <div style={{ margin: '3% 0' }}>
 
@@ -65,27 +89,18 @@ class CoursePage extends Component{
                      <div>
                         <img src={ CoursePagePic } alt="" style={{ width: '75%' }}/></div>
                      <div>
-                        <h1>{ this.state.courseNameState }</h1>
+                        <h1>{ courseNameState }</h1>
                         <h4>Course Description</h4>
-                        <p>{ this.state.courseDescState }</p>
+                        <p>{ courseDescState }</p>
                         <h4>Course Objective</h4>
-                        <p>{ this.state.courseObjState }</p>
+                        <p>{ courseObjState }</p>
                         <h4>Pre-requisites</h4>
-                        <p>{ this.state.coursePreReqState }</p>
-                        {/* <ul>
-                            <li>Lorem ipsum dolor sit amet</li>
-                            <li>Lorem ipsum dolor sit amet</li>
-                            <li>Lorem ipsum dolor sit amet</li>
-                        </ul> */}
+                        <p>{ coursePreReqState }</p>
                         <h4>Classes</h4>
                         <Container className="create-course-layout">
                         <div>
                             <Row xs={1} md={2} className="g-4">
-                                {Array.from({ length: 4 }).map((_, idx) => (
-                                    <Col>
-                                        <ClassCard classNum={ 1 } seatsLeft={ 0 } startDate={ "DDMMYY" } startTime={ "00:00" } endDate={ "DDMMYY" } endTime={ "00:00" }/>
-                                    </Col>
-                                ))}
+                                { classInfo }
                             </Row>
                         </div>
                         

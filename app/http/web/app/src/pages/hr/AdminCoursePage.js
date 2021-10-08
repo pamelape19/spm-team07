@@ -154,7 +154,7 @@ class AdminCoursePage extends Component{
                                         </Card>
                                     </Button>
                                 </Col>
-                                {Array.from({ length: 4 }).map((_, idx) => (
+                                {Array.from({ length: 4 }).map((_) => (
                                     <Col>
                                         <center>
                                             <a style={{ cursor: 'pointer' }} href="/edit-classlist">

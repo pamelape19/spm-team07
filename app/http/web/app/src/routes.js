@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Route, useParams } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 
 import Home from './pages/Home';
 import LearnersHome from './pages/learners/LearnersHome';
@@ -8,7 +8,6 @@ import LearnersCompleted from './pages/learners/LearnersCompleted';
 import TrainersHome from './pages/trainers/TrainersHome';
 import CoursePage from './pages/learners/CoursePage';
 import TrainersCourse from './pages/trainers/TrainersCourse';
-// import Test from './pages/trainers/Test';
 import AdminHome from './pages/hr/AdminHome';
 import CourseMaterials from './components/cards/CourseMaterials';
 import ChapterQuiz from './pages/learners/ChapterQuiz';
@@ -32,9 +31,7 @@ class AllRoutes extends Component {
                 <Route exact path="/trainers-home" component={ TrainersHome }/>
                 <Route exact path="/course-page/:slug" component={ CoursePage }/>
                 <Route exact path="/admin-course-page/:slug" component={ AdminCoursePage }/>
-                {/* <Route path="/course-page/:slug" component={ CoursePage }/> */}
                 <Route exact path="/trainers-course" component={ TrainersCourse }/>
-                {/* <Route exact path="/test" component={ Test }/> */}
                 <Route exact path="/admin-home" component={ AdminHome }/>
                 <Route exact path="/course-materials" component={ CourseMaterials }/>
                 <Route exact path="/chapter-quiz" component={ ChapterQuiz }/>

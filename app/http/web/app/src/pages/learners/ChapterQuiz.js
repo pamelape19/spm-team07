@@ -9,20 +9,29 @@ class ChapterQuiz extends Component{
         super(props);
         this.state = {
             quiz_questions: [],
-            isLoaded: false,
+            isLoaded: true,
         }
     }
     componentDidMount(){
         let tokenString = window.location.href.split('/');
         let tokenWords = tokenString[4].split('%20');
         let courseName = tokenWords.join(" ");
-        let classNum = tokenString[5];
-        let chapterNum =  tokenString[6];
+
+        let tokenWordsChapterName =  tokenString[5].split('%20');
+        let chapterName = tokenWordsChapterName.join(" ");    
+
+        let classNum = tokenString[6];
+        
+        console.log(classNum)
         console.log(chapterName)
+        console.log(courseName)
+
         this.setState({
             CourseNameState: courseName,
             ClassNumState: classNum,
-            ChapterNumState: chapterNum
+            ChapterNameState: chapterName,
+            quizIDState: "",
+            quiz_questions: []
         })
 
         fetch('http://127.0.0.1:5000/quiz')
@@ -32,25 +41,50 @@ class ChapterQuiz extends Component{
             let allQuiz = result.data.quiz;
             
             const quiz = allQuiz.map((quiz) => {
-              
-                if (quiz.course_name == this.state.CourseNameState && quiz.CNo == this.state.ClassNumState && quiz.Chapter){
+                //  doesnt work coz of null data
+            //    && quiz.chapterName == this.state.ChapterNameState
+                if (quiz.course_name == this.state.CourseNameState && quiz.CNo == this.state.ClassNumState ){
 
                     console.log("nice")
-                    // this.setState({
-                        
-                    //     CourseChapters: [...this.state.CourseChapters, [CourseChapter.CNo, CourseChapter.course_name, CourseChapter.chapterNo ]]
-                    // })
+                    this.setState({
+                    
+                        // quizIDState: quiz.quizID
+                        quizIDState: "1002"
+                    })
 
                     
                 }
                 
 
             });
+            console.log(this.state.quizIDState)
+        })
+
+        fetch('http://127.0.0.1:5000/quiz_question')
+        .then(res => res.json())
+        .then(result => {
+
+            let allQuizQuestions = result.data.quiz_question;
+            
+            const quizQuestion = allQuizQuestions.map((quizQuestion) => {
+            
+                console.log(quizQuestion.quizID)
+                if (quizQuestion.quizID == this.state.quizIDState){
+
+                     
+                    this.setState({
+                        quiz_questions: [...this.state.quiz_questions, quizQuestion]
+                    });
+                }
+                
+
+            });
+            console.log(this.state.quiz_questions)
         })
     }
     render(){
         const{quiz_questions, isLoaded} = this.state;
-
+        
         if (!isLoaded){
             return(<div>Loading</div>)
         } else{
@@ -75,8 +109,8 @@ class ChapterQuiz extends Component{
                     <McqQn qn_no = { quiz_question.questionNo } qn = {quiz_question.question} options = {["lorem ipsum", "ipsum lorem", "lorem ipsum", "ipsum lorem"]} />
                             ))}
 
-                        <McqQn qn_no = { 1 } qn = "What is 3D Printing?" options = {["lorem ipsum", "ipsum lorem", "lorem ipsum", "ipsum lorem"]} />
-                        <McqQn qn_no = { 2 } qn = "3D Printing can print 3D" options = {["True", "False"]}/>
+                        {/* <McqQn qn_no = { 1 } qn = "What is 3D Printing?" options = {["lorem ipsum", "ipsum lorem", "lorem ipsum", "ipsum lorem"]} />
+                        <McqQn qn_no = { 2 } qn = "3D Printing can print 3D" options = {["True", "False"]}/> */}
                     <div className = "chapter-quiz-buttons">
                         <div></div>
                         <Button type="submit" variant="secondary" >Save</Button>{' '}

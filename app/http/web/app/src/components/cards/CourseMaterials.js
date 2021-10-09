@@ -45,7 +45,7 @@ class CourseMaterials extends Component{
                     console.log("nice")
                     this.setState({
                         
-                        CourseChapters: [...this.state.CourseChapters, [CourseChapter.CNo, CourseChapter.course_name, CourseChapter.chapterNo ]]
+                        CourseChapters: [...this.state.CourseChapters, [CourseChapter.CNo, CourseChapter.course_name, CourseChapter.chapterNo, CourseChapter.chapter_name ]]
                     })
 
                     
@@ -57,7 +57,7 @@ class CourseMaterials extends Component{
     }
     render(){
         const {CourseChapters, isLoaded, ClassNumState} = this.state;
-        console.log(CourseChapters)
+
         // need a completed column for quiz 
         const numCompleted = CourseChapters.length;
         const totalChapters = CourseChapters.length;
@@ -86,7 +86,7 @@ class CourseMaterials extends Component{
                         ))}
                           */}
                         {CourseChapters.map((CourseChapter)=>(
-                            <AccordionChapters chapter={ CourseChapter[2]} name={ CourseChapter[1] } completed={ numCompleted } classnum = {ClassNumState}/>
+                            <AccordionChapters chapter={ CourseChapter[2]} chapterName={ CourseChapter[3] } completed={ numCompleted } classNum = {ClassNumState} courseName = {CourseChapter[1]}/>
                         ))}
                         <AccordionFinalQuiz completed={ numCompleted } totalChapters={ totalChapters }/>
                     </Accordion>

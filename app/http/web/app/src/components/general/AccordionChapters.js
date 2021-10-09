@@ -15,19 +15,22 @@ class AccordionChapters extends Component{
         super(props);
     }
     render(){
-        const { chapter, completed, name, classnum } = this.props;
+        const { chapter, completed, chapterName, classNum , courseName } = this.props;
         
         // conditional rendering for when # of chapter is less than # of completed chapters
         let checkMark;
         let openLecture;
         let openQuiz;
         // appending of custom quiz href so that the correct quiz can be displayed - passing chapter number to chapter-quiz route
+        
         let openQuizHref;
+
         if ( chapter < completed ){
             checkMark = <img src={Check} alt=""/>;
             openLecture = <a href="#"><p>Lecture materials</p></a>
 
-            openQuizHref = "/chapter-quiz/" + name + "/" + classnum + "/" + name
+            openQuizHref = "/chapter-quiz/" + courseName + "/" + chapterName + "/" + classNum 
+            console.log(openQuizHref)
             openQuiz = <a href= {openQuizHref} ><p>Quiz</p></a>
             
         }
@@ -66,7 +69,7 @@ class AccordionChapters extends Component{
                     <AccordionItemPanel>
                         <div className="accordion-content-layout">
                             <p><u>
-                                { name }
+                                { chapterName }
                             </u></p>
                             <p>{ resumeBtn }</p>
                         </div>

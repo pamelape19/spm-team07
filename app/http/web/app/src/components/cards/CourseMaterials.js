@@ -14,12 +14,54 @@ import EnrolledClassSample from '../../resources/enrolledClassSample.png';
 class CourseMaterials extends Component{
     constructor(props){
         super(props);
+        this.state = {
+            isLoaded: true,
+            CourseChapters: []
+        }
     }
+    componentDidMount(){
+        let tokenString = window.location.href.split('/');
+        let tokenWords = tokenString[4].split('%20');
+        let CourseName = tokenWords.join(" ");
+        let ClassNum = parseInt(tokenString[5])
 
+        this.setState({
+            ClassNumState: ClassNum,
+            CourseNameState: CourseName,
+            CourseChapters: []
+
+        })
+
+        fetch('http://127.0.0.1:5000/chapter')
+        .then(res => res.json())
+        .then(result => {
+
+            let allCourses = result.data.enrollment;
+            
+            const CourseChapter = allCourses.map((CourseChapter) => {
+              
+                if (CourseChapter.course_name == this.state.CourseNameState && CourseChapter.CNo == this.state.ClassNumState){
+
+                    console.log("nice")
+                    this.setState({
+                        
+                        CourseChapters: [...this.state.CourseChapters, [CourseChapter.CNo, CourseChapter.course_name, CourseChapter.chapterNo, CourseChapter.chapter_name ]]
+                    })
+
+                    
+                }
+                
+
+            });
+        })
+    }
     render(){
-        const numCompleted = 3;
-        const totalChapters = 3;
-        return(
+        const {CourseChapters, isLoaded, ClassNumState} = this.state;
+
+        // need a completed column for quiz 
+        const numCompleted = CourseChapters.length;
+        const totalChapters = CourseChapters.length;
+        return( 
             <div style={{ margin: '8% 0' }}>
                  <Container className="course-materials-header">
                     <div>
@@ -38,8 +80,13 @@ class CourseMaterials extends Component{
                 <Container className="main-body">
                     <Accordion>
                         <AccordionTop/>
-                        {Array.from({ length: totalChapters }).map((_, idx) => (
+
+                        {/* {Array.from({ length: totalChapters }).map((_, idx) => (
                             <AccordionChapters chapter={ idx + 1 } name="What is 3d printing" completed={ numCompleted }/>
+                        ))}
+                          */}
+                        {CourseChapters.map((CourseChapter)=>(
+                            <AccordionChapters chapter={ CourseChapter[2]} chapterName={ CourseChapter[3] } completed={ numCompleted } classNum = {ClassNumState} courseName = {CourseChapter[1]}/>
                         ))}
                         <AccordionFinalQuiz completed={ numCompleted } totalChapters={ totalChapters }/>
                     </Accordion>

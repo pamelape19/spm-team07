@@ -29,6 +29,7 @@ class CourseCard extends Component{
     }
     render(){
         const { link, name }= this.props;
+         
         return(
             <div>
                 <a style={{ cursor: 'pointer'}} href={ link }>

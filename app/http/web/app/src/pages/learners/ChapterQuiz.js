@@ -13,14 +13,40 @@ class ChapterQuiz extends Component{
         }
     }
     componentDidMount(){
-        fetch('http://127.0.0.1:5000/quiz_question')
+        let tokenString = window.location.href.split('/');
+        let tokenWords = tokenString[4].split('%20');
+        let courseName = tokenWords.join(" ");
+        let classNum = tokenString[5];
+        let chapterNum =  tokenString[6];
+        console.log(chapterName)
+        this.setState({
+            CourseNameState: courseName,
+            classNumState: classNum,
+            chapterNumState: chapterNum
+        })
+
+        fetch('http://127.0.0.1:5000/quiz')
         .then(res => res.json())
         .then(result => {
-            this.setState({
-                isLoaded: true,
-                quiz_questions: result.data.quiz_question 
+
+            let allQuiz = result.data.quiz;
+            
+            const quiz = allQuiz.map((quiz) => {
+              
+                if (quiz.course_name == this.state.CourseNameState && CourseChapter.CNo == this.state.ClassNumState){
+
+                    console.log("nice")
+                    this.setState({
+                        
+                        CourseChapters: [...this.state.CourseChapters, [CourseChapter.CNo, CourseChapter.course_name, CourseChapter.chapterNo ]]
+                    })
+
+                    
+                }
+                
+
             });
-        });
+        })
     }
     render(){
         const{quiz_questions, isLoaded} = this.state;
@@ -46,11 +72,8 @@ class ChapterQuiz extends Component{
 
                     {quiz_questions.map((quiz_question)=>(
 
-
                     <McqQn qn_no = { quiz_question.questionNo } qn = {quiz_question.question} options = {["lorem ipsum", "ipsum lorem", "lorem ipsum", "ipsum lorem"]} />
-
                             ))}
-
 
                         <McqQn qn_no = { 1 } qn = "What is 3D Printing?" options = {["lorem ipsum", "ipsum lorem", "lorem ipsum", "ipsum lorem"]} />
                         <McqQn qn_no = { 2 } qn = "3D Printing can print 3D" options = {["True", "False"]}/>

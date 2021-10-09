@@ -15,16 +15,21 @@ class AccordionChapters extends Component{
         super(props);
     }
     render(){
-        const { chapter, completed, name } = this.props;
-
+        const { chapter, completed, name, classnum } = this.props;
+        
         // conditional rendering for when # of chapter is less than # of completed chapters
         let checkMark;
         let openLecture;
         let openQuiz;
+        // appending of custom quiz href so that the correct quiz can be displayed - passing chapter number to chapter-quiz route
+        let openQuizHref;
         if ( chapter < completed ){
             checkMark = <img src={Check} alt=""/>;
             openLecture = <a href="#"><p>Lecture materials</p></a>
-            openQuiz = <a href="/chapter-quiz"><p>Quiz</p></a>
+
+            openQuizHref = "/chapter-quiz/" + name + "/" + classnum + "/" + name
+            openQuiz = <a href= {openQuizHref} ><p>Quiz</p></a>
+            
         }
         else{
             checkMark = "";

@@ -8,15 +8,20 @@ class CardListItem extends Component{
         super(props);
     }
     render(){
-        const { perc, coursebtn, assigned } = this.props;
+        
+        const { perc, coursebtn, assigned, CourseName, ClassNum } = this.props;
 
+        // variable to allow the href to pass in the course number to get the correct quiz 
+        let CourseMaterialhref =  "/course-materials/" + CourseName + "/" + ClassNum
+ 
+        
         // conditional rendering for card button
         let courseButton;
         if (coursebtn === "resume"){
-            courseButton = <Button variant="primary" href="/course-materials"> Resume Course </Button>;
+            courseButton = <Button variant="primary" href= {CourseMaterialhref}> Resume Course </Button>;
         }
         if (coursebtn === "start"){
-            courseButton = <Button variant="primary" href="/course-materials"> Start Course </Button>;
+            courseButton = <Button variant="primary" href= {CourseMaterialhref}> Start Course </Button>;
         }
 
         // conditional rendering 'assigned' badge
@@ -38,7 +43,7 @@ class CardListItem extends Component{
                     </div>
                     <div>
                         <h2>
-                            HP Printer 1337 Tutorial
+                            { CourseName }
                             {' '}
                             { assignedBadge }
                         </h2>

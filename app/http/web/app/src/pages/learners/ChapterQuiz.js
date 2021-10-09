@@ -21,8 +21,8 @@ class ChapterQuiz extends Component{
         console.log(chapterName)
         this.setState({
             CourseNameState: courseName,
-            classNumState: classNum,
-            chapterNumState: chapterNum
+            ClassNumState: classNum,
+            ChapterNumState: chapterNum
         })
 
         fetch('http://127.0.0.1:5000/quiz')
@@ -33,13 +33,13 @@ class ChapterQuiz extends Component{
             
             const quiz = allQuiz.map((quiz) => {
               
-                if (quiz.course_name == this.state.CourseNameState && CourseChapter.CNo == this.state.ClassNumState){
+                if (quiz.course_name == this.state.CourseNameState && quiz.CNo == this.state.ClassNumState && quiz.Chapter){
 
                     console.log("nice")
-                    this.setState({
+                    // this.setState({
                         
-                        CourseChapters: [...this.state.CourseChapters, [CourseChapter.CNo, CourseChapter.course_name, CourseChapter.chapterNo ]]
-                    })
+                    //     CourseChapters: [...this.state.CourseChapters, [CourseChapter.CNo, CourseChapter.course_name, CourseChapter.chapterNo ]]
+                    // })
 
                     
                 }

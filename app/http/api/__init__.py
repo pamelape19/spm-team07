@@ -19,7 +19,7 @@ def hello_world():
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:root' + \
 #                                     '@localhost:3308/lms'
 app.config['SQLALCHEMY_DATABASE_URI'] = environ.get(
-    'dbURL') or 'mysql+mysqlconnector://root@localhost:3308/lms'
+    'dbURL') or 'mysql+mysqlconnector://root@localhost:3306/lms'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_size': 100,
                                            'pool_recycle': 280}
@@ -143,16 +143,20 @@ class CLASS (db.Model):
     End_datetime = db.Column(db.DateTime, nullable=False)
     Capacity = db.Column(db.Integer, nullable=False)
     Course_name = db.Column(db.String(200), primary_key=True)
+    engin_email = db.Column(db.String(50), nullable=False)
 
-    def __init__(self, CNo, Start_datetime, End_datetime, Capacity, Course_name):
+
+    def __init__(self, CNo, Start_datetime, End_datetime, Capacity, Course_name, engin_email):
         self.CNo = CNo
         self.Start_datetime = Start_datetime
         self.End_datetime = End_datetime
         self.Capacity = Capacity
         self.Course_name = Course_name
+        self.engin_email = engin_email
+
 
     def json(self):
-        return {"CNo": self.CNo, "Start_date": self.Start_datetime, "End_date": self.End_datetime, "Capacity": self.Capacity, "Course_name": self.Course_name}
+        return {"CNo": self.CNo, "Start_date": self.Start_datetime, "End_date": self.End_datetime, "Capacity": self.Capacity, "Course_name": self.Course_name, "Trainer": self.engin_email}
 
 
 @app.route("/classes")
@@ -208,6 +212,42 @@ def get_all_enrollment():
         {
             "code": 404,
             "message": "There are no enrollment."
+        }
+    ), 404
+
+# train database
+
+class TRAIN (db.Model):
+    __tablename__ = 'TRAIN'
+    engin_email = db.Column(db.String(50), primary_key=True)
+    CNo = db.Column(db.Integer, nullable=False, primary_key=True)
+    course_name = db.Column(db.String(100), nullable=False, primary_key=True)
+
+    def __init__(self, engin_email, CNo, course_name):
+        self.engin_email = engin_email
+        self.CNo = CNo
+        self.course_name = course_name
+
+    def json(self):
+        return {"trainer_email": self.engin_email, "CNo": self.CNo, "course_name": self.course_name}
+
+
+@app.route("/train")
+def get_all_train():
+    trainlist = TRAIN.query.all()
+    if len(trainlist):
+        return jsonify(
+            {
+                "code": 200,
+                "data": {
+                    "train": [train.json() for train in trainlist]
+                }
+            }
+        )
+    return jsonify(
+        {
+            "code": 404,
+            "message": "There are no train assignments."
         }
     ), 404
 

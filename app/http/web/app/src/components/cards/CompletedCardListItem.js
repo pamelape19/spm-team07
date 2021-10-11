@@ -11,6 +11,10 @@ class CompletedCardListItem extends Component{
 
     render(){
         const view = this.props.view;
+        const courseName = this.props.CourseName;
+        const classNum = this.props.ClassNum;
+        console.log(courseName)
+       
         let typeBtn;
         if (view === "learners"){
             typeBtn = <Button variant="primary">
@@ -31,7 +35,11 @@ class CompletedCardListItem extends Component{
                     </div>
                     <div>
                         <h2>
-                            HP Printer 1337 Tutorial
+                            
+                            <Card.Text>  {courseName}  </Card.Text>
+                            <Card.Text>  Class: {classNum}</Card.Text>
+                            
+                           
                         </h2>
                         <div className="course-desc">
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...

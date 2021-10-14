@@ -6,7 +6,6 @@ class ClassCard extends Component{
         super(props);
     }
     render(){
-        // const { classNum } = this.props
         const { classNum, capacity, startDateTime, endDateTime } = this.props
         let numSeatsLeft;
         if ( capacity===0 ){
@@ -22,8 +21,6 @@ class ClassCard extends Component{
                         { numSeatsLeft }
                         <Card.Title style={{textAlign: 'left', fontStyle:'bold', marginTop:20}}>Class { classNum }</Card.Title>
                         <Card.Text style={{ marginBottom: 0}}>{ startDateTime } - { endDateTime }</Card.Text>
-                        {/* <Card.Text>-</Card.Text>
-                        <Card.Text>{ endDateTime }</Card.Text><br/> */}
                     </div>
                 </Card>
             </div>

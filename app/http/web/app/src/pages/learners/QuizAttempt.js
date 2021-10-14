@@ -32,8 +32,6 @@ class QuizAttempt extends Component{
                     <Attempt 
                         learnerResults = { this.state.learnerResults }
                     />
-
-                    
                 </Container>
             </div>
             

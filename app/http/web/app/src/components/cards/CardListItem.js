@@ -18,10 +18,10 @@ class CardListItem extends Component{
         // conditional rendering for card button
         let courseButton;
         if (coursebtn === "resume"){
-            courseButton = <Button variant="primary" href= {CourseMaterialhref}> Resume Course </Button>;
+            courseButton = <Button variant="primary" href= { CourseMaterialhref }> Resume Course </Button>;
         }
         if (coursebtn === "start"){
-            courseButton = <Button variant="primary" href= {CourseMaterialhref}> Start Course </Button>;
+            courseButton = <Button variant="primary" href= { CourseMaterialhref }> Start Course </Button>;
         }
 
         // conditional rendering 'assigned' badge

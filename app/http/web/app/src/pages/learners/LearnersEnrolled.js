@@ -6,7 +6,6 @@ class LearnersEnrolled extends Component{
     constructor(props){
         super(props);
         this.state = {
-            isLoaded: true,
             enrolledCourseState: []
         }
     }
@@ -22,16 +21,19 @@ class LearnersEnrolled extends Component{
             const enrolledCourse = allEnrollment.map((enrolledCourse) => {
                 if (enrolledCourse.engin_email === this.state.loginEmailState){
                     this.setState({
-                        enrolledCourseState: [...this.state.enrolledCourseState, [enrolledCourse.CNo, enrolledCourse.course_name]]
+                        enrolledCourseState: [...this.state.enrolledCourseState, {classNo: enrolledCourse.CNo, courseName: enrolledCourse.course_name}]
                     })
                     // console.log(enrolledCourse)
                 }
 
             });
         })
+
+        // fetch('http://127.0.0.1:5000/classes')
     }
+
     render(){
-        const {enrolledCourseState, isLoaded} = this.state;
+        const { enrolledCourseState } = this.state;
         
         return(
             <div style={{ margin: '8% 0' }}>
@@ -49,13 +51,12 @@ class LearnersEnrolled extends Component{
                     </Nav.Item>
                     </Nav>
 
-                    {/* enrolledCourseState is an normal index array so you need use index instead of keys to get the values */}
                     {enrolledCourseState.map((enrolledCourse)=>(
                         // database need another column for assigned
                         // sends CNo and CourseName to cardlistitem which will then display according to the DB, CNo will be parsed into back of URL for CourseNum
 
                         
-                        <CardListItem perc={ 60 } coursebtn="resume" assigned="True" CourseName = {enrolledCourse[1]} ClassNum = {enrolledCourse[0]}/>
+                        <CardListItem perc={ 60 } coursebtn="resume" assigned="True" CourseName = {enrolledCourse['courseName']} ClassNum = {enrolledCourse['classNo']}/>
                     ))}
                     {/* <CardListItem perc={ 60 } coursebtn="resume" assigned="True"/>
                     <CardListItem perc={ 95 } coursebtn="resume" assigned="True"/>

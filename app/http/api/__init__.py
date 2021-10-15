@@ -423,6 +423,24 @@ def get_all_quiz():
         }
     ), 404
 
+@app.route("/quiz/<string:course_name>/<int:CNo>")
+def find_quizzes_by_course(course_name, CNo):
+    course_quizzes = QUIZ.query.filter_by(course_name=course_name, CNo=CNo).all()
+    if course_quizzes:
+        return jsonify(
+            {
+                "code": 200,
+                "data": {
+                    "courseQuizzes": [course_quiz.json() for course_quiz in course_quizzes]
+                }
+            }
+        )
+    return jsonify(
+        {
+            "code": 404,
+            "message": "No quiz available for this class of the course."
+        }
+    ), 404
 
 
 # quiz_question database

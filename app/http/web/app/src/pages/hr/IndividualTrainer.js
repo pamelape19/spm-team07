@@ -15,19 +15,18 @@ class IndividualTrainer extends Component{
     }
     render(){
         return(
-            <div style={{margin: '10% 0'}}>
-                {/* <img src={banner} alt="" style={{width: '100%'}}/> */}
+            <div style={{ margin: '10% 0' }}>
                 <Container>
                     <h1>Courses</h1>
-                    <Nav variant="tabs" defaultActiveKey="/learners-home" style={{margin: 10}}>
+                    <Nav variant="tabs" defaultActiveKey="/learners-home" style={{ margin: 10 }}>
                     <Nav.Item>
-                        <Nav.Link href="/admin-home" style={{color: '#000000', fontWeight: 'bold'}}>Manage Trainers</Nav.Link>
+                        <Nav.Link href="/admin-home" style={{ color: '#000000', fontWeight: 'bold' }}>Manage Trainers</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                        <Nav.Link href="/manage-learners" style={{color: '#00000080'}}>Manage Learners</Nav.Link>
+                        <Nav.Link href="/manage-learners" style={{ color: '#00000080' }}>Manage Learners</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                        <Nav.Link href="/create-course" style={{color: '#00000080'}}>Manage Courses</Nav.Link>
+                        <Nav.Link href="/create-course" style={{ color: '#00000080' }}>Manage Courses</Nav.Link>
                     </Nav.Item>
                     </Nav>
                 </Container>

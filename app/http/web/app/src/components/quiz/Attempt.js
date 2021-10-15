@@ -20,7 +20,8 @@ class Attempt extends Component{
            return (
               <tr key={ no } >
                  <td id={ outcome }>{ no }</td>
-                 <td  id={ outcome }>{ score }</td>
+                 {/* need a new column in db for total score. we will be assuming that all questions are of equal weightage */}
+                 <td  id={ outcome }>{ score }/total score</td>
                  <td id={ outcome }>{ text }</td>
               </tr>
            )

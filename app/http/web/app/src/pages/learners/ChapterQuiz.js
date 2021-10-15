@@ -28,9 +28,9 @@ class ChapterQuiz extends Component{
 
         let classNum = tokenString[6];
         
-        console.log(classNum)
-        console.log(chapterName)
-        console.log(courseName)
+        // console.log(classNum)
+        // console.log(chapterName)
+        // console.log(courseName)
 
         this.setState({
             CourseNameState: courseName,
@@ -47,7 +47,7 @@ class ChapterQuiz extends Component{
             let allQuiz = result.data.quiz;
             
             const quiz = allQuiz.map((quiz) => {
-                console.log(quiz)
+
                 //  doesnt work coz of null data
             //    && quiz.chapterName == this.state.ChapterNameState
                 if (quiz.course_name == this.state.CourseNameState && quiz.CNo == this.state.ClassNumState ){
@@ -104,9 +104,7 @@ class ChapterQuiz extends Component{
                         let questionum = QuizOptions.questionNo;
                         this.state.QuestionNumber[questionum] = [QuizOptions]
                     }
-                    this.setState({
-                        quiz_options: [...this.state.quiz_options, QuizOptions]
-                    });
+
                 }
             });
 
@@ -117,12 +115,23 @@ class ChapterQuiz extends Component{
                 // if it exist we will add it into the array
                 if (this.state.QuestionNumber[QuizQuestionAddOptions.questionNo] ){
                     QuizQuestionAddOptions["questionOptions"] = this.state.QuestionNumber[QuizQuestionAddOptions.questionNo] 
+                    console.log(QuizQuestionAddOptions)
+                    console.log("----------------------")
                 }
-                console.log(this.state.quiz_questions)
+ 
+                console.log(this.state.QuestionNumber)
+                // this.setState({
+                //     quiz_options: [...this.state.quiz_options, QuizQuestionAddOptions]
+                    
+                // });
             })
 
-            console.log(this.state.QuestionNumber)
-            console.log(this.state.quiz_questions)
+            // console.log(this.state.QuestionNumber)
+            // console.log(this.state.quiz_questions)
+            // console.log("-------------------------")
+            // console.log(this.state.quiz_questions[0].questionOptions[0].option_value)
+
+
             // const quizQuestion = allQuizQuestions.map((quizQuestion) => {
             
             //     console.log(quizQuestion.quizID)
@@ -134,31 +143,26 @@ class ChapterQuiz extends Component{
             //         });
             //     }
                 
-// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
             // });
-            // console.log(this.state.quiz_questions)
+            // console.log(this.state.quiz_options)
+
 
         })
 
     }
-    renderQuestions({object,questiontype}) {
-        console.log(object)
-        console.log("cowoftgasuikefbsfguisbuikfe")
-        if (questiontype == "t/f") {
-          return( <McqQn qn_no = { object.questionNo } qn = {object.question} options = {[object.QuestionNumber[1].Option_value, object.QuestionNumber[2].Option_value]} /> )
-        } else {
-            return( <McqQn qn_no = { object.questionNo } qn = {object.question} options = {[object.QuestionNumber[1].Option_value, object.QuestionNumber[2].Option_value,object.QuestionNumber[3].Option_value, object.QuestionNumber[4].Option_value ]} /> )
-        }
-      }
 
     render(){
-        const{quiz_questions, isLoaded} = this.state;
-        
+        const{quiz_options, quiz_questions, isLoaded} = this.state;
+
+
         if (!isLoaded){
             return(<div>Loading</div>)
         } else{
             return(
+                
                 <div>
+
                     <div className="chapter-quiz-sticky-top">
                         <Container className="chapter-quiz-header">
                             <h1> Quiz 1 - Introduction to 3D Printing </h1>
@@ -175,11 +179,13 @@ class ChapterQuiz extends Component{
 
                     {quiz_questions.map((quiz_question)=>{
                             // if qus type true display something if false display something else
-                        
-                            if (quiz_question === "t/f")
-                                return (<McqQn qn_no = { quiz_question.questionNo } qn = {quiz_question.question} options = {["True", "False"]} />)
+                            console.log("im done")
+                            console.log(quiz_question.questionOptions[0])
+                            if (quiz_question.question_type === "t/f")
+                                
+                                return (<McqQn qn_no = { quiz_question.questionNo } qn = {quiz_question.question} options = {[ "True" , "False"]} />)
                             else
-                                return (<McqQn qn_no = { quiz_question.questionNo } qn = {quiz_question.question} options = {["lorem ipsum", "ipsum lorem", "lorem ipsum", "ipsum lorem"]} />)
+                                return (<McqQn qn_no = { quiz_question.questionNo } qn = {quiz_question.question} options = {[ ,"ipsum lorem", "lorem ipsum", "ipsum lorem"]} />)
                              
                         // <div>
                         //     {this.renderQuestions(quiz_question,quiz_question.Question_type )}

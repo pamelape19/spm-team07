@@ -136,6 +136,22 @@ def get_all_course():
         }
     ), 404
 
+@app.route("/course/<string:course_name>")
+def get_course_desc(course_name):
+    course_desc = COURSE.query.filter_by(course_name=course_name).first()
+    if course_desc:
+        return jsonify(
+            {
+                "code": 200,
+                "data": course_desc.json()
+            }
+        )
+    return jsonify(
+        {
+            "code": 404,
+            "message": "Course does not exist." 
+        }
+    ), 404
 
 # class database
 class CLASS (db.Model):
@@ -180,8 +196,24 @@ def get_all_classes():
         }
     ), 404
 
-# enrollment database
+@app.route("/classes/<string:Course_name>/<int:CNo>")
+def get_specific_class(Course_name, CNo):
+    specific_class = CLASS.query.filter_by(Course_name=Course_name, CNo=CNo).first()
+    if specific_class:
+        return jsonify(
+            {
+                "code": 200,
+                "data": specific_class.json()
+            }
+        )
+    return jsonify(
+        {
+            "code": 404,
+            "message": "Class does not exist." 
+        }
+    ), 404
 
+# enrollment database
 
 class ENROLLMENT (db.Model):
     __tablename__ = 'ENROLLMENT'
@@ -217,6 +249,26 @@ def get_all_enrollment():
         }
     ), 404
 
+@app.route("/enrollment/<string:engin_email>")
+def find_enrollment_by_engin_email(engin_email):
+    enrolled_engins = ENROLLMENT.query.filter_by(engin_email=engin_email).all()
+    # return "hi"
+    if enrolled_engins:
+        return jsonify(
+            {
+                "code": 200,
+                "data": {
+                    "enginClasses": [engin_classes.json() for engin_classes in enrolled_engins]
+                }
+            }
+        )
+    return jsonify(
+        {
+            "code": 404,
+            "message": "Engineer is not enrolled."
+        }
+    ), 404
+
 # train database
 
 class TRAIN (db.Model):
@@ -232,7 +284,6 @@ class TRAIN (db.Model):
 
     def json(self):
         return {"trainer_email": self.engin_email, "CNo": self.CNo, "course_name": self.course_name}
-
 
 @app.route("/train")
 def get_all_train():
@@ -254,7 +305,6 @@ def get_all_train():
     ), 404
 
 # chapter database
-
 
 class CHAPTER (db.Model):
     __tablename__ = 'CHAPTER'
@@ -373,6 +423,24 @@ def get_all_quiz():
         }
     ), 404
 
+@app.route("/quiz/<string:course_name>/<int:CNo>")
+def find_quizzes_by_course(course_name, CNo):
+    course_quizzes = QUIZ.query.filter_by(course_name=course_name, CNo=CNo).all()
+    if course_quizzes:
+        return jsonify(
+            {
+                "code": 200,
+                "data": {
+                    "courseQuizzes": [course_quiz.json() for course_quiz in course_quizzes]
+                }
+            }
+        )
+    return jsonify(
+        {
+            "code": 404,
+            "message": "No quiz available for this class of the course."
+        }
+    ), 404
 
 
 # quiz_question database

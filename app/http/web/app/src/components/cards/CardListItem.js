@@ -9,7 +9,7 @@ class CardListItem extends Component{
     }
     render(){
         
-        const { perc, coursebtn, assigned, CourseName, ClassNum } = this.props;
+        const { perc, coursebtn, assigned, CourseName, ClassNum, startDate, endDate, courseDesc } = this.props;
 
         // variable to allow the href to pass in the course number to get the correct quiz 
         let CourseMaterialhref =  "/course-materials/" + CourseName + "/" + ClassNum
@@ -18,10 +18,10 @@ class CardListItem extends Component{
         // conditional rendering for card button
         let courseButton;
         if (coursebtn === "resume"){
-            courseButton = <Button variant="primary" href= {CourseMaterialhref}> Resume Course </Button>;
+            courseButton = <Button variant="primary" href= { CourseMaterialhref }> Resume Course </Button>;
         }
         if (coursebtn === "start"){
-            courseButton = <Button variant="primary" href= {CourseMaterialhref}> Start Course </Button>;
+            courseButton = <Button variant="primary" href= { CourseMaterialhref }> Start Course </Button>;
         }
 
         // conditional rendering 'assigned' badge
@@ -48,10 +48,10 @@ class CardListItem extends Component{
                             { assignedBadge }
                         </h2>
                         <div className="course-desc">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...
+                            { courseDesc }
                         </div>
                         <div className="course-start-date">
-                            Start Date: DDMMYY
+                            Start Date: { startDate }
                         </div>
                         <div className="progress-bar-col">
                             <ProgressBar now={ perc } variant="warning" style={{ background: 'white', border: '1px solid #E5E5E5' }}/>
@@ -59,7 +59,7 @@ class CardListItem extends Component{
                         </div>
                     </div>
                     <div className="course-resumption">
-                        <h5>Ends on 24th Dec</h5>
+                        <h5>Ends on { endDate }</h5>
                         <div className="resumption-btn">
                             { courseButton }
                         </div>

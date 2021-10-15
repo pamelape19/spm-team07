@@ -9,18 +9,18 @@ class ManageLearners extends Component{
     }
     render(){
         return(
-            <div style={{margin: '3% 0'}}>
+            <div style={{ margin: '3% 0' }}>
                  <Container>
                     <h1>Courses</h1>
-                    <Nav variant="tabs" defaultActiveKey="/learners-home" style={{margin: 10}}>
+                    <Nav variant="tabs" defaultActiveKey="/learners-home" style={{ margin: 10 }}>
                     <Nav.Item>
-                        <Nav.Link href="/admin-home" style={{color: '#00000080'}}>Manage Trainers</Nav.Link>
+                        <Nav.Link href="/admin-home" style={{ color: '#00000080' }}>Manage Trainers</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                        <Nav.Link href="/manage-learners" style={{color: '#000000', fontWeight: 'bold'}}>Manage Learners</Nav.Link>
+                        <Nav.Link href="/manage-learners" style={{ color: '#000000', fontWeight: 'bold' }}>Manage Learners</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                        <Nav.Link href="/create-course" style={{color: '#00000080'}}>Manage Courses</Nav.Link>
+                        <Nav.Link href="/create-course" style={{ color: '#00000080' }}>Manage Courses</Nav.Link>
                     </Nav.Item>
                     </Nav>
                 </Container>
@@ -41,7 +41,7 @@ class ManageLearners extends Component{
                     </div>
                 </Container>
 
-                <Container style={{marginTop: '5%'}}>
+                <Container style={{ marginTop: '5%' }}>
                     <div class="form-container" >
                     <Table striped bordered hover>
                         <thead>

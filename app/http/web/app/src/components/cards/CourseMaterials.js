@@ -15,8 +15,12 @@ class CourseMaterials extends Component{
     constructor(props){
         super(props);
         this.state = {
-            isLoaded: true,
-            CourseChapters: []
+            CourseChapters: [],
+            ClassNumState: null,
+            CourseNameState: "",
+            StartDateTimeState: null,
+            EndDateTimeState: null,
+            TrainerState: ""
         }
     }
     componentDidMount(){
@@ -28,8 +32,6 @@ class CourseMaterials extends Component{
         this.setState({
             ClassNumState: ClassNum,
             CourseNameState: CourseName,
-            CourseChapters: []
-
         })
 
         fetch('http://127.0.0.1:5000/chapter')
@@ -54,9 +56,24 @@ class CourseMaterials extends Component{
 
             });
         })
+
+        fetch('http://127.0.0.1:5000/classes')
+        .then(res => res.json())
+        .then(result => {
+            let allClasses = result.data.classes;
+            const classOfCourse = allClasses.map((classOfCourse) => {
+                if (classOfCourse.Course_name === this.state.CourseNameState && classOfCourse.CNo === this.state.ClassNumState){
+                    this.setState({
+                        StartDateTimeState: classOfCourse.Start_date,
+                        EndDateTimeState: classOfCourse.End_date,
+                        TrainerState: classOfCourse.Trainer
+                    })
+                }
+            })
+        })
     }
     render(){
-        const {CourseChapters, isLoaded, ClassNumState} = this.state;
+        const { CourseChapters, ClassNumState, CourseNameState, StartDateTimeState, EndDateTimeState, TrainerState } = this.state;
 
         // need a completed column for quiz 
         const numCompleted = CourseChapters.length;
@@ -66,11 +83,11 @@ class CourseMaterials extends Component{
                  <Container className="course-materials-header">
                     <div>
                         <h2>
-                            HP Printer 1337 Tutorial
+                            { CourseNameState }
                         </h2>
                         <div className="course-start-date">
-                            Class duration: DDMMYY - DDMMYY <br/>
-                            Trainer: xxxxxxxxxxxxxxx
+                            Class duration: { StartDateTimeState } - { EndDateTimeState } <br/>
+                            Trainer: { TrainerState }
                         </div>
                     </div>
                     <span className="img-grid">
@@ -86,7 +103,7 @@ class CourseMaterials extends Component{
                         ))}
                           */}
                         {CourseChapters.map((CourseChapter)=>(
-                            <AccordionChapters chapter={ CourseChapter[2]} chapterName={ CourseChapter[3] } completed={ numCompleted } classNum = {ClassNumState} courseName = {CourseChapter[1]}/>
+                            <AccordionChapters chapter={ CourseChapter[2] } chapterName={ CourseChapter[3] } completed={ numCompleted } classNum = { ClassNumState } courseName = { CourseChapter[1] }/>
                         ))}
                         <AccordionFinalQuiz completed={ numCompleted } totalChapters={ totalChapters }/>
                     </Accordion>

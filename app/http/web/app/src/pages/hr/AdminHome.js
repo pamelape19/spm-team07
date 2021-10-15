@@ -1,11 +1,9 @@
 import { Component, React } from "react";
 import { Row, Col, Container } from 'react-bootstrap';
-// import TrainersCard from "../../components/cards/TrainersCard";
 import CourseCard from "../../components/cards/CourseCard";
 import AddCourseCard from "../../components/cards/AddCourseCard";
 
 import "./css/homePage.css";
-// import { Card, Button } from 'react-bootstrap';
 
 import '../pages.css';
 

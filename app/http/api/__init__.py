@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request, jsonify
+from flask import Flask, json, request, jsonify
 import enum
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
@@ -180,7 +180,6 @@ def get_all_classes():
 
 # enrollment database
 
-
 class ENROLLMENT (db.Model):
     __tablename__ = 'ENROLLMENT'
     engin_email = db.Column(db.String(50), primary_key=True)
@@ -215,6 +214,26 @@ def get_all_enrollment():
         }
     ), 404
 
+@app.route("/enrollment/<string:engin_email>")
+def find_enrollment_by_engin_email(engin_email):
+    enrolled_engins = ENROLLMENT.query.filter_by(engin_email=engin_email).all()
+    # return "hi"
+    if enrolled_engins:
+        return jsonify(
+            {
+                "code": 200,
+                "data": {
+                    "enginClasses": [engin_classes.json() for engin_classes in enrolled_engins]
+                }
+            }
+        )
+    return jsonify(
+        {
+            "code": 404,
+            "message": "Engineer is not enrolled."
+        }
+    ), 404
+
 # train database
 
 class TRAIN (db.Model):
@@ -230,7 +249,6 @@ class TRAIN (db.Model):
 
     def json(self):
         return {"trainer_email": self.engin_email, "CNo": self.CNo, "course_name": self.course_name}
-
 
 @app.route("/train")
 def get_all_train():
@@ -252,7 +270,6 @@ def get_all_train():
     ), 404
 
 # chapter database
-
 
 class CHAPTER (db.Model):
     __tablename__ = 'CHAPTER'

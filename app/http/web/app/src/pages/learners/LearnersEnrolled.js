@@ -6,27 +6,23 @@ class LearnersEnrolled extends Component{
     constructor(props){
         super(props);
         this.state = {
-            enrolledCourseState: []
+            enrolledCourseState: [],
+            loginEmailState: "josiahkang@allinone.com"
         }
     }
     componentDidMount(){
-        this.setState({
-            loginEmailState: "josiahkang@allinone.com"
-        })
-        fetch('http://127.0.0.1:5000/enrollment')
+        fetch('http://127.0.0.1:5000/enrollment' + '/' + this.state.loginEmailState)
+        
         .then(res => res.json())
         .then(result => {
-            let allEnrollment = result.data.enrollment;
-
-            const enrolledCourse = allEnrollment.map((enrolledCourse) => {
-                if (enrolledCourse.engin_email === this.state.loginEmailState){
-                    this.setState({
-                        enrolledCourseState: [...this.state.enrolledCourseState, {classNo: enrolledCourse.CNo, courseName: enrolledCourse.course_name}]
-                    })
-                    // console.log(enrolledCourse)
-                }
-
-            });
+            console.log(result)
+            // retrieves all classes the engineer is enrolled in
+            let allClassesEnrolled = result.data.enginClasses;
+            const enrolledCourse = allClassesEnrolled.map((enrolledCourse)=>{
+                this.setState({
+                    enrolledCourseState: [...this.state.enrolledCourseState, {classNo: enrolledCourse.CNo, courseName: enrolledCourse.course_name}]
+                })
+            })
         })
 
         // fetch('http://127.0.0.1:5000/classes')

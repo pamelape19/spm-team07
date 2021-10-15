@@ -61,8 +61,9 @@ class CoursePage extends Component{
             const courseClass = this.state.allClasses.map((courseClass)=>{
                 if ( courseClass.Course_name === this.state.courseNameState ){
                     this.setState ({ 
-                        courseClasses: [...this.state.courseClasses, [courseClass.CNo, courseClass.Capacity, courseClass.Start_date, courseClass.End_date]]
+                        courseClasses: [...this.state.courseClasses, [courseClass.CNo, courseClass.Capacity, courseClass.Start_date, courseClass.End_date, courseClass.Trainer]]
                     })
+                    console.log(courseClass)
                 }
 
             })
@@ -78,7 +79,7 @@ class CoursePage extends Component{
 
         const classInfo = courseClasses.map((classInfo)=>
             <Col>
-                <ClassCard classNum={ classInfo[0] } capacity={ classInfo[1] } startDateTime={ classInfo[2] } endDateTime={ classInfo[3] }/>
+                <ClassCard classNum={ classInfo[0] } capacity={ classInfo[1] } startDateTime={ classInfo[2] } endDateTime={ classInfo[3] } trainer = { classInfo[4] }/>
             </Col>
         )
 

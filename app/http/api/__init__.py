@@ -1,5 +1,7 @@
 import os
 from flask import Flask, request, jsonify
+from flask import redirect, url_for, request, render_template, send_file
+from io import BytesIO
 import enum
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
@@ -292,48 +294,46 @@ def get_all_chapter():
 
 
 # course_material database
-# class COURSE_MATERIAL (db.Model):
-    __tablename__ = 'COURSE_MATERIAL'
-    material_name  = db.Column(db.String(100), nullable=False)
-    type  = db.Column(db.String(64), nullable=False)
-    size  =  db.Column(db.Integer, nullable=False)
-    # content  = db.Column(db.MediumBinary, primary_key=True) unsure
-    material_id  =  db.Column(db.Integer, nullable=False, primary_key=True, autoincrement=True) 
-    CNo = db.Column(db.Integer, nullable=False)
-    course_name = db.Column(db.String(100), nullable=False )
+class COURSE_MATERIAL(db.Model):
+    mid = db.Column(db.Integer, primary_key=True, nullable=False)
+    material_name  = db.Column(db.String(300), nullable=False)
+    content = db.Column(db.LargeBinary, nullable=False)
 
-    def __init__(self, material_name, type, size,material_id,CNo,course_name):
+    def __init__(self, mid, material_name, content):
+        self.mid = mid
         self.material_name = material_name
-        self.type = type
-        self.size = size
-        self.material_id = material_id
-        self.CNo = CNo
-        self.course_name = course_name
+        self.content = content
 
     def json(self):
-        return {"material_name": self.material_name,"type": self.type,"size": self.size,
-        "material_id": self.material_id, "CNo": self.CNo, "course_name": self.course_name}
+        return {"mid": self.mid, "material_name": self.material_name, "content": self.content}
 
 
-# @app.route("/course_material")
-# def get_all_course_material():
-    course_material_list = COURSE_MATERIAL.query.all()
-    if len(course_material_list):
+@app.route('/course-material')
+def get_all_material():
+    materials = COURSE_MATERIAL.query.all()
+    if len(materials):
         return jsonify(
             {
                 "code": 200,
                 "data": {
-                    "course_material": [course_material.json() for course_material in course_material_list]
+                    "material": [material.json() for material in materials]
                 }
             }
         )
     return jsonify(
         {
             "code": 404,
-            "message": "There are no course_material."
+            "message": "There are no materials."
         }
     ), 404
 
+@app.route('/upload', methods = ["POST"])
+def upload():
+    file = request.files['inputFile']
+    newFile = COURSE_MATERIAL(material_name=file.filename, content=file.read())
+    db.session.add(newFile)
+    db.session.commit()
+    return 'Uploaded' + file.filename + 'to the Chapter'
 
 # quiz database
 class QUIZ (db.Model):

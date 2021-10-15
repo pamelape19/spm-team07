@@ -25,6 +25,7 @@ class AllRoutes extends Component {
         return (
             <Fragment>
                 <Route exact path="/" component={ Home }/>
+                <Route exact path="/upload"/>
                 <Route exact path="/learners-home" component={ LearnersHome }/>
                 <Route exact path="/learners-enrolled" component={ LearnersEnrolled }/>
                 <Route exact path="/learners-completed" component={ LearnersCompleted }/>

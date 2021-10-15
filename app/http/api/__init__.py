@@ -134,6 +134,22 @@ def get_all_course():
         }
     ), 404
 
+@app.route("/course/<string:course_name>")
+def get_course_desc(course_name):
+    course_desc = COURSE.query.filter_by(course_name=course_name).first()
+    if course_desc:
+        return jsonify(
+            {
+                "code": 200,
+                "data": course_desc.json()
+            }
+        )
+    return jsonify(
+        {
+            "code": 404,
+            "message": "Course does not exist." 
+        }
+    ), 404
 
 # class database
 class CLASS (db.Model):

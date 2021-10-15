@@ -9,7 +9,7 @@ class CardListItem extends Component{
     }
     render(){
         
-        const { perc, coursebtn, assigned, CourseName, ClassNum, startDate, endDate } = this.props;
+        const { perc, coursebtn, assigned, CourseName, ClassNum, startDate, endDate, courseDesc } = this.props;
 
         // variable to allow the href to pass in the course number to get the correct quiz 
         let CourseMaterialhref =  "/course-materials/" + CourseName + "/" + ClassNum
@@ -48,7 +48,7 @@ class CardListItem extends Component{
                             { assignedBadge }
                         </h2>
                         <div className="course-desc">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...
+                            { courseDesc }
                         </div>
                         <div className="course-start-date">
                             Start Date: { startDate }

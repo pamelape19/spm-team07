@@ -18,23 +18,31 @@ class LearnersEnrolled extends Component{
             // retrieves all classes the engineer is enrolled in
             let allClassesEnrolled = result.data.enginClasses;
             const enrolledCourse = allClassesEnrolled.map((enrolledCourse)=>{
-                // retrieves data for specific class of course 
-                fetch('http://127.0.0.1:5000/classes/' + enrolledCourse.course_name + '/' + enrolledCourse.CNo)
+
+                // retrieves data of specific course
+                fetch('http://127.0.0.1:5000/course/' + enrolledCourse.course_name)
                 .then(res => res.json())
                 .then(result => {
-                    console.log(result.data)
-                    let classData = result.data
-                    this.setState({
-                        enrolledCourseState: [...this.state.enrolledCourseState, 
-                            {
-                                classNo: enrolledCourse.CNo,
-                                courseName: enrolledCourse.course_name,
-                                startDate: classData.Start_date,
-                                endDate: classData.End_date
-                            }]
+                    let course_desc = result.data.description
+                
+                // retrieves data for specific class of course 
+                    fetch('http://127.0.0.1:5000/classes/' + enrolledCourse.course_name + '/' + enrolledCourse.CNo)
+                    .then(res => res.json())
+                    .then(result => {
+                        console.log(result.data)
+                        let classData = result.data
+                        this.setState({
+                            enrolledCourseState: [...this.state.enrolledCourseState, 
+                                {
+                                    classNo: enrolledCourse.CNo,
+                                    courseName: enrolledCourse.course_name,
+                                    startDate: classData.Start_date,
+                                    endDate: classData.End_date,
+                                    courseDesc: course_desc
+                                }]
+                        })
                     })
                 })
-
             })
         })
     }
@@ -71,6 +79,7 @@ class LearnersEnrolled extends Component{
                             ClassNum = { enrolledCourse['classNo'] } 
                             startDate={ enrolledCourse['startDate'] }
                             endDate= { enrolledCourse['endDate'] }
+                            courseDesc = { enrolledCourse['courseDesc'] }
                         />
                     ))}
                     {/* <CardListItem perc={ 0 } coursebtn="start" assigned="False"/> */}

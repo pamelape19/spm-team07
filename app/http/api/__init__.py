@@ -178,6 +178,23 @@ def get_all_classes():
         }
     ), 404
 
+@app.route("/classes/<string:Course_name>/<int:CNo>")
+def get_specific_class(Course_name, CNo):
+    specific_class = CLASS.query.filter_by(Course_name=Course_name, CNo=CNo).first()
+    if specific_class:
+        return jsonify(
+            {
+                "code": 200,
+                "data": specific_class.json()
+            }
+        )
+    return jsonify(
+        {
+            "code": 404,
+            "message": "Class does not exist." 
+        }
+    ), 404
+
 # enrollment database
 
 class ENROLLMENT (db.Model):

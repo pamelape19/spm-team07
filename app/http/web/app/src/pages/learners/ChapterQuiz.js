@@ -173,12 +173,13 @@ class ChapterQuiz extends Component{
                     <Container className = "chapter-quiz-questions">
 
 
-                    {quiz_questions.map((quiz_question)=>(
+                    {quiz_questions.map((quiz_question)=>{
                             // if qus type true display something if false display something else
                         
-                            if (quiz_question === "t/f") ? {
-                                <McqQn qn_no = { quiz_question.questionNo } qn = {quiz_question.question} options = {["lorem ipsum", "ipsum lorem", "lorem ipsum", "ipsum lorem"]} />
-                            }
+                            if (quiz_question === "t/f")
+                                return (<McqQn qn_no = { quiz_question.questionNo } qn = {quiz_question.question} options = {["True", "False"]} />)
+                            else
+                                return (<McqQn qn_no = { quiz_question.questionNo } qn = {quiz_question.question} options = {["lorem ipsum", "ipsum lorem", "lorem ipsum", "ipsum lorem"]} />)
                              
                         // <div>
                         //     {this.renderQuestions(quiz_question,quiz_question.Question_type )}
@@ -186,7 +187,7 @@ class ChapterQuiz extends Component{
                         // </div>
 
                     
-                            ))}
+                    })}
 
                         {/* <McqQn qn_no = { 1 } qn = "What is 3D Printing?" options = {["lorem ipsum", "ipsum lorem", "lorem ipsum", "ipsum lorem"]} />
                         <McqQn qn_no = { 2 } qn = "3D Printing can print 3D" options = {["True", "False"]}/> */}

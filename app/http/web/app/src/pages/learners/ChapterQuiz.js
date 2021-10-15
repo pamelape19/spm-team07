@@ -8,8 +8,14 @@ class ChapterQuiz extends Component{
     constructor(props){
         super(props);
         this.state = {
+            quiz_options: [],
             quiz_questions: [],
             isLoaded: true,
+            CourseNameState: "",
+            ClassNumState: "",
+            ChapterNameState: "",
+            quizIDState: "",
+            QuestionNumber: {}
         }
     }
     componentDidMount(){
@@ -41,13 +47,13 @@ class ChapterQuiz extends Component{
             let allQuiz = result.data.quiz;
             
             const quiz = allQuiz.map((quiz) => {
+                console.log(quiz)
                 //  doesnt work coz of null data
             //    && quiz.chapterName == this.state.ChapterNameState
                 if (quiz.course_name == this.state.CourseNameState && quiz.CNo == this.state.ClassNumState ){
 
-                    console.log("nice")
                     this.setState({
-                    
+                        
                         // quizIDState: quiz.quizID
                         quizIDState: "1002"
                     })
@@ -57,7 +63,7 @@ class ChapterQuiz extends Component{
                 
 
             });
-            console.log(this.state.quizIDState)
+
         })
 
         fetch('http://127.0.0.1:5000/quiz_question')
@@ -68,10 +74,10 @@ class ChapterQuiz extends Component{
             
             const quizQuestion = allQuizQuestions.map((quizQuestion) => {
             
-                console.log(quizQuestion.quizID)
+
                 if (quizQuestion.quizID == this.state.quizIDState){
 
-                     
+                    
                     this.setState({
                         quiz_questions: [...this.state.quiz_questions, quizQuestion]
                     });
@@ -79,9 +85,72 @@ class ChapterQuiz extends Component{
                 
 
             });
-            console.log(this.state.quiz_questions)
+
         })
+
+        fetch('http://127.0.0.1:5000/quiz_option')
+        .then(res => res.json())
+        .then(result => {
+
+            let allQuizOptions = result.data.quiz_option;
+            const QuizOptions = allQuizOptions.map((QuizOptions) => {
+
+                if (QuizOptions.quizID == this.state.quizIDState){
+                    // create json dictionary 
+                    if (QuizOptions.questionNo in this.state.QuestionNumber){
+                        let questionum = QuizOptions.questionNo;
+                        this.state.QuestionNumber[questionum] = [...this.state.QuestionNumber[questionum], QuizOptions]
+                    } else {
+                        let questionum = QuizOptions.questionNo;
+                        this.state.QuestionNumber[questionum] = [QuizOptions]
+                    }
+                    this.setState({
+                        quiz_options: [...this.state.quiz_options, QuizOptions]
+                    });
+                }
+            });
+
+            // loop through quiz questions and for question number they will be key passed through to the shitty json array we made 
+
+            this.state.quiz_questions.map((QuizQuestionAddOptions) => {
+
+                // if it exist we will add it into the array
+                if (this.state.QuestionNumber[QuizQuestionAddOptions.questionNo] ){
+                    QuizQuestionAddOptions["questionOptions"] = this.state.QuestionNumber[QuizQuestionAddOptions.questionNo] 
+                }
+                console.log(this.state.quiz_questions)
+            })
+
+            console.log(this.state.QuestionNumber)
+            console.log(this.state.quiz_questions)
+            // const quizQuestion = allQuizQuestions.map((quizQuestion) => {
+            
+            //     console.log(quizQuestion.quizID)
+            //     if (quizQuestion.quizID == this.state.quizIDState){
+
+                     
+            //         this.setState({
+            //             quiz_questions: [...this.state.quiz_questions, quizQuestion]
+            //         });
+            //     }
+                
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+            // });
+            // console.log(this.state.quiz_questions)
+
+        })
+
     }
+    renderQuestions({object,questiontype}) {
+        console.log(object)
+        console.log("cowoftgasuikefbsfguisbuikfe")
+        if (questiontype == "t/f") {
+          return( <McqQn qn_no = { object.questionNo } qn = {object.question} options = {[object.QuestionNumber[1].Option_value, object.QuestionNumber[2].Option_value]} /> )
+        } else {
+            return( <McqQn qn_no = { object.questionNo } qn = {object.question} options = {[object.QuestionNumber[1].Option_value, object.QuestionNumber[2].Option_value,object.QuestionNumber[3].Option_value, object.QuestionNumber[4].Option_value ]} /> )
+        }
+      }
+
     render(){
         const{quiz_questions, isLoaded} = this.state;
         
@@ -105,8 +174,18 @@ class ChapterQuiz extends Component{
 
 
                     {quiz_questions.map((quiz_question)=>(
+                            // if qus type true display something if false display something else
+                        
+                            if (quiz_question === "t/f") ? {
+                                <McqQn qn_no = { quiz_question.questionNo } qn = {quiz_question.question} options = {["lorem ipsum", "ipsum lorem", "lorem ipsum", "ipsum lorem"]} />
+                            }
+                             
+                        // <div>
+                        //     {this.renderQuestions(quiz_question,quiz_question.Question_type )}
+                        //     {/* <McqQn qn_no = { quiz_question.questionNo } qn = {quiz_question.question} options = {["lorem ipsum", "ipsum lorem", "lorem ipsum", "ipsum lorem"]} /> */}
+                        // </div>
 
-                    <McqQn qn_no = { quiz_question.questionNo } qn = {quiz_question.question} options = {["lorem ipsum", "ipsum lorem", "lorem ipsum", "ipsum lorem"]} />
+                    
                             ))}
 
                         {/* <McqQn qn_no = { 1 } qn = "What is 3D Printing?" options = {["lorem ipsum", "ipsum lorem", "lorem ipsum", "ipsum lorem"]} />

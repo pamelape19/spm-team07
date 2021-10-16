@@ -14,12 +14,13 @@ class AccordionFinalQuiz extends Component{
         super(props);
     }
     render(){
-        const { totalChapters, completed } = this.props;
+        const { totalChapters, completed, courseName, classNum } = this.props;
 
         // conditional rendering to control access to final quiz
         let openQuiz;
+        let finalQuizLink = '/final-quiz/' + courseName + '/' + classNum
         if ( completed >= totalChapters ){
-            openQuiz = <a href="/final-quiz"><p>Final Quiz</p></a>
+            openQuiz = <a href={ finalQuizLink }><p>Final Quiz</p></a>
         }
         else{
             openQuiz = <p>Final Quiz</p>

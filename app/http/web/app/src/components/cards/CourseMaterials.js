@@ -104,7 +104,7 @@ class CourseMaterials extends Component{
                         {CourseChapters.map((CourseChapter)=>(
                             <AccordionChapters chapter={ CourseChapter[2] } chapterName={ CourseChapter[3] } completed={ numCompleted } classNum = { ClassNumState } courseName = { CourseChapter[1] }/>
                         ))}
-                        <AccordionFinalQuiz completed={ numCompleted } totalChapters={ totalChapters }/>
+                        <AccordionFinalQuiz completed={ numCompleted } totalChapters={ totalChapters } courseName={ CourseNameState } classNum={ ClassNumState }/>
                     </Accordion>
                 </Container>
             </div>

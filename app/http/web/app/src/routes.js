@@ -35,12 +35,12 @@ class AllRoutes extends Component {
                 <Route exact path="/admin-home" component={ AdminHome }/>
                 <Route exact path="/course-materials/:slug/:slug" component={ CourseMaterials }/>
                 <Route exact path="/chapter-quiz/:slug/:slug/:slug" component={ ChapterQuiz }/>
-                <Route exact path="/final-quiz" component={ GradedQuiz }/>
+                <Route exact path="/final-quiz/:slug/:slug" component={ GradedQuiz }/>
                 <Route exact path="/create-quiz" component={ CreateQuiz }/>
                 <Route exact path="/individual-trainer" component={ IndividualTrainer }/>
                 <Route exact path="/create-course" component={ CreateCourse }/>
                 <Route exact path="/manage-learners" component={ ManageLearners }/>
-                <Route exact path="/quiz-attempt" component={ QuizAttempt }/>
+                <Route exact path="/quiz-attempt/:slug/:slug" component={ QuizAttempt }/>
                 <Route exact path="/edit-classlist" component={ EditClassList }/>
             </Fragment>
         )

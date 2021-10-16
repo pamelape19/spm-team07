@@ -45,6 +45,8 @@ class Test extends Component{
                 <Container className="test-main-body">
                 <div className="test-body-layout">
                     <QuestionPaper 
+                        courseName = { this.props.courseName }
+                        classNum = { this.props.classNum }
                         questions={ questions }
                         applyNegativeMarking={ applyNegativeMarking }
                         onSubmitted={ (result) => this.handleChange(result) } 

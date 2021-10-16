@@ -481,7 +481,7 @@ def get_all_quiz_question():
     ), 404
 
 @app.route("/quiz_question/<int:quizID>")
-def find_enrollment_by_engin_email(quizID):
+def find_quiz_qn_by_quizID(quizID):
     quizQns = QUIZ_QUESTION.query.filter_by(quizID=quizID).all()
     if quizQns:
         return jsonify(

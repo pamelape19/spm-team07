@@ -28,21 +28,28 @@ class Attempt extends Component{
         })
      }
     render(){
+         let quizAttemptResults;
+         if (this.props.learnerResults.length === 0){
+            quizAttemptResults = <h5>No quiz attempt results available.</h5>
+         }
+         else{
+            quizAttemptResults = <table id='scores' style={{ width: '100%', marginTop: 20 }}>
+                                    <thead>
+                                       <tr>
+                                          <th style={{ width: '15%' }}>Attempt No.</th>
+                                          <th>Score</th>
+                                          <th>Result</th>
+                                       </tr>
+                                    </thead>
+                                    <tbody>
+                                       { this.renderTableData() }
+                                    </tbody>
+                                 </table>
+         }
         return(
             <div>
-            <h1 id='title'>Quiz Submissions - Introduction to Dynamic printing</h1>
-            <table id='scores' style={{ width: '100%', marginTop: 20 }}>
-               <thead>
-                  <tr>
-                     <th style={{ width: '15%' }}>Attempt No.</th>
-                     <th>Score</th>
-                     <th>Result</th>
-                  </tr>
-               </thead>
-               <tbody>
-                  { this.renderTableData() }
-               </tbody>
-            </table>
+            <h1 id='title'>Quiz Submissions - { this.props.courseName }</h1>
+            { quizAttemptResults }
          </div>
         )
     }

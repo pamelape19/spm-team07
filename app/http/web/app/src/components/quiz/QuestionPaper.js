@@ -2,6 +2,7 @@ import { React, Component } from 'react';
 import {Button } from 'react-bootstrap';
 import Question from './Question';
 import './css/test.css';
+import QuizAttempt from '../../pages/learners/QuizAttempt';
 
 class QuestionPaper extends Component{
     constructor(props){
@@ -65,12 +66,13 @@ class QuestionPaper extends Component{
         );
 
         let btnShown;
+        let quizAttemptLink = '/quiz-attempt/' + this.props.courseName + '/' + this.props.classNum
         if ( this.state.hideDoneBtn === false ){
             btnShown = <div className="after-quiz-submit-btns">
                             <div></div>
                             <Button 
                                 variant="primary" 
-                                href="/quiz-attempt" 
+                                href={ quizAttemptLink } 
                                 hidden={ this.state.hideDoneBtn }
                             >
                                 Quiz Submissions

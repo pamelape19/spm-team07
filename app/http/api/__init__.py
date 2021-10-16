@@ -19,7 +19,7 @@ def hello_world():
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:root' + \
 #                                     '@localhost:3308/lms'
 app.config['SQLALCHEMY_DATABASE_URI'] = environ.get(
-    'dbURL') or 'mysql+mysqlconnector://root@localhost:3308/lms'
+    'dbURL') or 'mysql+mysqlconnector://root@localhost:3306/lms'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_size': 100,
                                            'pool_recycle': 280}
@@ -412,6 +412,24 @@ def get_all_quiz_question():
         }
     ), 404
 
+@app.route("/quiz_question/<int:quizID>")
+def find_enrollment_by_engin_email(quizID):
+    quizQns = QUIZ_QUESTION.query.filter_by(quizID=quizID).all()
+    if quizQns:
+        return jsonify(
+            {
+                "code": 200,
+                "data": {
+                    "quizQns": [quizQn.json() for quizQn in quizQns]
+                }
+            }
+        )
+    return jsonify(
+        {
+            "code": 404,
+            "message": "No quiz questions available for this quiz."
+        }
+    ), 404
 
 # quiz_results database
 class QUIZ_RESULTS (db.Model):
@@ -608,6 +626,24 @@ def get_all_quiz_option():
         }
     ), 404
 
+@app.route("/quiz_option/<int:quizID>")
+def quiz_options_by_quizID(quizID):
+    quizOptions = QUIZ_OPTION.query.filter_by(quizID=quizID).all()
+    if quizOptions:
+        return jsonify(
+            {
+                "code": 200,
+                "data": {
+                    "quizOptions": [quizOption.json() for quizOption in quizOptions]
+                }
+            }
+        )
+    return jsonify(
+        {
+            "code": 404,
+            "message": "No quiz options available for this quiz."
+        }
+    ), 404
 
 if __name__ == '__main__':
     print("This is flask for " + os.path.basename(__file__) +

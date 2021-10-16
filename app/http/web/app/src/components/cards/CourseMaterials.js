@@ -44,7 +44,6 @@ class CourseMaterials extends Component{
               
                 if (CourseChapter.course_name == this.state.CourseNameState && CourseChapter.CNo == this.state.ClassNumState){
 
-                    console.log("nice")
                     this.setState({
                         
                         CourseChapters: [...this.state.CourseChapters, [CourseChapter.CNo, CourseChapter.course_name, CourseChapter.chapterNo, CourseChapter.chapter_name ]]

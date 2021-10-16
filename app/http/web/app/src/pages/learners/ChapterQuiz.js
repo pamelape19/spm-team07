@@ -8,8 +8,12 @@ class ChapterQuiz extends Component{
     constructor(props){
         super(props);
         this.state = {
+            quizQnOptions:[],
             quiz_questions: [],
-            isLoaded: true,
+            CourseNameState: "",
+            ClassNumState: "",
+            ChapterNameState: "",
+            quizIDState: "3003",
         }
     }
     componentDidMount(){
@@ -19,76 +23,65 @@ class ChapterQuiz extends Component{
 
         let tokenWordsChapterName =  tokenString[5].split('%20');
         let chapterName = tokenWordsChapterName.join(" ");    
-
         let classNum = tokenString[6];
-        
-        console.log(classNum)
-        console.log(chapterName)
-        console.log(courseName)
 
         this.setState({
             CourseNameState: courseName,
             ClassNumState: classNum,
             ChapterNameState: chapterName,
-            quizIDState: "",
-            quiz_questions: []
         })
 
-        fetch('http://127.0.0.1:5000/quiz')
+
+        fetch('http://127.0.0.1:5000/quiz_question/' + this.state.quizIDState)
         .then(res => res.json())
         .then(result => {
-
-            let allQuiz = result.data.quiz;
+            // since quiz options are concatenated, need to clear the array when it's a new question
+            this.setState({
+                quizQnOptions: []
+            })
+            let allQuizQuestions = result.data.quizQns;
             
-            const quiz = allQuiz.map((quiz) => {
-                //  doesnt work coz of null data
-            //    && quiz.chapterName == this.state.ChapterNameState
-                if (quiz.course_name == this.state.CourseNameState && quiz.CNo == this.state.ClassNumState ){
-
-                    console.log("nice")
-                    this.setState({
+            allQuizQuestions.map((quizQuestion) => {
+                fetch('http://127.0.0.1:5000/quiz_option/' + this.state.quizIDState)
+                .then(res => res.json())
+                .then(result => {
                     
-                        // quizIDState: quiz.quizID
-                        quizIDState: "1002"
-                    })
-
-                    
-                }
-                
-
-            });
-            console.log(this.state.quizIDState)
-        })
-
-        fetch('http://127.0.0.1:5000/quiz_question')
-        .then(res => res.json())
-        .then(result => {
-
-            let allQuizQuestions = result.data.quiz_question;
-            
-            const quizQuestion = allQuizQuestions.map((quizQuestion) => {
-            
-                console.log(quizQuestion.quizID)
-                if (quizQuestion.quizID == this.state.quizIDState){
-
-                     
-                    this.setState({
-                        quiz_questions: [...this.state.quiz_questions, quizQuestion]
+                    let allQuizOptions = result.data.quizOptions;
+                    // get all quiz options for a specific question
+                    allQuizOptions.map((quizOption) => {  
+                        if (quizOption.questionNo === quizQuestion.questionNo){
+                            this.setState({
+                                    quizQnOptions: [...this.state.quizQnOptions, quizOption]
+                                }); 
+                            }
+                        // else condition needed for qns that have no options in the db, so that 'quiz_question.quizOptions[0].option_value' below will not return an error due to empty array
+                        else{
+                            this.setState({
+                                quizQnOptions: [{'option_value': "no value in db"}, {'option_value': "no value in db"}, {'option_value': "no value in db"}, {'option_value': "no value in db"}]
+                            })
+                        }
                     });
-                }
-                
+                    // fill quiz_questions array with question data and their respective options
+                    this.setState({
+                        quiz_questions: [...this.state.quiz_questions, 
+                            {
+                                'qnNo': quizQuestion.questionNo, 
+                                'qn': quizQuestion.question, 
+                                'qnType': quizQuestion.question_type, 
+                                'quizID': this.state.quizIDState,
+                                'quizOptions': this.state.quizQnOptions
+                            }]
+                    });
 
-            });
-            console.log(this.state.quiz_questions)
+                });
+            })
         })
     }
+
     render(){
-        const{quiz_questions, isLoaded} = this.state;
-        
-        if (!isLoaded){
-            return(<div>Loading</div>)
-        } else{
-            return(
+        const{ quiz_questions } = this.state;
+
+            return( 
                 <div>
                     <div className="chapter-quiz-sticky-top">
                         <Container className="chapter-quiz-header">
@@ -98,34 +91,27 @@ class ChapterQuiz extends Component{
                         <hr/>
                     </div>
 
-
-
-
                     <Container className = "chapter-quiz-questions">
+ 
+                    {quiz_questions.map((quiz_question)=>{
 
+                            if (quiz_question.qnType === "t/f")
+                                return (<McqQn qn_no = { quiz_question.qnNo } qn = {quiz_question.qn} options = {[ "True" , "False"]} />)
+                            else
+                                return (<McqQn qn_no = { quiz_question.qnNo } qn = {quiz_question.qn} options = {[ quiz_question.quizOptions[0].option_value,quiz_question.quizOptions[1].option_value, quiz_question.quizOptions[2].option_value, quiz_question.quizOptions[3].option_value]} />)
+                    
+                    })}
 
-                    {quiz_questions.map((quiz_question)=>(
-
-                    <McqQn qn_no = { quiz_question.questionNo } qn = {quiz_question.question} options = {["lorem ipsum", "ipsum lorem", "lorem ipsum", "ipsum lorem"]} />
-                            ))}
-
-                        {/* <McqQn qn_no = { 1 } qn = "What is 3D Printing?" options = {["lorem ipsum", "ipsum lorem", "lorem ipsum", "ipsum lorem"]} />
-                        <McqQn qn_no = { 2 } qn = "3D Printing can print 3D" options = {["True", "False"]}/> */}
                     <div className = "chapter-quiz-buttons">
                         <div></div>
                         <Button type="submit" variant="secondary" >Save</Button>{' '}
                         <Button type="submit">Submit</Button>{' '}
                     </div>   
-                    {/* <div> tset </div>
-                    <div>  {quiz_questions[0].course_name} </div>
-                    <div>  {console.log(quiz_questions[0])} </div>
-                    {quiz_questions.map((quiz_question)=>(
-                        <div> {quiz_question.question}</div>
-                                ))} */}
+
                     </Container>
                 </div>
             )
-        }
+        
 
     }
 }

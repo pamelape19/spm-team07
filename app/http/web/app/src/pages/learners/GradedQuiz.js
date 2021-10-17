@@ -5,8 +5,14 @@ class GradedQuiz extends Component{
     constructor(props){
         super(props);
         this.state = {
+            quizQnOptions:[],
+            quiz_questions: [],
             courseNameState: "",
-            classNumState: 0
+            classNumState: 0,
+            quizIDState: "1001",
+            ans: "",
+            isLoaded: false,
+            qnCount: 0,
         }
     }
     componentDidMount(){
@@ -19,57 +25,92 @@ class GradedQuiz extends Component{
             courseNameState: courseName,
             classNumState: classNum,
         })
+
+        fetch('http://127.0.0.1:5000/quiz_question/' + this.state.quizIDState)
+        .then(res => res.json())
+        .then(result => {
+            // since quiz options are concatenated, need to clear the array when it's a new question
+            this.setState({
+                quizQnOptions: []
+            })
+            let allQuizQuestions = result.data.quizQns;
+            // console.log(allQuizQuestions.length)
+            allQuizQuestions.map((quizQuestion) => {
+                
+                fetch('http://127.0.0.1:5000/quiz_option/' + this.state.quizIDState)
+                .then(res => res.json())
+                .then(result => {
+                    
+                    let allQuizOptions = result.data.quizOptions;
+                    // get all quiz options for a specific question
+                    allQuizOptions.map((quizOption) => {  
+                        if (quizOption.questionNo === quizQuestion.questionNo){
+                            this.setState({
+                                quizQnOptions: [...this.state.quizQnOptions, quizOption.option_value]
+                            }); 
+                            if (quizOption.answer === true)
+                                this.setState({
+                                    ans: quizOption.option_value
+                                })
+                        }
+                        // else condition needed for qns that have no options in the db, so that 'quiz_question.quizOptions[0].option_value' below will not return an error due to empty array
+                        else{
+                            this.setState({
+                                quizQnOptions: ["no value in db", "no value in db", "no value in db", "no value in db"]
+                            })
+                        }
+                    });
+                    // fill quiz_questions array with question data and their respective options
+                    this.setState({
+                        quiz_questions: [...this.state.quiz_questions, 
+                            {
+                                'no': quizQuestion.questionNo, 
+                                'qtext': quizQuestion.question, 
+                                'qnType': quizQuestion.question_type, 
+                                'options': this.state.quizQnOptions,
+                                'ans': this.state.ans,
+                                'marks': 1
+                            }],
+                        qnCount: this.state.qnCount + 1
+                    });
+
+                    if (this.state.qnCount === allQuizQuestions.length){
+                        this.setState({
+                            isLoaded: true
+                        })
+                    }
+                });
+            })
+        })
+
+        
     }
     render(){
-        return(
-            <div>
-                <Test 
-                    name = "Final Quiz"
-                    courseName = { this.state.courseNameState }
-                    classNum = { this.state.classNumState }
-                    time = {30}
-                    description = "This is a sample test paper to demonstrate the ReactJS UI design by components"
-                    passCutoff = {0.5}
-                    applyNegativeMarking = {false}
-                    questions = {
-                        [
-                            {
-                                no : "1",
-                                qtext : "California is in which part of USA?",
-                                options : ["East", "Mid", "West", "South"],
-                                ans : "West",
-                                marks : 3
-                            },
-                            {
-                                no : "2",
-                                qtext : "Who is Prime Minister of India?",
-                                options : ["Sonia Gandhi", "Narendra Modi", "Manmohan Singh", "Rahul Gandhi"],
-                                ans : "Sonia Gandhi",
-                                marks : 4
-                            },
-                            {
-                                no : "3",
-                                qtext : "Who is Prime Minister of India?",
-                                options : ["Sonia Gandhi", "Narendra Modi", "Manmohan Singh", "Rahul Gandhi"],
-                                ans : "Sonia Gandhi",
-                                marks : 4
-                            },
-                            {
-                                no : "4",
-                                qtext : "Who is Prime Minister of India?",
-                                options : ["Sonia Gandhi", "Narendra Modi", "Manmohan Singh", "Rahul Gandhi"],
-                                ans : "Sonia Gandhi",
-                                marks : 4
-                            }
-                        ]
-                    }
-                />
-                
-            </div>
-        )
+        if (this.state.isLoaded === false){
+            return(
+                <div style={{margin: '10%'}}>
+                    <h4>Loading</h4>
+                </div>
+            )
+        }
+        else{
+            const { courseNameState, classNumState, quiz_questions } = this.state;
+            return(
+                <div>
+                    <Test 
+                        name = "Final Quiz"
+                        courseName = { courseNameState }
+                        classNum = { classNumState }
+                        time = {30}
+                        description = "This is a sample test paper to demonstrate the ReactJS UI design by components"
+                        passCutoff = {0.5}
+                        applyNegativeMarking = {false}
+                        questions = { quiz_questions }
+                    />
+                    
+                </div>
+            )
+        }
     }
 }
 export default GradedQuiz;
-
-
-

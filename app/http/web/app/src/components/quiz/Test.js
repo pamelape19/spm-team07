@@ -27,8 +27,8 @@ class Test extends Component{
     };
     render(){
         var totalmarks = 0;
-        const { name, time, questions, applyNegativeMarking } = this.props;
-
+        const { name, time, questions, applyNegativeMarking, courseName, classNum } = this.props;
+        const { timeElapsed, totalscore, testSubmitted } = this.state;
         const marksArray = this.props.questions.map( (question) => question.marks );
         const reducer = (previousValue, currentValue) => previousValue + currentValue;
         totalmarks = marksArray.reduce(reducer);
@@ -45,8 +45,8 @@ class Test extends Component{
                 <Container className="test-main-body">
                 <div className="test-body-layout">
                     <QuestionPaper 
-                        courseName = { this.props.courseName }
-                        classNum = { this.props.classNum }
+                        courseName = { courseName }
+                        classNum = { classNum }
                         questions={ questions }
                         applyNegativeMarking={ applyNegativeMarking }
                         onSubmitted={ (result) => this.handleChange(result) } 
@@ -55,8 +55,8 @@ class Test extends Component{
                         totalmarks = { totalmarks }
                     />
                     <div className="test-aside">
-                        <Stopwatch timeElapsed={ this.state.timeElapsed } />
-                        <ScoreCard score={ this.state.totalscore } testSubmitted={ this.state.testSubmitted } percentage={ Math.round(this.state.totalscore*100/totalmarks) }/>
+                        <Stopwatch timeElapsed={ timeElapsed } />
+                        <ScoreCard score={ totalscore } testSubmitted={ testSubmitted } percentage={ Math.round(totalscore*100/totalmarks) }/>
                     </div>
                 </div>
                 </Container>

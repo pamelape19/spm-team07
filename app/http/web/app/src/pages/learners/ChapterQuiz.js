@@ -51,13 +51,13 @@ class ChapterQuiz extends Component{
                     allQuizOptions.map((quizOption) => {  
                         if (quizOption.questionNo === quizQuestion.questionNo){
                             this.setState({
-                                    quizQnOptions: [...this.state.quizQnOptions, quizOption]
+                                    quizQnOptions: [...this.state.quizQnOptions, quizOption.option_value]
                                 }); 
                             }
                         // else condition needed for qns that have no options in the db, so that 'quiz_question.quizOptions[0].option_value' below will not return an error due to empty array
                         else{
                             this.setState({
-                                quizQnOptions: [{'option_value': "no value in db"}, {'option_value': "no value in db"}, {'option_value': "no value in db"}, {'option_value': "no value in db"}]
+                                quizQnOptions: ["no value in db", "no value in db", "no value in db", "no value in db"]
                             })
                         }
                     });
@@ -98,7 +98,7 @@ class ChapterQuiz extends Component{
                             if (quiz_question.qnType === "t/f")
                                 return (<McqQn qn_no = { quiz_question.qnNo } qn = {quiz_question.qn} options = {[ "True" , "False"]} />)
                             else
-                                return (<McqQn qn_no = { quiz_question.qnNo } qn = {quiz_question.qn} options = {[ quiz_question.quizOptions[0].option_value,quiz_question.quizOptions[1].option_value, quiz_question.quizOptions[2].option_value, quiz_question.quizOptions[3].option_value]} />)
+                                return (<McqQn qn_no = { quiz_question.qnNo } qn = {quiz_question.qn} options = {[ quiz_question.quizOptions[0], quiz_question.quizOptions[1], quiz_question.quizOptions[2], quiz_question.quizOptions[3]]} />)
                     
                     })}
 

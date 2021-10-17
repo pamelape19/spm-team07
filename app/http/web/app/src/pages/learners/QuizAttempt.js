@@ -27,7 +27,6 @@ class QuizAttempt extends Component{
         fetch('http://127.0.0.1:5000/quiz/' + courseName + '/' + classNum)
         .then(res => res.json())
         .then(result => {
-            console.log(result.data.courseQuizzes)
             let course_quizzes = result.data.courseQuizzes;
             course_quizzes.map((course_quiz)=>{
                 if (course_quiz.chapter_name === null)

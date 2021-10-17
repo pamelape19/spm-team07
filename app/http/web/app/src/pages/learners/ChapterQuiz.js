@@ -13,7 +13,7 @@ class ChapterQuiz extends Component{
             CourseNameState: "",
             ClassNumState: "",
             ChapterNameState: "",
-            quizIDState: "3003",
+            quizID: "3003"
         }
     }
     componentDidMount(){
@@ -31,51 +31,65 @@ class ChapterQuiz extends Component{
             ChapterNameState: chapterName,
         })
 
-
-        fetch('http://127.0.0.1:5000/quiz_question/' + this.state.quizIDState)
+        fetch('http://127.0.0.1:5000/quiz/' + courseName + '/' + classNum)
         .then(res => res.json())
         .then(result => {
-            // since quiz options are concatenated, need to clear the array when it's a new question
-            this.setState({
-                quizQnOptions: []
-            })
-            let allQuizQuestions = result.data.quizQns;
-            
-            allQuizQuestions.map((quizQuestion) => {
-                fetch('http://127.0.0.1:5000/quiz_option/' + this.state.quizIDState)
-                .then(res => res.json())
-                .then(result => {
-                    
-                    let allQuizOptions = result.data.quizOptions;
-                    // get all quiz options for a specific question
-                    allQuizOptions.map((quizOption) => {  
-                        if (quizOption.questionNo === quizQuestion.questionNo){
-                            this.setState({
-                                    quizQnOptions: [...this.state.quizQnOptions, quizOption.option_value]
-                                }); 
-                            }
-                        // else condition needed for qns that have no options in the db, so that 'quiz_question.quizOptions[0].option_value' below will not return an error due to empty array
-                        else{
-                            this.setState({
-                                quizQnOptions: ["no value in db", "no value in db", "no value in db", "no value in db"]
-                            })
-                        }
-                    });
-                    // fill quiz_questions array with question data and their respective options
-                    this.setState({
-                        quiz_questions: [...this.state.quiz_questions, 
-                            {
-                                'qnNo': quizQuestion.questionNo, 
-                                'qn': quizQuestion.question, 
-                                'qnType': quizQuestion.question_type, 
-                                'quizID': this.state.quizIDState,
-                                'quizOptions': this.state.quizQnOptions
-                            }]
-                    });
+            let course_quizzes = result.data.courseQuizzes;
+            course_quizzes.map((course_quiz)=>{
+                if (course_quiz.chapter_name === chapterName){
+                    // fetch('http://127.0.0.1:5000/quiz_question/' +  course_quiz.quizID)
+                    fetch('http://127.0.0.1:5000/quiz_question/' +  this.state.quizID)
 
-                });
+                    .then(res => res.json())
+                    .then(result => {
+                        // since quiz options are concatenated, need to clear the array when it's a new question
+                        this.setState({
+                            quizQnOptions: []
+                        })
+                        let allQuizQuestions = result.data.quizQns;
+                        
+                        allQuizQuestions.map((quizQuestion) => {
+                            // fetch('http://127.0.0.1:5000/quiz_option/' +  course_quiz.quizID)
+                            fetch('http://127.0.0.1:5000/quiz_option/' +  this.state.quizID)
+                            .then(res => res.json())
+                            .then(result => {
+                                
+                                let allQuizOptions = result.data.quizOptions;
+                                // get all quiz options for a specific question
+                                allQuizOptions.map((quizOption) => {  
+                                    if (quizOption.questionNo === quizQuestion.questionNo){
+                                        this.setState({
+                                                quizQnOptions: [...this.state.quizQnOptions, quizOption.option_value]
+                                            }); 
+                                        }
+                                    // else condition needed for qns that have no options in the db, so that 'quiz_question.quizOptions[0].option_value' below will not return an error due to empty array
+                                    else{
+                                        this.setState({
+                                            quizQnOptions: ["no value in db", "no value in db", "no value in db", "no value in db"]
+                                        })
+                                    }
+                                });
+                                // fill quiz_questions array with question data and their respective options
+                                this.setState({
+                                    quiz_questions: [...this.state.quiz_questions, 
+                                        {
+                                            'qnNo': quizQuestion.questionNo, 
+                                            'qn': quizQuestion.question, 
+                                            'qnType': quizQuestion.question_type, 
+                                            'quizID': this.state.quizIDState,
+                                            'quizOptions': this.state.quizQnOptions
+                                        }]
+                                });
+            
+                            });
+                        })
+                    })
+
+                }
+                    
             })
         })
+
     }
 
     render(){
@@ -85,7 +99,7 @@ class ChapterQuiz extends Component{
                 <div>
                     <div className="chapter-quiz-sticky-top">
                         <Container className="chapter-quiz-header">
-                            <h1> Quiz 1 - Introduction to 3D Printing </h1>
+                            <h1> Quiz 1 - { this.state.CourseNameState } </h1>
                             <p> Estimated Length: 30 mins</p>
                         </Container>
                         <hr/>

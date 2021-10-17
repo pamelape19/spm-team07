@@ -7,7 +7,8 @@ class TrainersHome extends Component{
         super(props);
         this.state = {
             isLoaded: true,
-            trainCourseState: []
+            trainCourseState: [],
+
         }
     }
     componentDidMount(){
@@ -23,16 +24,38 @@ class TrainersHome extends Component{
             const trainCourse = allTrain.map((trainCourse) => {
                 if (trainCourse.trainer_email === this.state.loginEmailState){
                     this.setState({
-                        trainCourseState: [...this.state.trainCourseState, [trainCourse.CNo, trainCourse.course_name]]
+                        trainCourseState: [...this.state.trainCourseState, [trainCourse.CNo, trainCourse.course_name]],
                     })
                     console.log(trainCourse.course_name)
-
                 }
-
             });
 
-
         })
+
+        fetch('http://127.0.0.1:5000/course')
+        .then(res => res.json())
+        .then(result => {
+            let courses = result.data.courses;
+            console.log(courses)
+            const course = this.state.trainCourseState.map((course) => {
+                console.log(course)
+                console.log(this.state.trainCourseState)
+
+                if(course == this.state.trainCourseState[1]){
+                    console.log(course.course_name)
+                }
+            })
+        })
+
+        fetch('http://127.0.0.1:5000/classes')
+        .then(res => res.json())
+        .then(result => {
+            let classes = result.data.classes;
+            console.log(classes)
+            console.log(this.state.trainCourseState)
+        })
+
+
 
 
     }
@@ -46,10 +69,6 @@ class TrainersHome extends Component{
 
                 <Container>
                     <h1>Assigned Classes to Teach</h1>
-                    {/* {Array.from({ length: 4 }).map((_, idx) => (
-                        <CompletedCardListItem  view="trainers"/>
-                        
-                    ))} */}
 
                     
                     {trainCourseState.map((trainCourse) => (

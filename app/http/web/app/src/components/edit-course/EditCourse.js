@@ -50,7 +50,7 @@ class EditCourse extends Component{
             .then(response => response.json())
             .then(data => this.setState({ postId: data.id }));
 
-        console.log(data)
+        
     }
     render(){
         const uploadCourseDesign = <div className="course-design-modal-body">

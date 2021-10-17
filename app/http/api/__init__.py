@@ -392,16 +392,20 @@ class QUIZ (db.Model):
     CNo = db.Column(db.Integer, nullable=False)
     course_name = db.Column(db.String(100), nullable=False)
     chapter_name  = db.Column(db.String(100))
+    duration = db.Column(db.Integer)
+    total_questions = db.Column(db.Integer, nullable=False)
 
 
-    def __init__(self, quizID, CNo, course_name, chapter_name):
+    def __init__(self, quizID, CNo, course_name, chapter_name, duration, total_questions):
         self.quizID = quizID
         self.CNo = CNo
         self.course_name = course_name
         self.chapter_name = chapter_name
+        self.duration = duration
+        self.total_questions = total_questions
 
     def json(self):
-        return {"quizID": self.quizID, "CNo": self.CNo, "course_name": self.course_name, "chapter_name": self.chapter_name}
+        return {"quizID": self.quizID, "CNo": self.CNo, "course_name": self.course_name, "chapter_name": self.chapter_name, "duration": self.duration, "total_questions": self.total_questions}
 
 
 @app.route("/quiz")
@@ -507,14 +511,17 @@ class QUIZ_RESULTS (db.Model):
     outcome = db.Column(db.Boolean, nullable=False )
     engin_email = db.Column(db.String(50), nullable=False, primary_key=True)
     quizID= db.Column(db.String(50),nullable=False, primary_key=True)
-    def __init__(self, engin_email, CNo, course_name):
+    total_questions = db.Column(db.Integer, nullable=False)
+
+    def __init__(self, engin_email, CNo, course_name, total_questions):
         self.engin_email = engin_email
         self.CNo = CNo
         self.course_name = course_name
+        self.total_questions = total_questions 
 
     def json(self):
         return {"attemptNo": self.attemptNo, "score": self.score, "outcome": self.outcome,
-        "engin_email": self.engin_email, "quizID": self.quizID}
+        "engin_email": self.engin_email, "quizID": self.quizID, "total_qns": self.total_questions}
 
 
 @app.route("/quiz_results")

@@ -9,7 +9,7 @@ class GradedQuiz extends Component{
             quiz_questions: [],
             courseNameState: "",
             classNumState: 0,
-            quizIDState: "1001",
+            quizId: "",
             ans: "",
             isLoaded: false,
             qnCount: 0,
@@ -26,70 +26,80 @@ class GradedQuiz extends Component{
             classNumState: classNum,
         })
 
-        fetch('http://127.0.0.1:5000/quiz_question/' + this.state.quizIDState)
+        fetch('http://127.0.0.1:5000/quiz/' + courseName + '/' + classNum)
         .then(res => res.json())
         .then(result => {
-            // since quiz options are concatenated, need to clear the array when it's a new question
-            this.setState({
-                quizQnOptions: []
-            })
-            let allQuizQuestions = result.data.quizQns;
-            // console.log(allQuizQuestions.length)
-            allQuizQuestions.map((quizQuestion) => {
-                
-                fetch('http://127.0.0.1:5000/quiz_option/' + this.state.quizIDState)
-                .then(res => res.json())
-                .then(result => {
-                    
-                    let allQuizOptions = result.data.quizOptions;
-                    // get all quiz options for a specific question
-                    allQuizOptions.map((quizOption) => {  
-                        if (quizOption.questionNo === quizQuestion.questionNo){
-                            this.setState({
-                                quizQnOptions: [...this.state.quizQnOptions, quizOption.option_value]
-                            }); 
-                            if (quizOption.answer === true)
-                                this.setState({
-                                    ans: quizOption.option_value
-                                })
-                        }
-                        // else condition needed for qns that have no options in the db, so that 'quiz_question.quizOptions[0].option_value' below will not return an error due to empty array
-                        else{
-                            this.setState({
-                                quizQnOptions: ["no value in db", "no value in db", "no value in db", "no value in db"]
-                            })
-                        }
-                    });
-                    // fill quiz_questions array with question data and their respective options
-                    this.setState({
-                        quiz_questions: [...this.state.quiz_questions, 
-                            {
-                                'no': quizQuestion.questionNo, 
-                                'qtext': quizQuestion.question, 
-                                'qnType': quizQuestion.question_type, 
-                                'options': this.state.quizQnOptions,
-                                'ans': this.state.ans,
-                                'marks': 1
-                            }],
-                        qnCount: this.state.qnCount + 1
-                    });
-
-                    if (this.state.qnCount === allQuizQuestions.length){
+            let course_quizzes = result.data.courseQuizzes;
+            course_quizzes.map((course_quiz)=>{
+                if (course_quiz.chapter_name === null){
+                    fetch('http://127.0.0.1:5000/quiz_question/' + course_quiz.quizID)
+                    .then(res => res.json())
+                    .then(result => {
+                        // since quiz options are concatenated, need to clear the array when it's a new question
                         this.setState({
-                            isLoaded: true
+                            quizQnOptions: []
                         })
-                    }
-                });
+                        let allQuizQuestions = result.data.quizQns;
+                        // console.log(allQuizQuestions.length)
+                        allQuizQuestions.map((quizQuestion) => {
+                            
+                            fetch('http://127.0.0.1:5000/quiz_option/' + course_quiz.quizID)
+                            .then(res => res.json())
+                            .then(result => {
+                                
+                                let allQuizOptions = result.data.quizOptions;
+                                // get all quiz options for a specific question
+                                allQuizOptions.map((quizOption) => {  
+                                    if (quizOption.questionNo === quizQuestion.questionNo){
+                                        this.setState({
+                                            quizQnOptions: [...this.state.quizQnOptions, quizOption.option_value]
+                                        }); 
+                                        if (quizOption.answer === true)
+                                            this.setState({
+                                                ans: quizOption.option_value
+                                            })
+                                    }
+                                    // else condition needed for qns that have no options in the db, so that 'quiz_question.quizOptions[0].option_value' below will not return an error due to empty array
+                                    else{
+                                        this.setState({
+                                            quizQnOptions: ["no value in db", "no value in db", "no value in db", "no value in db"]
+                                        })
+                                    }
+                                });
+                                // fill quiz_questions array with question data and their respective options
+                                this.setState({
+                                    quiz_questions: [...this.state.quiz_questions, 
+                                        {
+                                            'no': quizQuestion.questionNo, 
+                                            'qtext': quizQuestion.question, 
+                                            'qnType': quizQuestion.question_type, 
+                                            'options': this.state.quizQnOptions,
+                                            'ans': this.state.ans,
+                                            'marks': 1
+                                        }],
+                                    qnCount: this.state.qnCount + 1
+                                });
+            
+                                if (this.state.qnCount === allQuizQuestions.length){
+                                    this.setState({
+                                        isLoaded: true
+                                    })
+                                }
+                            });
+                        })
+                    })
+                }
             })
         })
 
+        
         
     }
     render(){
         if (this.state.isLoaded === false){
             return(
                 <div style={{margin: '10%'}}>
-                    <h4>Loading</h4>
+                    <h5>Loading</h5>
                 </div>
             )
         }

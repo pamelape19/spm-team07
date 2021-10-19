@@ -48,7 +48,7 @@ class TrainersCourse extends Component{
                             { courseNameState }
                         </h2>
                         <div className="course-start-date">
-                            Class duration: { startDateTimeState } - { endDateTimeState } <br/>
+                            Class duration: <br/> { startDateTimeState } - { endDateTimeState } <br/>
                         </div>
                     </div>
                     <span className="img-grid">

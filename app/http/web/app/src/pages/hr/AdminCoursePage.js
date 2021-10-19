@@ -17,7 +17,9 @@ class AdminCoursePage extends Component{
             coursePreReqState: "",
             allClasses: [],
             numClasses: 0,
-            courseClasses: []
+            courseClasses: [],
+            engineers: [],
+            isTrainer: [],
         };
         this.openModal = this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
@@ -71,6 +73,20 @@ class AdminCoursePage extends Component{
 
             })
         })
+
+        fetch('http://127.0.0.1:5000/engineer')
+        .then(res => res.json())
+        .then(result => {
+            let engineers = result.data.engineers;
+            const engineer = engineers.map((engineer) => {
+                if (engineer.trainer == "1") {
+                    this.setState({
+                        isLoaded: true,
+                        isTrainer: engineer.engin_name
+                    });
+                }
+            })
+        })
     }
 
     openModal(){
@@ -84,19 +100,25 @@ class AdminCoursePage extends Component{
         })
     }
     render(){
-        const { showAddClassModal, courseClasses, courseNameState, courseDescState, courseObjState, coursePreReqState } = this.state;
+        const { showAddClassModal, courseClasses, courseNameState, courseDescState, courseObjState, coursePreReqState, engineers, isTrainer } = this.state;
         let addClassModal;
         if (showAddClassModal===true){
             addClassModal = <div className="add-class-modal-wrapper">
                                 <div style={{margin: '9% 15%', background: 'white', padding: '3% 5%'}}>
                                     <h2>Class XX</h2>
                                     <form className="create-course-form">
-                                    
+
+                                        <div id="App">
+                                            <div className="select-container">
+                                                <select>
+                                                    <option value={isTrainer}>{isTrainer}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label label-course-create"> Trainer </label>
-                                            <div class="col-sm-7">
-                                                <input type="text" class="form-control" id="courseTitle" placeholder="enter trainer"/>
-                                            </div>
+                                            
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label label-course-create">  Start Date </label>

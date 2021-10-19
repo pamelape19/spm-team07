@@ -32,7 +32,7 @@ class AllRoutes extends Component {
                 <Route exact path="/trainers-home" component={ TrainersHome }/>
                 <Route exact path="/course-page/:slug" component={ CoursePage }/>
                 <Route exact path="/admin-course-page/:slug" component={ AdminCoursePage }/>
-                <Route exact path="/trainers-course" component={ TrainersCourse }/>
+                <Route exact path="/trainers-course/:slug/:slug" component={ TrainersCourse }/>
                 <Route exact path="/admin-home" component={ AdminHome }/>
                 <Route exact path="/course-materials/:slug/:slug" component={ CourseMaterials }/>
                 <Route exact path="/chapter-quiz/:slug/:slug/:slug" component={ ChapterQuiz }/>

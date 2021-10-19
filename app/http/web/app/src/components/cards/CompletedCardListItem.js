@@ -13,7 +13,6 @@ class CompletedCardListItem extends Component{
         const view = this.props.view;
         const courseName = this.props.CourseName;
         const classNum = this.props.ClassNum;
-        console.log(courseName)
        
         let typeBtn;
         if (view === "learners"){
@@ -22,7 +21,8 @@ class CompletedCardListItem extends Component{
                       </Button>;
         }
         else{
-            typeBtn = <Nav.Link href="/trainers-course" style={{ color: '#00000080' }}> 
+            let courseClassLink = '/trainers-course/' + courseName + '/' + classNum
+            typeBtn = <Nav.Link href={ courseClassLink } style={{ color: '#00000080' }}> 
                         <Button variant="primary"> Edit Class Content </Button>
                       </Nav.Link>;
         }
@@ -36,8 +36,8 @@ class CompletedCardListItem extends Component{
                     <div>
                         <h2>
                             
-                            <Card.Text>  {courseName}  </Card.Text>
-                            <Card.Text>  Class: {classNum}</Card.Text>
+                            <Card.Text>  { courseName }  </Card.Text>
+                            <Card.Text>  Class: { classNum }</Card.Text>
                             
                            
                         </h2>

@@ -17,7 +17,7 @@ class LearnersEnrolled extends Component{
         .then(result => {
             // retrieves all classes the engineer is enrolled in
             let allClassesEnrolled = result.data.enginClasses;
-            const enrolledCourse = allClassesEnrolled.map((enrolledCourse)=>{
+            allClassesEnrolled.map((enrolledCourse)=>{
 
                 // retrieves data of specific course
                 fetch('http://127.0.0.1:5000/course/' + enrolledCourse.course_name)

@@ -5,7 +5,6 @@ import AddChapter from './AddChapter';
 import ModalComponent from '../general/ModalComponent';
 
 import './css/editCourse.css';
-import EnrolledClassSample from '../../resources/enrolledClassSample.png';
 import Trash from '../../resources/trash.png';
 
 class EditCourse extends Component{
@@ -72,20 +71,6 @@ class EditCourse extends Component{
         }
         return(
             <div>
-                <Container className="edit-course-header">
-                    <div>
-                        <h2>
-                            HP Printer 1337 Tutorial
-                        </h2>
-                        <div className="course-start-date">
-                            Class duration: DDMMYY - DDMMYY <br/>
-                            Trainer: xxxxxxxxxxxxxxx
-                        </div>
-                    </div>
-                    <span className="img-grid">
-                        <img src={ EnrolledClassSample } alt="" className="course-img"/>
-                    </span>
-                </Container>
 
                 <Container className="class-materials">
                     

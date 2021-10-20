@@ -90,8 +90,8 @@ class ChapterQuiz extends Component{
                 <div style={{marginBottom: '3%'}}>
                     <div className="chapter-quiz-sticky-top">
                         <Container className="chapter-quiz-header">
-                            <h1> Quiz 1 - { this.state.CourseNameState } </h1>
-                            <p> Estimated Length: 30 mins</p>
+                            <h1> Quiz - { this.state.CourseNameState } </h1>
+                            <p> Chapter Name: { this.state.ChapterNameState } </p>
                         </Container>
                         <hr/>
                     </div>

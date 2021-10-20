@@ -100,14 +100,14 @@ class GradedQuiz extends Component{
             )
         }
         else{
-            const { courseNameState, classNumState, quiz_questions } = this.state;
+            const { courseNameState, classNumState, quiz_questions, duration } = this.state;
             return(
                 <div>
                     <Test 
                         name = "Final Quiz"
                         courseName = { courseNameState }
                         classNum = { classNumState }
-                        time = { this.state.duration }
+                        time = { duration }
                         passCutoff = { 0.5 }
                         applyNegativeMarking = { false }
                         questions = { quiz_questions }

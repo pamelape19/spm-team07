@@ -13,6 +13,7 @@ class GradedQuiz extends Component{
             ans: "",
             isLoaded: false,
             qnCount: 0,
+            duration: null
         }
     }
     componentDidMount(){
@@ -32,6 +33,9 @@ class GradedQuiz extends Component{
             let course_quizzes = result.data.courseQuizzes;
             course_quizzes.map((course_quiz)=>{
                 if (course_quiz.chapter_name === null){
+                    this.setState({
+                        duration: course_quiz.duration
+                    })
                     fetch('http://127.0.0.1:5000/quiz_question/' + course_quiz.quizID)
                     .then(res => res.json())
                     .then(result => {
@@ -103,10 +107,9 @@ class GradedQuiz extends Component{
                         name = "Final Quiz"
                         courseName = { courseNameState }
                         classNum = { classNumState }
-                        time = {30}
-                        description = "This is a sample test paper to demonstrate the ReactJS UI design by components"
-                        passCutoff = {0.5}
-                        applyNegativeMarking = {false}
+                        time = { this.state.duration }
+                        passCutoff = { 0.5 }
+                        applyNegativeMarking = { false }
                         questions = { quiz_questions }
                     />
                     

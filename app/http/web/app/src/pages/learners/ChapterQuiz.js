@@ -13,7 +13,7 @@ class ChapterQuiz extends Component{
             CourseNameState: "",
             ClassNumState: "",
             ChapterNameState: "",
-            quizID: ""
+            quizID: "",
         }
     }
     componentDidMount(){
@@ -67,7 +67,7 @@ class ChapterQuiz extends Component{
                                             'qnNo': quizQuestion.questionNo, 
                                             'qn': quizQuestion.question, 
                                             'qnType': quizQuestion.question_type, 
-                                            'quizID': this.state.quizIDState,
+                                            'quizID': this.state.quizID,
                                             'quizOptions': this.state.quizQnOptions
                                         }]
                                 });
@@ -87,7 +87,7 @@ class ChapterQuiz extends Component{
         const{ quiz_questions } = this.state;
 
             return( 
-                <div>
+                <div style={{marginBottom: '3%'}}>
                     <div className="chapter-quiz-sticky-top">
                         <Container className="chapter-quiz-header">
                             <h1> Quiz 1 - { this.state.CourseNameState } </h1>
@@ -109,8 +109,8 @@ class ChapterQuiz extends Component{
 
                     <div className = "chapter-quiz-buttons">
                         <div></div>
-                        <Button type="submit" variant="secondary" >Save</Button>{' '}
                         <Button type="submit">Submit</Button>{' '}
+                        <div></div>
                     </div>   
 
                     </Container>

@@ -10,9 +10,7 @@ class CompletedCardListItem extends Component{
     }
 
     render(){
-        const view = this.props.view;
-        const courseName = this.props.CourseName;
-        const classNum = this.props.ClassNum;
+        const { view, courseName, classNum } = this.props;
        
         let typeBtn;
         if (view === "learners"){

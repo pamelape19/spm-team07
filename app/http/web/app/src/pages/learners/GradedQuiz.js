@@ -35,18 +35,16 @@ class GradedQuiz extends Component{
                     fetch('http://127.0.0.1:5000/quiz_question/' + course_quiz.quizID)
                     .then(res => res.json())
                     .then(result => {
-                        // since quiz options are concatenated, need to clear the array when it's a new question
-                        this.setState({
-                            quizQnOptions: []
-                        })
                         let allQuizQuestions = result.data.quizQns;
-                        // console.log(allQuizQuestions.length)
                         allQuizQuestions.map((quizQuestion) => {
                             
                             fetch('http://127.0.0.1:5000/quiz_option/' + course_quiz.quizID)
                             .then(res => res.json())
                             .then(result => {
-                                
+                                // since quiz options are concatenated, need to clear the array when it's a new question
+                                this.setState({
+                                    quizQnOptions: []
+                                })
                                 let allQuizOptions = result.data.quizOptions;
                                 // get all quiz options for a specific question
                                 allQuizOptions.map((quizOption) => {  
@@ -58,12 +56,6 @@ class GradedQuiz extends Component{
                                             this.setState({
                                                 ans: quizOption.option_value
                                             })
-                                    }
-                                    // else condition needed for qns that have no options in the db, so that 'quiz_question.quizOptions[0].option_value' below will not return an error due to empty array
-                                    else{
-                                        this.setState({
-                                            quizQnOptions: ["no value in db", "no value in db", "no value in db", "no value in db"]
-                                        })
                                     }
                                 });
                                 // fill quiz_questions array with question data and their respective options

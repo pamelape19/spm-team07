@@ -1,8 +1,9 @@
 import os
 from flask import Flask, request, jsonify
-from flask import redirect, url_for, request, render_template, send_file
 from io import BytesIO
 import enum
+
+from flask.helpers import flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 
@@ -17,9 +18,6 @@ app = Flask(__name__)
 def hello_world():
     return "<p>Hello world</p>"
 
-
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:root' + \
-#                                     '@localhost:3308/lms'
 app.config['SQLALCHEMY_DATABASE_URI'] = environ.get(
     'dbURL') or 'mysql+mysqlconnector://root@localhost:3306/lms'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -354,37 +352,19 @@ class COURSE_MATERIAL(db.Model):
         self.material_name = material_name
         self.content = content
 
-    def json(self):
-        return {"mid": self.mid, "material_name": self.material_name, "content": self.content}
-
-
-@app.route('/course-material')
-def get_all_material():
-    materials = COURSE_MATERIAL.query.all()
-    if len(materials):
-        return jsonify(
-            {
-                "code": 200,
-                "data": {
-                    "material": [material.json() for material in materials]
-                }
-            }
-        )
-    return jsonify(
-        {
-            "code": 404,
-            "message": "There are no materials."
-        }
-    ), 404
-
-@app.route('/upload', methods = ["POST"])
-def upload():
-    file = request.files['inputFile']
-    newFile = COURSE_MATERIAL(material_name=file.filename, content=file.read())
-    db.session.add(newFile)
-    db.session.commit()
-    return 'Uploaded' + file.filename + 'to the Chapter'
-
+@app.route('/course-material', methods=['POST'])
+def uploadFile():
+    if 'file' in request.files:
+        file = request.files['file']
+        print(file.filename)
+        new_file = COURSE_MATERIAL(mid=7, material_name=file.filename, content=file.read())
+        try:
+            db.session.add(new_file)
+            db.session.commit()
+        except Exception as e:
+            return 'File could not be uploaded'
+        return 'File is uploaded'
+  
 # quiz database
 class QUIZ (db.Model):
     __tablename__ = 'QUIZ'
@@ -721,7 +701,4 @@ def quiz_options_by_quizID(quizID):
     ), 404
 
 if __name__ == '__main__':
-    print("This is flask for " + os.path.basename(__file__) +
-          ": managing engineers ...")
-    app.debug = True
-    app.run(host='0.0.0.0', port=7001, debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)

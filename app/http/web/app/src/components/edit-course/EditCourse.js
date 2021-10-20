@@ -39,34 +39,29 @@ class EditCourse extends Component{
             hideTrashCourseDesign: true,
         })
     }
-    componentDidMount(){
-        const requestOptions = {
-            method: 'POST',
-            // headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ title: 'React POST Request Example' })
-        };
-        fetch('http://127.0.0.1:5000/upload', requestOptions)
-            .then(response => response.json())
-            .then(data => this.setState({ postId: data.id }));
+    // componentDidMount(){
+    //     const requestOptions = {
+    //         method: 'POST',
+    //         // headers: { 'Content-Type': 'application/json' },
+    //         body: JSON.stringify({ title: 'React POST Request Example' })
+    //     };
+    //     fetch('http://127.0.0.1:5000/upload', requestOptions)
+    //         .then(response => response.json())
+    //         .then(data => this.setState({ postId: data.id }));
 
         
-    }
+    // }
     render(){
-        const uploadCourseDesign = <div className="course-design-modal-body">
-                                        <input type="file" name = 'inputFile' className="course-design-browse-btn" id={ 'course-design' + this.state.courseId }/><br/>
-                                        <b>Note: </b>
-                                        All files should be at least 720p and less than 4.0. GB.
-                                    </div>
         // conditional rendering for course design's button
         let courseDesignBtn;
         if ( this.state.courseDesignAdded === false ){
             courseDesignBtn = <button className="course-design-btn" onClick={ this.showEditCourseDesign }>
-                            <ModalComponent btnName="Upload Content" body={ uploadCourseDesign }/>
+                            <ModalComponent btnName="Upload Content" uploadId={ this.state.courseId } />
                         </button>
         }
         else{
             courseDesignBtn = <button className="course-design-btn" onClick={ this.showEditCourseDesign }>
-                            <ModalComponent btnName="Edit Content" body={ uploadCourseDesign }/>
+                            <ModalComponent btnName="Edit Content" uploadId={ this.state.courseId } />
                         </button>
         }
         return(

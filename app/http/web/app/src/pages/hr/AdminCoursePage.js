@@ -37,7 +37,7 @@ class AdminCoursePage extends Component{
         .then(res => res.json())
         .then(result => {
             let courses = result.data.courses;
-            const course = courses.map((course) => {
+            courses.map((course) => {
                 if (course.course_name === this.state.courseNameState){
                     this.setState({
                         courseDescState: course.description,
@@ -64,7 +64,7 @@ class AdminCoursePage extends Component{
             this.setState({
                 allClasses: result.data.classes
             })
-            const courseClass = this.state.allClasses.map((courseClass)=>{
+            this.state.allClasses.map((courseClass)=>{
                 if ( courseClass.Course_name === this.state.courseNameState ){
                     this.setState ({ 
                         courseClasses: [...this.state.courseClasses, [courseClass.CNo, courseClass.Capacity, courseClass.Start_date, courseClass.End_date]]
@@ -78,11 +78,11 @@ class AdminCoursePage extends Component{
         .then(res => res.json())
         .then(result => {
             let engineers = result.data.engineers;
-            const engineer = engineers.map((engineer) => {
+            engineers.map((engineer) => {
                 if (engineer.trainer == "1") {
                     this.setState({
                         isLoaded: true,
-                        isTrainer: engineer.engin_name
+                        isTrainer: [...this.state.isTrainer, engineer.engin_name]
                     });
                 }
             })
@@ -101,24 +101,22 @@ class AdminCoursePage extends Component{
     }
     render(){
         const { showAddClassModal, courseClasses, courseNameState, courseDescState, courseObjState, coursePreReqState, engineers, isTrainer } = this.state;
+        const trainers = isTrainer.map((trainer) => <option value={trainer}>{trainer}</option>)
+
+        
         let addClassModal;
         if (showAddClassModal===true){
             addClassModal = <div className="add-class-modal-wrapper">
                                 <div style={{margin: '9% 15%', background: 'white', padding: '3% 5%'}}>
                                     <h2>Class XX</h2>
                                     <form className="create-course-form">
-
-                                        <div id="App">
-                                            <div className="select-container">
-                                                <select>
-                                                    <option value={isTrainer}>{isTrainer}</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label label-course-create"> Trainer </label>
-                                            
+                                            <div class="col-sm-7">
+                                                <select class="form-select" >
+                                                        { trainers }
+                                                </select>
+                                            </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label label-course-create">  Start Date </label>

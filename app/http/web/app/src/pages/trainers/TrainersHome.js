@@ -16,7 +16,6 @@ class TrainersHome extends Component{
         .then(res => res.json())
         .then(result =>{
             let allTrain = result.data.train;
-
             allTrain.map((trainCourse) => {
                 if (trainCourse.trainer_email === this.state.loginEmailState){
                     this.setState({
@@ -30,7 +29,6 @@ class TrainersHome extends Component{
 
     render(){
         const { trainCourseState } = this.state;
-        
         return(
             <div style={{ margin: '8% 0' }}>
 
@@ -39,8 +37,8 @@ class TrainersHome extends Component{
 
                     
                     {trainCourseState.map((trainCourse) => (
-                        <CompletedCardListItem  view="trainers" CourseName = {trainCourse[1]}
-                        ClassNum = {trainCourse[0]}/>
+                        <CompletedCardListItem  view="trainers" courseName = {trainCourse[1]}
+                        classNum = {trainCourse[0]}/>
 
                     ))}
 

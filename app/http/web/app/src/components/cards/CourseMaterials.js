@@ -20,7 +20,8 @@ class CourseMaterials extends Component{
             CourseNameState: "",
             StartDateTimeState: null,
             EndDateTimeState: null,
-            TrainerState: ""
+            TrainerState: "",
+            courseDesc: ""
         }
     }
     componentDidMount(){
@@ -40,7 +41,7 @@ class CourseMaterials extends Component{
 
             let allCourses = result.data.enrollment;
             
-            const CourseChapter = allCourses.map((CourseChapter) => {
+            allCourses.map((CourseChapter) => {
               
                 if (CourseChapter.course_name == this.state.CourseNameState && CourseChapter.CNo == this.state.ClassNumState){
 
@@ -60,7 +61,7 @@ class CourseMaterials extends Component{
         .then(res => res.json())
         .then(result => {
             let allClasses = result.data.classes;
-            const classOfCourse = allClasses.map((classOfCourse) => {
+            allClasses.map((classOfCourse) => {
                 if (classOfCourse.Course_name === this.state.CourseNameState && classOfCourse.CNo === this.state.ClassNumState){
                     this.setState({
                         StartDateTimeState: classOfCourse.Start_date,
@@ -70,9 +71,17 @@ class CourseMaterials extends Component{
                 }
             })
         })
+
+        fetch('http://127.0.0.1:5000/course/' + CourseName)
+        .then(res => res.json())
+        .then(result => {
+            this.setState({
+                courseDesc: result.data.description
+            })
+        })
     }
     render(){
-        const { CourseChapters, ClassNumState, CourseNameState, StartDateTimeState, EndDateTimeState, TrainerState } = this.state;
+        const { CourseChapters, ClassNumState, CourseNameState, StartDateTimeState, EndDateTimeState, TrainerState, courseDesc } = this.state;
 
         // need a completed column for quiz 
         const numCompleted = CourseChapters.length;
@@ -95,15 +104,10 @@ class CourseMaterials extends Component{
                 </Container>
                 <Container className="main-body">
                     <Accordion>
-                        <AccordionTop courseName={ CourseNameState } classNum={ ClassNumState }/>
-
-                        {/* {Array.from({ length: totalChapters }).map((_, idx) => (
-                            <AccordionChapters chapter={ idx + 1 } name="What is 3d printing" completed={ numCompleted }/>
-                        ))}
-                          */}
-                        {CourseChapters.map((CourseChapter)=>(
-                            <AccordionChapters chapter={ CourseChapter[2] } chapterName={ CourseChapter[3] } completed={ numCompleted } classNum = { ClassNumState } courseName = { CourseChapter[1] }/>
-                        ))}
+                        <AccordionTop courseName={ CourseNameState } classNum={ ClassNumState } courseDesc={ courseDesc }/>
+                            {CourseChapters.map((CourseChapter)=>(
+                                <AccordionChapters chapter={ CourseChapter[2] } chapterName={ CourseChapter[3] } completed={ numCompleted } classNum = { ClassNumState } courseName = { CourseChapter[1] }/>
+                            ))}
                         <AccordionFinalQuiz completed={ numCompleted } totalChapters={ totalChapters } courseName={ CourseNameState } classNum={ ClassNumState }/>
                     </Accordion>
                 </Container>

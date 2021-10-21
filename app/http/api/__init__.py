@@ -366,7 +366,6 @@ def uploadCourseMaterial(courseName, cNo):
         print(file.filename)
         file_count = db.session.query(COURSE_MATERIAL).count()
         new_mid = file_count + 1
-        # new_file = COURSE_MATERIAL(mid=new_mid, material_name=file.filename, content=file.read())
         new_file = COURSE_MATERIAL(material_id=new_mid, material_name=file.filename, content=file.read(), CNo=cNo, Course_name=courseName, Chapter_num=0)
         try:
             db.session.add(new_file)
@@ -382,7 +381,6 @@ def uploadLectureMaterial(courseName, cNo, chapterNum):
         print(file.filename)
         file_count = db.session.query(COURSE_MATERIAL).count()
         new_mid = file_count + 1
-        # new_file = COURSE_MATERIAL(mid=new_mid, material_name=file.filename, content=file.read())
         new_file = COURSE_MATERIAL(material_id=new_mid, material_name=file.filename, content=file.read(), CNo=cNo, Course_name=courseName, Chapter_num=chapterNum)
         try:
             db.session.add(new_file)
@@ -402,13 +400,6 @@ def downloadLectureMaterial(courseName, cNo, chapterNum):
     file_data = COURSE_MATERIAL.query.filter_by(Course_name=courseName, CNo=cNo, Chapter_num=chapterNum).first()
     file_name = file_data.material_name + '.pdf'
     return send_file(BytesIO(file_data.content), attachment_filename=file_name, as_attachment=True)
-
-# @app.route('/download')
-# def downloadCourseMaterial():
-#     file_data = COURSE_MATERIAL.query.filter_by(mid=4).first()
-#     # print(file_data)
-#     # return 'hi'
-#     return send_file(BytesIO(file_data.content), attachment_filename='test.pdf', as_attachment=True)
 
 # quiz database
 class QUIZ (db.Model):

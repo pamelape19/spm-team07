@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_file
 from io import BytesIO
 import enum
 
@@ -357,14 +357,23 @@ def uploadFile():
     if 'file' in request.files:
         file = request.files['file']
         print(file.filename)
-        new_file = COURSE_MATERIAL(mid=7, material_name=file.filename, content=file.read())
+        file_count = db.session.query(COURSE_MATERIAL).count()
+        new_mid = file_count + 1
+        new_file = COURSE_MATERIAL(mid=new_mid, material_name=file.filename, content=file.read())
         try:
             db.session.add(new_file)
             db.session.commit()
         except Exception as e:
             return 'File could not be uploaded'
         return 'File is uploaded'
-  
+
+@app.route('/download')
+def download():
+    file_data = COURSE_MATERIAL.query.filter_by(mid=4).first()
+    # print(file_data)
+    # return 'hi'
+    return send_file(BytesIO(file_data.content), attachment_filename='test.pdf', as_attachment=True)
+
 # quiz database
 class QUIZ (db.Model):
     __tablename__ = 'QUIZ'

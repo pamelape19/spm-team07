@@ -39,18 +39,7 @@ class EditCourse extends Component{
             hideTrashCourseDesign: true,
         })
     }
-    // componentDidMount(){
-    //     const requestOptions = {
-    //         method: 'POST',
-    //         // headers: { 'Content-Type': 'application/json' },
-    //         body: JSON.stringify({ title: 'React POST Request Example' })
-    //     };
-    //     fetch('http://127.0.0.1:5000/upload', requestOptions)
-    //         .then(response => response.json())
-    //         .then(data => this.setState({ postId: data.id }));
 
-        
-    // }
     render(){
         // conditional rendering for course design's button
         let courseDesignBtn;

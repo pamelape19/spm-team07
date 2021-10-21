@@ -2,7 +2,7 @@ import { React, Component } from 'react';
 import { Card, Container } from 'react-bootstrap';
 
 import AddChapter from './AddChapter';
-import ModalComponent from '../general/ModalComponent';
+import ClassDesignModal from '../general/ClassDesignModal';
 
 import './css/editCourse.css';
 import Trash from '../../resources/trash.png';
@@ -41,16 +41,19 @@ class EditCourse extends Component{
     }
 
     render(){
+        const { courseName, classNum } = this.props
         // conditional rendering for course design's button
         let courseDesignBtn;
         if ( this.state.courseDesignAdded === false ){
             courseDesignBtn = <button className="course-design-btn" onClick={ this.showEditCourseDesign }>
-                            <ModalComponent btnName="Upload Content" uploadId={ this.state.courseId } />
+                            <ClassDesignModal btnName="Upload Content" courseName={ courseName } classNum={ classNum }/>
+                            {/* <ClassDesignModal btnName="Upload Content" uploadId={ this.state.courseId } courseName={ courseName } classNum={ classNum }/> */}
                         </button>
         }
         else{
             courseDesignBtn = <button className="course-design-btn" onClick={ this.showEditCourseDesign }>
-                            <ModalComponent btnName="Edit Content" uploadId={ this.state.courseId } />
+                            <ClassDesignModal btnName="Edit Content" courseName={ courseName } classNum={ classNum }/>
+                            {/* <ClassDesignModal btnName="Edit Content" uploadId={ this.state.courseId } courseName={ courseName } classNum={ classNum }/> */}
                         </button>
         }
         return(
@@ -72,7 +75,7 @@ class EditCourse extends Component{
 
                     {Array.from({ length: this.state.listChapters.length }).map((_, idx) => (
                     
-                        <AddChapter chapterItem={ this.state.listChapters[idx] }/>
+                        <AddChapter chapterItem={ this.state.listChapters[idx] }  courseName={ courseName } classNum={ classNum }/>
                         
                     ))}
 

@@ -21,17 +21,19 @@ class AccordionChapters extends Component{
         let checkMark;
         let openLecture;
         let openQuiz;
+        let lectureMaterialHref;
         // appending of custom quiz href so that the correct quiz can be displayed - passing chapter number to chapter-quiz route
         
         let openQuizHref;
 
         if ( chapter < completed ){
             checkMark = <img src={Check} alt=""/>;
-            openLecture = <a href="#"><p>Lecture materials</p></a>
+            lectureMaterialHref = '/download/' + courseName + '/' + classNum + '/' + chapter
+            // openLecture = <Button>Lecture materials</Button>
+            openLecture = <a href='#'><p>Lecture materials</p></a>
 
             openQuizHref = "/chapter-quiz/" + courseName + "/" + chapterName + "/" + classNum 
-            console.log(openQuizHref)
-            openQuiz = <a href= {openQuizHref} ><p>Quiz</p></a>
+            openQuiz = <a href= { openQuizHref } ><p>Quiz</p></a>
             
         }
         else{

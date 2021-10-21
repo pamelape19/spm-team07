@@ -38,7 +38,7 @@ class TrainersCourse extends Component{
         })
     }
     render(){
-        const { courseNameState, startDateTimeState, endDateTimeState } = this.state;
+        const { courseNameState, classNumState, startDateTimeState, endDateTimeState } = this.state;
         return(
             
             <div style={{ margin: '8% 0' }}>
@@ -55,7 +55,7 @@ class TrainersCourse extends Component{
                         <img src={ EnrolledClassSample } alt="" className="course-img"/>
                     </span>
                 </Container>
-                <EditCourse/>
+                <EditCourse courseName={ courseNameState } classNum={ classNumState }/>
 
             </div>
         )

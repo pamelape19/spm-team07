@@ -1,7 +1,7 @@
 import { React, Component } from 'react';
 import { Card, Button } from 'react-bootstrap';
 
-import ModalComponent from '../general/ModalComponent';
+import LectureModal from '../general/LectureModal';
 
 import './css/editCourse.css';
 import Done from '../../resources/check.png';
@@ -85,12 +85,8 @@ class AddChapter extends Component{
         })
     }
     render(){
-        const chapterItem = this.props.chapterItem;
-        const uploadLecture = <div className="lecture-modal-body">
-                                <input type="file" className="lecture-browse-btn" id={ 'lecture' + chapterItem}/><br/>
-                                <b>Note: </b>
-                                All files should be at least 720p and less than 4.0. GB.
-                            </div>
+        const { chapterItem, courseName, classNum }= this.props;
+       
         // conditional rendering for title's button
         let titleBtn;
         if ( this.state.titleAdded === false ){
@@ -103,12 +99,12 @@ class AddChapter extends Component{
         let lectureBtn;
         if ( this.state.lectureAdded === false ){
             lectureBtn = <button className="lecture-btn" onClick={ this.showEditLecture }>
-                            <ModalComponent btnName="Upload Content" body={ uploadLecture }/>
+                            <LectureModal btnName="Upload Content" chapterNum={ chapterItem }  courseName={ courseName } classNum={ classNum }/>
                         </button>
         }
         else{
             lectureBtn = <button className="lecture-btn" onClick={ this.showEditLecture }>
-                            <ModalComponent btnName="Edit Content" body={ uploadLecture }/>
+                            <LectureModal btnName="Edit Content" chapterNum={ chapterItem }  courseName={ courseName } classNum={ classNum }/>
                         </button>
         }
         // conditional rendering for quiz's button

@@ -95,7 +95,7 @@ class CourseMaterials extends Component{
                 </Container>
                 <Container className="main-body">
                     <Accordion>
-                        <AccordionTop/>
+                        <AccordionTop courseName={ CourseNameState } classNum={ ClassNumState }/>
 
                         {/* {Array.from({ length: totalChapters }).map((_, idx) => (
                             <AccordionChapters chapter={ idx + 1 } name="What is 3d printing" completed={ numCompleted }/>

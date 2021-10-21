@@ -1,4 +1,5 @@
 import os
+from typing import Coroutine
 from flask import Flask, request, jsonify, send_file
 from io import BytesIO
 import enum
@@ -343,23 +344,30 @@ def get_all_chapter():
 
 # course_material database
 class COURSE_MATERIAL(db.Model):
-    mid = db.Column(db.Integer, primary_key=True, nullable=False)
+    material_id = db.Column(db.Integer, primary_key=True, nullable=False)
     material_name  = db.Column(db.String(300), nullable=False)
     content = db.Column(db.LargeBinary, nullable=False)
+    CNo = db.Column(db.Integer, nullable=False)
+    Course_name = db.Column(db.String(300), nullable=False)
+    Chapter_num = db.Column(db.Integer, nullable=False)
 
-    def __init__(self, mid, material_name, content):
-        self.mid = mid
+    def __init__(self, material_id, material_name,  content, CNo, Course_name, Chapter_num):
+        self.material_id = material_id
         self.material_name = material_name
         self.content = content
+        self.CNo = CNo
+        self.Course_name = Course_name
+        self.chapter_num = Chapter_num
 
-@app.route('/course-material', methods=['POST'])
-def uploadFile():
+@app.route('/course-material/<string:courseName>/<int:cNo>', methods=['POST'])
+def uploadCourseMaterial(courseName, cNo):
     if 'file' in request.files:
         file = request.files['file']
         print(file.filename)
         file_count = db.session.query(COURSE_MATERIAL).count()
         new_mid = file_count + 1
-        new_file = COURSE_MATERIAL(mid=new_mid, material_name=file.filename, content=file.read())
+        # new_file = COURSE_MATERIAL(mid=new_mid, material_name=file.filename, content=file.read())
+        new_file = COURSE_MATERIAL(material_id=new_mid, material_name=file.filename, content=file.read(), CNo=cNo, Course_name=courseName, Chapter_num=0)
         try:
             db.session.add(new_file)
             db.session.commit()
@@ -367,12 +375,40 @@ def uploadFile():
             return 'File could not be uploaded'
         return 'File is uploaded'
 
-@app.route('/download')
-def download():
-    file_data = COURSE_MATERIAL.query.filter_by(mid=4).first()
-    # print(file_data)
-    # return 'hi'
-    return send_file(BytesIO(file_data.content), attachment_filename='test.pdf', as_attachment=True)
+@app.route('/course-material/<string:courseName>/<int:cNo>/<int:classNum>', methods=['POST'])
+def uploadLectureMaterial(courseName, cNo, chapterNum):
+    if 'file' in request.files:
+        file = request.files['file']
+        print(file.filename)
+        file_count = db.session.query(COURSE_MATERIAL).count()
+        new_mid = file_count + 1
+        # new_file = COURSE_MATERIAL(mid=new_mid, material_name=file.filename, content=file.read())
+        new_file = COURSE_MATERIAL(material_id=new_mid, material_name=file.filename, content=file.read(), CNo=cNo, Course_name=courseName, Chapter_num=chapterNum)
+        try:
+            db.session.add(new_file)
+            db.session.commit()
+        except Exception as e:
+            return 'File could not be uploaded'
+        return 'File is uploaded'
+
+@app.route('/download/<string:courseName>/<int:cNo>')
+def downloadCourseMaterial(courseName, cNo):
+    file_data = COURSE_MATERIAL.query.filter_by(Course_name=courseName, CNo=cNo, Chapter_num=0).first()
+    file_name = file_data.material_name + '.pdf'
+    return send_file(BytesIO(file_data.content), attachment_filename=file_name, as_attachment=True)
+
+@app.route('/download/<string:courseName>/<int:cNo>/<int:chapterNum>')
+def downloadLectureMaterial(courseName, cNo, chapterNum):
+    file_data = COURSE_MATERIAL.query.filter_by(Course_name=courseName, CNo=cNo, Chapter_num=chapterNum).first()
+    file_name = file_data.material_name + '.pdf'
+    return send_file(BytesIO(file_data.content), attachment_filename=file_name, as_attachment=True)
+
+# @app.route('/download')
+# def downloadCourseMaterial():
+#     file_data = COURSE_MATERIAL.query.filter_by(mid=4).first()
+#     # print(file_data)
+#     # return 'hi'
+#     return send_file(BytesIO(file_data.content), attachment_filename='test.pdf', as_attachment=True)
 
 # quiz database
 class QUIZ (db.Model):

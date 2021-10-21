@@ -11,7 +11,10 @@ class AccordionTop extends Component{
     constructor(props){
         super(props);
     }
+
     render(){
+        const { courseName, classNum } = this.props;
+        let classDesignHref = 'http://127.0.0.1:5000/download/' + courseName + '/' + classNum
         return(
             <div>
                 <AccordionItem>
@@ -35,12 +38,8 @@ class AccordionTop extends Component{
                             Class Design Document
                         </AccordionItemButton>
                     </AccordionItemHeading>
-                    <AccordionItemPanel>
-                        <p>
-                            In ad velit in ex nostrud dolore cupidatat consectetur
-                            ea in ut nostrud velit in irure cillum tempor laboris
-                            sed adipisicing eu esse duis nulla non.
-                        </p>
+                    <AccordionItemPanel style={{textAlign: 'left', marginLeft: 20}}>
+                        <a href={ classDesignHref }>Download Class Design Document</a>
                     </AccordionItemPanel>
                 </AccordionItem>
             </div>

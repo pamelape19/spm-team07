@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 
-class ModalComponent extends Component{
+class LectureModal extends Component{
     constructor(props){
         super(props);
         this.state = {
@@ -36,7 +36,7 @@ class ModalComponent extends Component{
         const formData = new FormData();
         formData.append('file', this.state.selectedFile);
         fetch(
-            'http://127.0.0.1:5000/course-material',
+            'http://127.0.0.1:5000/course-material/' + this.props.courseName +'/' + this.props.classNum + '/' + this.props.chapterNum,
             {
                 method: 'POST',
                 body: formData,
@@ -60,7 +60,7 @@ class ModalComponent extends Component{
                         <input type="file" 
                                 name = 'inputFile' 
                                 className="course-design-browse-btn" 
-                                id={ 'course-design' + uploadId } 
+                                // id={ 'course-design' + uploadId } 
                                 onChange={ this.changeHandler }
                         />
                         <br/>
@@ -92,4 +92,4 @@ class ModalComponent extends Component{
     }
 }
 
-export default ModalComponent;
+export default LectureModal;

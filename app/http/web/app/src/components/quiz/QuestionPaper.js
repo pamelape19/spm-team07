@@ -80,6 +80,7 @@ class QuestionPaper extends Component{
 
         let btnShown;
         let quizAttemptLink = '/quiz-attempt/' + this.props.courseName + '/' + this.props.classNum
+        let refreshLink = '/final-quiz/'+ this.props.courseName + '/' + this.props.classNum
         if ( this.state.hideDoneBtn === false ){
             btnShown = <div className="after-quiz-submit-btns">
                             <div></div>
@@ -92,7 +93,7 @@ class QuestionPaper extends Component{
                             </Button>
                             <Button 
                                 variant="secondary" 
-                                href="/final-quiz" 
+                                href={ refreshLink }
                                 hidden={ this.state.hideDoneBtn }
                             >
                                 Re-attempt

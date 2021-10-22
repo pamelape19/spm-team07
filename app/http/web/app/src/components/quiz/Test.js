@@ -27,7 +27,7 @@ class Test extends Component{
     };
     render(){
         var totalmarks = 0;
-        const { name, time, questions, applyNegativeMarking, courseName, classNum } = this.props;
+        const { name, time, questions, applyNegativeMarking, courseName, classNum, enginEmail, quizId } = this.props;
         const { timeElapsed, totalscore, testSubmitted } = this.state;
         const marksArray = this.props.questions.map( (question) => question.marks );
         const reducer = (previousValue, currentValue) => previousValue + currentValue;
@@ -47,12 +47,15 @@ class Test extends Component{
                     <QuestionPaper 
                         courseName = { courseName }
                         classNum = { classNum }
-                        questions={ questions }
-                        applyNegativeMarking={ applyNegativeMarking }
-                        onSubmitted={ (result) => this.handleChange(result) } 
-                        onTimeChange={ (timeElapsed) => this.handleStopWatch(timeElapsed) } 
-                        timeAllotted={ time }
+                        questions = { questions }
+                        applyNegativeMarking = { applyNegativeMarking }
+                        onSubmitted = { (result) => this.handleChange(result) } 
+                        onTimeChange = { (timeElapsed) => this.handleStopWatch(timeElapsed) } 
+                        timeAllotted = { time }
                         totalmarks = { totalmarks }
+                        enginEmail = { enginEmail }
+                        quizId = { quizId }
+
                     />
                     <div className="test-aside">
                         <Stopwatch timeElapsed={ timeElapsed } />

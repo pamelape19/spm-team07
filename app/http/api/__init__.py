@@ -8,6 +8,8 @@ from flask.helpers import flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 
+from sqlalchemy import func
+
 from datetime import datetime
 
 from os import environ
@@ -531,10 +533,12 @@ class QUIZ_RESULTS (db.Model):
     quizID= db.Column(db.String(50),nullable=False, primary_key=True)
     total_questions = db.Column(db.Integer, nullable=False)
 
-    def __init__(self, engin_email, CNo, course_name, total_questions):
+    def __init__(self, attemptNo, score, outcome, engin_email, quizID, total_questions):
+        self.attemptNo = attemptNo
+        self.score = score
+        self.outcome = outcome
         self.engin_email = engin_email
-        self.CNo = CNo
-        self.course_name = course_name
+        self.quizID = quizID
         self.total_questions = total_questions 
 
     def json(self):
@@ -560,6 +564,20 @@ def get_all_quiz_results():
             "message": "There are no quiz_results."
         }
     ), 404
+
+@app.route("/quiz_results/<string:quizId>", methods=['POST'])
+def addNewResult(quizId):
+    data = request.get_json()
+    attempt_engin = db.session.query(QUIZ_RESULTS).filter(QUIZ_RESULTS.engin_email == data['enginEmail'])
+    attempt_count = attempt_engin.count()
+    new_result = QUIZ_RESULTS(attemptNo=attempt_count, score=data['result'], outcome=data['outcome'], engin_email=data['enginEmail'], quizID=quizId, total_questions=data['totalqns'])
+    try:
+        db.session.add(new_result)
+        db.session.commit()
+    except Exception as e:
+        return 'Result could not be added'
+    return 'Result has been recorded'
+
 
 # create_course database
 class CREATE_COURSE (db.Model):

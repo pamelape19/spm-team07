@@ -13,7 +13,8 @@ class GradedQuiz extends Component{
             ans: "",
             isLoaded: false,
             qnCount: 0,
-            duration: null
+            duration: null,
+            enginEmail: "samueltan@allinone.com"
         }
     }
     componentDidMount(){
@@ -35,6 +36,9 @@ class GradedQuiz extends Component{
                 if (course_quiz.chapter_name === null){
                     this.setState({
                         duration: course_quiz.duration
+                    })
+                    this.setState({
+                        quizId: course_quiz.quizID
                     })
                     fetch('http://127.0.0.1:5000/quiz_question/' + course_quiz.quizID)
                     .then(res => res.json())
@@ -100,17 +104,19 @@ class GradedQuiz extends Component{
             )
         }
         else{
-            const { courseNameState, classNumState, quiz_questions, duration } = this.state;
+            const { courseNameState, classNumState, quiz_questions, duration, quizId, enginEmail } = this.state;
             return(
                 <div>
                     <Test 
                         name = "Final Quiz"
+                        quizId = { quizId }
                         courseName = { courseNameState }
                         classNum = { classNumState }
                         time = { duration }
                         passCutoff = { 0.5 }
                         applyNegativeMarking = { false }
                         questions = { quiz_questions }
+                        enginEmail = { enginEmail }
                     />
                     
                 </div>

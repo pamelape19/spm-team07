@@ -30,6 +30,19 @@ class QuestionPaper extends Component{
             showAnswer: true,
             hideDoneBtn: false
         })
+        if (result > (this.props.totalmarks/2)){
+            var pass = true
+        } 
+        else{
+            var pass = false
+        }
+        fetch('http://127.0.0.1:5000/quiz_results/' + this.props.quizId, {
+            method: "POST",
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify({result: result, enginEmail: this.props.enginEmail, totalqns: this.props.totalmarks, outcome: pass})
+        })
     }
     tick(){
         if( this.state.timeElapsed > 0 ) {
@@ -88,11 +101,13 @@ class QuestionPaper extends Component{
                         </div>
         }
         else{
-            btnShown = <input type="button"
-                            className="btn btn-primary" 
-                            value="Submit" 
-                            onClick={ this.handleSubmitted }
-                        />
+            btnShown = <form>
+                            <input type="button"
+                                className="btn btn-primary" 
+                                value="Submit" 
+                                onClick={ this.handleSubmitted }
+                            />
+                        </form>
         }
         
         

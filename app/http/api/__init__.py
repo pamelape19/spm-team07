@@ -219,14 +219,16 @@ class ENROLLMENT (db.Model):
     engin_email = db.Column(db.String(50), primary_key=True)
     CNo = db.Column(db.Integer, nullable=False, primary_key=True)
     course_name = db.Column(db.String(100), nullable=False, primary_key=True)
+    assigned = db.Column(db.Boolean, nullable=False)
 
-    def __init__(self, engin_email, CNo, course_name):
+    def __init__(self, engin_email, CNo, course_name, assigned):
         self.engin_email = engin_email
         self.CNo = CNo
         self.course_name = course_name
+        self.assigned = assigned
 
     def json(self):
-        return {"engin_email": self.engin_email, "CNo": self.CNo, "course_name": self.course_name}
+        return {"engin_email": self.engin_email, "CNo": self.CNo, "course_name": self.course_name, "assigned": self.assigned}
 
 
 @app.route("/enrollment")

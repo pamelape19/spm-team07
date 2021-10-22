@@ -26,7 +26,7 @@ class CardListItem extends Component{
 
         // conditional rendering 'assigned' badge
         let assignedBadge;
-        if (assigned === "True"){
+        if (assigned === true){
             assignedBadge = <Badge pill style={{ background: '#BDE77A', color: '#000000', fontSize: 15 }}>
                                 Assigned
                             </Badge>;

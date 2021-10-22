@@ -38,7 +38,8 @@ class LearnersEnrolled extends Component{
                                     courseName: enrolledCourse.course_name,
                                     startDate: classData.Start_date,
                                     endDate: classData.End_date,
-                                    courseDesc: course_desc
+                                    courseDesc: course_desc,
+                                    assigned: enrolledCourse.assigned
                                 }]
                         })
                     })
@@ -74,7 +75,7 @@ class LearnersEnrolled extends Component{
                         <CardListItem 
                             perc={ 60 } 
                             coursebtn="resume" 
-                            assigned="True" 
+                            assigned = { enrolledCourse['assigned'] } 
                             CourseName = { enrolledCourse['courseName'] } 
                             ClassNum = { enrolledCourse['classNo'] } 
                             startDate={ enrolledCourse['startDate'] }

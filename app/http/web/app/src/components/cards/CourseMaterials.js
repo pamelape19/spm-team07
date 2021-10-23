@@ -35,11 +35,11 @@ class CourseMaterials extends Component{
             CourseNameState: CourseName,
         })
 
-        fetch('http://127.0.0.1:5000/chapter')
+        fetch('http://127.0.0.1:5006')
         .then(res => res.json())
         .then(result => {
 
-            let allCourses = result.data.enrollment;
+            let allCourses = result.data.chapter;
             
             allCourses.map((CourseChapter) => {
               
@@ -57,7 +57,7 @@ class CourseMaterials extends Component{
             });
         })
 
-        fetch('http://127.0.0.1:5000/classes')
+        fetch('http://127.0.0.1:5003')
         .then(res => res.json())
         .then(result => {
             let allClasses = result.data.classes;
@@ -72,7 +72,7 @@ class CourseMaterials extends Component{
             })
         })
 
-        fetch('http://127.0.0.1:5000/course/' + CourseName)
+        fetch('http://127.0.0.1:5002/' + CourseName)
         .then(res => res.json())
         .then(result => {
             this.setState({

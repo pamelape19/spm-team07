@@ -57,7 +57,7 @@ def uploadCourseMaterial(courseName, cNo):
             return 'File could not be uploaded'
         return 'File is uploaded'
 
-@app.route('/<string:courseName>/<int:cNo>/<int:classNum>', methods=['POST'])
+@app.route('/<string:courseName>/<int:cNo>/<int:chapterNum>', methods=['POST'])
 def uploadLectureMaterial(courseName, cNo, chapterNum):
     if 'file' in request.files:
         file = request.files['file']

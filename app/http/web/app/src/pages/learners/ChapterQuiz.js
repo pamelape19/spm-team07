@@ -61,13 +61,13 @@ class ChapterQuiz extends Component{
             ChapterNameState: chapterName,
         })
 
-        fetch('http://127.0.0.1:5000/quiz/' + courseName + '/' + classNum)
+        fetch('http://127.0.0.1:5008/' + courseName + '/' + classNum)
         .then(res => res.json())
         .then(result => {
             let course_quizzes = result.data.courseQuizzes;
             course_quizzes.map((course_quiz)=>{
                 if (course_quiz.chapter_name === chapterName){
-                    fetch('http://127.0.0.1:5000/quiz_question/' +  course_quiz.quizID)
+                    fetch('http://127.0.0.1:5009/' +  course_quiz.quizID)
 
                     .then(res => res.json())
                     .then(result => {
@@ -75,7 +75,7 @@ class ChapterQuiz extends Component{
                         let allQuizQuestions = result.data.quizQns;
                         
                         allQuizQuestions.map((quizQuestion) => {
-                            fetch('http://127.0.0.1:5000/quiz_option/' +  course_quiz.quizID)
+                            fetch('http://127.0.0.1:5013/' +  course_quiz.quizID)
                             .then(res => res.json())
                             .then(result => {
                                 // since quiz options are concatenated, need to clear the array when it's a new question

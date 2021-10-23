@@ -24,7 +24,7 @@ class QuizAttempt extends Component{
             courseNameState: courseName,
         })
 
-        fetch('http://127.0.0.1:5000/quiz/' + courseName + '/' + classNum)
+        fetch('http://127.0.0.1:5008/' + courseName + '/' + classNum)
         .then(res => res.json())
         .then(result => {
             let course_quizzes = result.data.courseQuizzes;
@@ -36,7 +36,7 @@ class QuizAttempt extends Component{
             })
         })
 
-        fetch('http://localhost:5000/quiz_results')
+        fetch('http://127.0.0.1:5010')
         .then(res => res.json())
         .then(result => {
             let quiz_results = result.data.quiz_results;

@@ -16,7 +16,7 @@ class AdminHome extends Component{
         }
     }
     componentDidMount(){
-        fetch('http://127.0.0.1:5000/course')
+        fetch('http://127.0.0.1:5002')
         .then(res => res.json())
         .then(result => {
             this.setState({

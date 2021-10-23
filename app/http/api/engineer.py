@@ -26,43 +26,39 @@ db = SQLAlchemy(app)
 
 CORS(app)
 
-class CHAPTER (db.Model):
-    __tablename__ = 'CHAPTER'
-    chapterNo = db.Column(db.Integer, nullable=False, primary_key=True)
-    chapter_name = db.Column(db.String(100), primary_key=True)
-    CNo = db.Column(db.Integer, nullable=False, primary_key=True)
-    course_name = db.Column(db.String(100), nullable=False, primary_key=True)
+class ENGINEER (db.Model):
+    __tablename__ = 'ENGINEER'
+    engin_email = db.Column(db.String(50), primary_key=True)
+    engin_name = db.Column(db.String(60), nullable=False)
+    trainer = db.Column(db.Boolean, nullable=False)
 
-    def __init__(self, chapterNo, chapter_name, CNo,course_name):
-        self.chapterNo = chapterNo
-        self.CNo = CNo
-        self.chapter_name = chapter_name
-        self.course_name = course_name
+    def __init__(self, engin_email, engin_name, trainer):
+        self.engin_email = engin_email
+        self.engin_name = engin_name
+        self.trainer = trainer
 
     def json(self):
-        return {"chapterNo": self.chapterNo, "CNo": self.CNo, "chapter_name": self.chapter_name, "course_name": self.course_name}
+        return {"engin_email": self.engin_email, "engin_name": self.engin_name, "trainer": self.trainer}
 
 
 @app.route("/")
-def get_all_chapter():
-    chapterlist = CHAPTER.query.all()
-    if len(chapterlist):
+def get_all_engineer():
+    engineerlist = ENGINEER.query.all()
+    if len(engineerlist):
         return jsonify(
             {
                 "code": 200,
                 "data": {
-                    "chapter": [chapter.json() for chapter in chapterlist]
+                    "engineers": [engineer.json() for engineer in engineerlist]
                 }
             }
         )
     return jsonify(
         {
             "code": 404,
-            "message": "There are no chapter."
+            "message": "There are no engineers."
         }
     ), 404
 
-
-
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5006, debug=True)
+    app.run(host='0.0.0.0', port=5014, debug=True)

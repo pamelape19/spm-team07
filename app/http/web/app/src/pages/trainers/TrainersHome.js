@@ -12,7 +12,7 @@ class TrainersHome extends Component{
         }
     }
     componentDidMount(){
-        fetch('http://127.0.0.1:5000/train')
+        fetch('http://127.0.0.1:5005')
         .then(res => res.json())
         .then(result =>{
             let allTrain = result.data.train;

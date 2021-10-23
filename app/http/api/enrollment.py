@@ -44,7 +44,7 @@ class ENROLLMENT (db.Model):
         return {"engin_email": self.engin_email, "CNo": self.CNo, "course_name": self.course_name, "assigned": self.assigned}
 
 
-@app.route("/enrollment")
+@app.route("/")
 def get_all_enrollment():
     enrollmentlist = ENROLLMENT.query.all()
     if len(enrollmentlist):
@@ -63,7 +63,7 @@ def get_all_enrollment():
         }
     ), 404
 
-@app.route("/enrollment/<string:engin_email>")
+@app.route("/<string:engin_email>")
 def find_enrollment_by_engin_email(engin_email):
     enrolled_engins = ENROLLMENT.query.filter_by(engin_email=engin_email).all()
     # return "hi"

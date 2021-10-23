@@ -38,7 +38,11 @@ class AccordionChapters extends Component{
         else{
             checkMark = "";
             openLecture = <p>Lecture materials</p>
-            openQuiz = <p>Quiz</p>
+            // editted out for testing 
+            // openQuiz = <p>Quiz</p>
+
+            openQuizHref = "/chapter-quiz/" + courseName + "/" + chapterName + "/" + classNum 
+            openQuiz = <a href= { openQuizHref } ><p>Quiz</p></a>
         }
 
         // conditional rendering to render resume button for the chapter that user left off from

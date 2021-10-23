@@ -21,6 +21,7 @@ class QuestionPaper extends Component{
         this.setState({ 
             totalscore: this.state.totalscore + score
         });
+        console.log(this.state.totalscore)
       }
     handleSubmitted(){
         var result = this.state.totalscore;
@@ -36,7 +37,7 @@ class QuestionPaper extends Component{
         else{
             var pass = false
         }
-        fetch('http://127.0.0.1:5000/quiz_results/' + this.props.quizId, {
+        fetch('http://127.0.0.1:5010/' + this.props.quizId, {
             method: "POST",
             headers: {
                 'Content-Type' : 'application/json'

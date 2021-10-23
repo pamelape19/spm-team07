@@ -11,7 +11,7 @@ class LearnersEnrolled extends Component{
         }
     }
     componentDidMount(){
-        fetch('http://127.0.0.1:5000/enrollment/' + this.state.loginEmailState)
+        fetch('http://127.0.0.1:5004/' + this.state.loginEmailState)
         
         .then(res => res.json())
         .then(result => {
@@ -20,13 +20,13 @@ class LearnersEnrolled extends Component{
             allClassesEnrolled.map((enrolledCourse)=>{
 
                 // retrieves data of specific course
-                fetch('http://127.0.0.1:5000/course/' + enrolledCourse.course_name)
+                fetch('http://127.0.0.1:5002/' + enrolledCourse.course_name)
                 .then(res => res.json())
                 .then(result => {
                     let course_desc = result.data.description
                 
                 // retrieves data for specific class of course 
-                    fetch('http://127.0.0.1:5000/classes/' + enrolledCourse.course_name + '/' + enrolledCourse.CNo)
+                    fetch('http://127.0.0.1:5003/' + enrolledCourse.course_name + '/' + enrolledCourse.CNo)
                     .then(res => res.json())
                     .then(result => {
                         console.log(result.data)

@@ -27,7 +27,7 @@ class CoursePage extends Component{
             courseNameState: courseName
         })
 
-        fetch('http://localhost:5000/course')
+        fetch('http://localhost:5002')
         .then(res => res.json())
         .then(result => {
             let courses = result.data.courses;
@@ -52,7 +52,7 @@ class CoursePage extends Component{
             })
         })
 
-        fetch('http://127.0.0.1:5000/classes')
+        fetch('http://127.0.0.1:5003')
         .then(res => res.json())
         .then(result => {
             this.setState({

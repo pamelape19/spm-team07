@@ -36,7 +36,7 @@ class LectureModal extends Component{
         const formData = new FormData();
         formData.append('file', this.state.selectedFile);
         fetch(
-            'http://127.0.0.1:5000/course-material/' + this.props.courseName +'/' + this.props.classNum + '/' + this.props.chapterNum,
+            'http://127.0.0.1:5007/' + this.props.courseName +'/' + this.props.classNum + '/' + this.props.chapterNum,
             {
                 method: 'POST',
                 body: formData,

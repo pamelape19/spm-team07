@@ -23,7 +23,7 @@ class TrainersCourse extends Component{
             classNumState: classNum,
             courseNameState: courseName,
         })
-        fetch('http://127.0.0.1:5000/classes')
+        fetch('http://127.0.0.1:5003')
         .then(res => res.json())
         .then(result => {
             let allClasses = result.data.classes;

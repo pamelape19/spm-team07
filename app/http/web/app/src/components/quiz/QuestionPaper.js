@@ -21,6 +21,7 @@ class QuestionPaper extends Component{
         this.setState({ 
             totalscore: this.state.totalscore + score
         });
+        console.log(this.state.totalscore)
       }
     handleSubmitted(){
         var result = this.state.totalscore;

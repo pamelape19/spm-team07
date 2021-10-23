@@ -119,7 +119,7 @@ class Question extends Component{
         
         return(
             <div>
-                <Container style={{ padding: '5%' }}>
+                <Container style={{ padding: '3%' }}>
                     <div style={{ textAlign: 'left' }}>
                         <strong>Q{ this.props.number }</strong>: { this.props.question }
                     </div>

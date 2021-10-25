@@ -17,7 +17,7 @@ from os import environ
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = environ.get(
-    'dbURL') or 'mysql+mysqlconnector://root@localhost:3306/lms'
+    'dbURL') or 'mysql+mysqlconnector://root@localhost:3308/lms'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_size': 100,
                                            'pool_recycle': 280}
@@ -86,7 +86,5 @@ def find_quizzes_by_course(course_name, CNo):
         }
     ), 404
 
-
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5008, debug=True)
-
+    app.run(host='127.0.0.1', port=5008, debug=True)

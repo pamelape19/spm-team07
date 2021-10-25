@@ -38,9 +38,9 @@ class TestQuiz(unittest.TestCase):
         CNo = Data[0]["CNo"]
         CourseName = Data[0]["course_name"]
         SpecificQuizID =  Data[0]["quizID"]
-        self.assertEqual(2, CNo)
+        self.assertEqual(1, CNo)
         self.assertEqual("Introduction to IBM WorkCentre",CourseName)
-        self.assertEqual("1002", SpecificQuizID)
+        self.assertEqual("1001", SpecificQuizID)
     # def test_get_certain_quiz(self):
 
 

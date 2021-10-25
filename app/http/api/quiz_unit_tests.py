@@ -14,7 +14,7 @@ class TestQuiz(unittest.TestCase):
         self.app = app.test_client()
 
     def teardown(self):
-        self.landObj = None
+        self.QuizInput = None
 
     def test_JSON(self):
         JsonInput = self.QuizInput.json()
@@ -26,12 +26,23 @@ class TestQuiz(unittest.TestCase):
         Data = json.loads(Response.get_data())['data']['quiz']
         FirstQuizID = Data[0]["quizID"]
         LastQuizID = Data[-1]["quizID"]
-        DataLength = len(Data)
-        self.assertEqual(24, DataLength)
+        NumberofQuiz = len(Data)
+        self.assertEqual(24, NumberofQuiz)
         self.assertEqual("1001", FirstQuizID)
-        self.assertEqual("3201", LastQuizID)       
+        self.assertEqual("3201", LastQuizID)      
 
+    def test_get_specific_quiz(self):
+        Response = self.app.get("/Introduction to IBM WorkCentre/1")
+        Data = json.loads(Response.get_data())['data']["courseQuizzes"]
+
+        CNo = Data[0]["CNo"]
+        CourseName = Data[0]["course_name"]
+        SpecificQuizID =  Data[0]["quizID"]
+        self.assertEqual(2, CNo)
+        self.assertEqual("Introduction to IBM WorkCentre",CourseName)
+        self.assertEqual("1002", SpecificQuizID)
     # def test_get_certain_quiz(self):
+
 
 if __name__ == "__main__":
     unittest.main()

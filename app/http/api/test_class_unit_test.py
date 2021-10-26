@@ -11,7 +11,7 @@ app.testing = True
 
 class TestClass(unittest.TestCase):
     def setUp(self):
-        self.ClassInput = CLASSES (5, '2021-10-08', '2021-11-08', 40, 'SOP for Repair Work', 'boblee@allinone.com')
+        self.ClassInput = CLASSES (5, '2021-10-08 18:30:00', '2021-11-08 20:00:00', 40, 'SOP for Repair Work', 'boblee@allinone.com')
         self.app = app.test_client()
 
     def teardown(self):
@@ -19,17 +19,41 @@ class TestClass(unittest.TestCase):
         
     def test_JSON(self):
         JsonInput = self.ClassInput.json()
-        JsonCheck = {'CNo': 5, 'Start_date': '2021-10-08', 'End_date': '2021-11-08', 'Capacity': 40, 'Course_name': 'SOP for Repair Work', 'Trainer': 'boblee@allinone.com'}
+        JsonCheck = {'CNo': 5, 'Start_datetime': '2021-10-08 18:30:00', 'End_datetime': '2021-11-08 20:00:00', 'Capacity': 40, 'Course_name': 'SOP for Repair Work', 'Trainer': 'boblee@allinone.com'}
         self.assertEqual(JsonCheck, JsonInput)
 
     def test_get_all_classes(self):
         Response = self.app.get("/")
         Data = json.loads(Response.get_data())['data']['classes']
-        FirstData = Data[0]["Course_name"]
-        LastData = Data[-1]["Course_name"]
-        # self.assertEqual(Response.status_code, 200)
-        self.assertEqual("Introduction to Canon WorkCentre", FirstData)
-        self.assertEqual("SOP for Repair Work", LastData)
+        FirstCN = Data[0]["Course_name"]
+        LastCN = Data[-1]["Course_name"]
+        self.assertEqual("Introduction to Canon WorkCentre", FirstCN)
+        self.assertEqual("SOP for Repair Work", LastCN)
+    
+    def getStartDateTime(self):
+        Response = self.app.get("/")
+        Data = json.loads(Response.get_data())['data']['classes']
+        FirstStartDateTime = Data[0]["Start_datetime"]
+        self.assertEqual("2021-10-04 10:30:00", FirstStartDateTime)
+    
+    # def setStartDateTime(self):
+
+    def getEndDateTime(self):
+        Response = self.app.get("/")
+        Data = json.loads(Response.get_data())['data']['classes']
+        FirstEndDateTime  = Data[0]["End_datetime"]
+        self.assertEqual("2021-11-04 12:00:00",  FirstEndDateTime)
+
+    # def setStartDateTime(self):
+    
+    # def getCapacity(self):
+    def getEndDateTime(self):
+        Response = self.app.get("/")
+        Data = json.loads(Response.get_data())['data']['classes']
+        LastCapacity = Data[-1]["Capacity"]
+        self.assertEqual("2021-11-04 12:00:00", LastCapacity)
+
+    # def setCapacity(self):
 
 if __name__ == '__main__':
     unittest.main()

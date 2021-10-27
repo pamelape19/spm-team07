@@ -20,9 +20,11 @@ class AdminCoursePage extends Component{
             courseClasses: [],
             engineers: [],
             isTrainer: [],
+            
         };
         this.openModal = this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
+        this.handleSubmitted = this.handleSubmitted.bind(this);
     }
 
     componentDidMount(){
@@ -82,7 +84,7 @@ class AdminCoursePage extends Component{
                 if (engineer.trainer == "1") {
                     this.setState({
                         isLoaded: true,
-                        isTrainer: [...this.state.isTrainer, engineer.engin_name]
+                        isTrainer: [...this.state.isTrainer, engineer.engin_email]
                     });
                 }
             })
@@ -93,27 +95,65 @@ class AdminCoursePage extends Component{
         this.setState({
             showAddClassModal: true
         })
+        
+        fetch('http://127.0.0.1:5003/'+this.state.courseNameState)
+        .then(res => res.json())
+        .then(result => {
+            console.log(result.data.classes)
+            let num_classes = result.data.classes.length
+            console.log(num_classes)
+            this.setState({
+                numClasses: num_classes+1
+            })
+            // let engineers = result.data.engineers;
+            // engineers.map((engineer) => {
+            //     if (engineer.trainer == "1") {
+            //         this.setState({
+            //             isLoaded: true,
+            //             isTrainer: [...this.state.isTrainer, engineer.engin_name]
+            //         });
+            //     }
+            // })
+        })
+
+        
+        
     }
     closeModal(){
         this.setState({
             showAddClassModal: false
         })
     }
+    handleSubmitted(){
+        const classForm = document.getElementById('classForm');
+        console.log(classForm);
+        const formData = new FormData(classForm);
+        console.log(formData);
+        fetch('http://127.0.0.1:5003/' + this.state.courseNameState + '/' + this.state.numClasses,{
+            method: "POST",
+            body: formData
+            
+            // JSON.stringify({CNo: this.props.CNo, Course_name: this.props.Course_name, Start_datetime: , End_datetime: , Capacity, Trainer:})
+
+
+        })
+        
+
+    }
     render(){
         const { showAddClassModal, courseClasses, courseNameState, courseDescState, courseObjState, coursePreReqState, engineers, isTrainer } = this.state;
         const trainers = isTrainer.map((trainer) => <option value={trainer}>{trainer}</option>)
-
         
         let addClassModal;
         if (showAddClassModal===true){
             addClassModal = <div className="add-class-modal-wrapper">
                                 <div style={{margin: '9% 15%', background: 'white', padding: '3% 5%'}}>
-                                    <h2>Class XX</h2>
-                                    <form className="create-course-form">
+                                    <h2>Class {this.state.numClasses} </h2>
+                                    <form id="classForm" className="create-course-form">
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label label-course-create"> Trainer </label>
                                             <div class="col-sm-7">
-                                                <select class="form-select" >
+                                                <select class="form-select" name = "trainer" >
                                                         { trainers }
                                                 </select>
                                             </div>
@@ -121,34 +161,34 @@ class AdminCoursePage extends Component{
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label label-course-create">  Start Date </label>
                                             <div class="col-sm-3">
-                                                <input type="date" class="form-control" id="courseSectionCount" placeholder="Enter start date"/>
+                                                <input type="date" name = "startDate" class="form-control" id="courseSectionCount" placeholder="Enter start date"/>
                                             </div>
                                             <label class="col-sm-2 col-form-label label-course-create">  Start Time </label>
                                             <div class="col-sm-3">
-                                                <input type="time" class="form-control" id="courseSectionCount" placeholder="Enter start time"/>
+                                                <input type="time" name = "startTime" class="form-control" id="courseSectionCount" placeholder="Enter start time"/>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label label-course-create">  End Date </label>
                                             <div class="col-sm-3">
-                                                <input type="date" class="form-control" id="courseSectionCount" placeholder="Enter end date"/>
+                                                <input type="date" name = "endDate" class="form-control" id="courseSectionCount" placeholder="Enter end date"/>
                                             </div>
                                             <label class="col-sm-2 col-form-label label-course-create">  End Time </label>
                                             <div class="col-sm-3">
-                                                <input type="time" class="form-control" id="courseSectionCount" placeholder="Enter end time"/>
+                                                <input type="time" name = "endTime" class="form-control" id="courseSectionCount" placeholder="Enter end time"/>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label label-course-create"> Capacity </label>
                                             <div class="col-sm-7">
-                                                <input type="number" min="1" class="form-control" id="courseTitle" placeholder="Enter capacity"/>
+                                                <input type="number" name = "capacity"  min="1" class="form-control" id="courseTitle" placeholder="Enter capacity"/>
                                             </div>
                                         </div>
 
                                         <div style={{ marginTop: 30 }}>
                                             <Button variant="secondary" onClick={ this.closeModal }> Cancel </Button>
                                             {" "}
-                                            <Button variant="primary" type="submit" > Create Class </Button>
+                                            <Button variant="primary" type="submit" onClick={ this.handleSubmitted }> Create Class </Button>
                                         </div>
 
                                     </form>

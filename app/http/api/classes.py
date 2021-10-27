@@ -17,7 +17,7 @@ from os import environ
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = environ.get(
-    'dbURL') or 'mysql+mysqlconnector://root@localhost:3308/lms'
+    'dbURL') or 'mysql+mysqlconnector://root@localhost:3306/lms'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_size': 100,
                                            'pool_recycle': 280}
@@ -84,6 +84,52 @@ def get_specific_class(Course_name, CNo):
             "message": "Class does not exist." 
         }
     ), 404
+
+@app.route("/<string:Course_name>/<int:CNo>", methods=['POST'])
+def addNewClass(Course_name,CNo):
+    data = request.form
+    startDate = data.get("startDate")
+    startTime = data.get("startTime")
+    endDate = data.get("endDate")
+    endTime = data.get("endTime")
+    Capacity = data.get("capacity")
+    trainer_email = data.get("trainer")
+    #2021-10-14
+    # 13:33
+    #2021-10-08 10:30:00
+    Start_datetime = startDate + " " + startTime + ":00"
+    End_datetime = endDate + " " + endTime + ":00"
+    new_class = CLASSES(Course_name=Course_name, CNo=CNo, Start_datetime=Start_datetime,End_datetime=End_datetime, Capacity=Capacity, engin_email=trainer_email)
+    try:
+        db.session.add(new_class)
+        db.session.commit()
+    except Exception as e:
+        return 'Class could not be created'
+    return 'Class has been created'
+    
+
+
+@app.route("/<string:Course_name>")
+def get_classes_of_course(Course_name):
+    specific_course = CLASSES.query.filter_by(Course_name=Course_name).all()
+    if specific_course:
+        return jsonify(
+            {
+                "code": 200,
+                "data": {
+                    "classes": [classes.json() for classes in specific_course]
+                }
+            }
+        )
+    return jsonify(
+        {
+            "code": 404,
+            "message": "No classes under this course." 
+        }
+    ), 404
+
+
+
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=5003, debug=True)

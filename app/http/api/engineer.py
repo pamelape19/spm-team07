@@ -59,6 +59,21 @@ def get_all_engineer():
             "message": "There are no engineers."
         }
     ), 404
-
+@app.route("/<string:engin_email>")
+def get_specific_engineer(engin_email):
+    specific_engineer = ENGINEER.query.filter_by(engin_email=engin_email).first()
+    if specific_engineer:
+        return jsonify(
+            {
+                "code": 200,
+                "data": specific_engineer.json()
+            }
+        )
+    return jsonify(
+        {
+            "code": 404,
+            "message": "Engineer does not exist." 
+        }
+    ), 404
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5014, debug=True)

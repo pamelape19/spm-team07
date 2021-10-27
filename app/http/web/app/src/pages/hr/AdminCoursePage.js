@@ -67,7 +67,7 @@ class AdminCoursePage extends Component{
             this.state.allClasses.map((courseClass)=>{
                 if ( courseClass.Course_name === this.state.courseNameState ){
                     this.setState ({ 
-                        courseClasses: [...this.state.courseClasses, [courseClass.CNo, courseClass.Capacity, courseClass.Start_date, courseClass.End_date]]
+                        courseClasses: [...this.state.courseClasses, [courseClass.CNo, courseClass.Capacity, courseClass.Start_datetime, courseClass.End_datetime]]
                     })
                 }
 

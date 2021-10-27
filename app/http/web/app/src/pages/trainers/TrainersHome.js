@@ -30,6 +30,7 @@ class TrainersHome extends Component{
     }
 
     render(){
+        console.log(this.state.trainCourseState)
         const { trainCourseState } = this.state;
         return(
             <div style={{ margin: '8% 0' }}>

@@ -36,8 +36,8 @@ class LearnersEnrolled extends Component{
                                 {
                                     classNo: enrolledCourse.CNo,
                                     courseName: enrolledCourse.course_name,
-                                    startDate: classData.Start_date,
-                                    endDate: classData.End_date,
+                                    startDateTime: classData.Start_datetime,
+                                    endDateTime: classData.End_datetime,
                                     courseDesc: course_desc,
                                     assigned: enrolledCourse.assigned
                                 }]
@@ -50,7 +50,7 @@ class LearnersEnrolled extends Component{
 
     render(){
         const { enrolledCourseState } = this.state;
-        
+        console.log(enrolledCourseState)
         return(
             <div style={{ margin: '8% 0' }}>
                 <Container>
@@ -77,8 +77,8 @@ class LearnersEnrolled extends Component{
                             assigned = { enrolledCourse['assigned'] } 
                             CourseName = { enrolledCourse['courseName'] } 
                             ClassNum = { enrolledCourse['classNo'] } 
-                            startDate={ enrolledCourse['startDate'] }
-                            endDate= { enrolledCourse['endDate'] }
+                            startDateTime={ enrolledCourse['startDateTime'] }
+                            endDateTime= { enrolledCourse['endDateTime'] }
                             courseDesc = { enrolledCourse['courseDesc'] }
                         />
                     ))}

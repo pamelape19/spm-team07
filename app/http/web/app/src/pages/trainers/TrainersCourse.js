@@ -30,8 +30,8 @@ class TrainersCourse extends Component{
             allClasses.map((classOfCourse) => {
                 if (classOfCourse.Course_name === this.state.courseNameState && classOfCourse.CNo === this.state.classNumState){
                     this.setState({
-                        startDateTimeState: classOfCourse.Start_date,
-                        endDateTimeState: classOfCourse.End_date,
+                        startDateTimeState: classOfCourse.Start_datetime,
+                        endDateTimeState: classOfCourse.End_datetime,
                     })
                 }
             })

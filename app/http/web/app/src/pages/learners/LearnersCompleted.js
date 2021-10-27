@@ -6,7 +6,7 @@ class LearnersCompleted extends Component{
     constructor(props){
         super(props);
         this.state = {
-            loginEmailState: "boblee@allinone.com",
+            loginEmailState: "samueltan@allinone.com",
             completedClasses: [],
             noClasses: false,
         }

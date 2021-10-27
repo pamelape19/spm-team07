@@ -79,7 +79,7 @@ class CoursePage extends Component{
 
         const classInfo = courseClasses.map((classInfo)=>
             <Col>
-                <ClassCard classNum={ classInfo[0] } capacity={ classInfo[1] } startDateTime={ classInfo[2] } endDateTime={ classInfo[3] } trainer = { classInfo[4] }/>
+                <ClassCard courseName={ this.state.courseNameState } classNum={ classInfo[0] } capacity={ classInfo[1] } startDateTime={ classInfo[2] } endDateTime={ classInfo[3] } trainer = { classInfo[4] }/>
             </Col>
         )
 

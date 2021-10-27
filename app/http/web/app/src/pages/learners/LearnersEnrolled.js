@@ -18,15 +18,15 @@ class LearnersEnrolled extends Component{
             // retrieves all classes the engineer is enrolled in
             let allClassesEnrolled = result.data.enginClasses;
             allClassesEnrolled.map((enrolledCourse)=>{
-
+                console.log(enrolledCourse)
                 // retrieves data of specific course
-                fetch('http://127.0.0.1:5002/' + enrolledCourse.course_name)
+                fetch('http://127.0.0.1:5002/' + enrolledCourse.Course_name)
                 .then(res => res.json())
                 .then(result => {
                     let course_desc = result.data.description
                 
                 // retrieves data for specific class of course 
-                    fetch('http://127.0.0.1:5003/' + enrolledCourse.course_name + '/' + enrolledCourse.CNo)
+                    fetch('http://127.0.0.1:5003/' + enrolledCourse.Course_name + '/' + enrolledCourse.CNo)
                     .then(res => res.json())
                     .then(result => {
                         console.log(result.data)
@@ -35,7 +35,7 @@ class LearnersEnrolled extends Component{
                             enrolledCourseState: [...this.state.enrolledCourseState, 
                                 {
                                     classNo: enrolledCourse.CNo,
-                                    courseName: enrolledCourse.course_name,
+                                    courseName: enrolledCourse.Course_name,
                                     startDateTime: classData.Start_datetime,
                                     endDateTime: classData.End_datetime,
                                     courseDesc: course_desc,

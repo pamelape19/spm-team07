@@ -67,7 +67,7 @@ class AdminCoursePage extends Component{
             this.state.allClasses.map((courseClass)=>{
                 if ( courseClass.Course_name === this.state.courseNameState ){
                     this.setState ({ 
-                        courseClasses: [...this.state.courseClasses, [courseClass.CNo, courseClass.Capacity, courseClass.Start_datetime, courseClass.End_datetime]]
+                        courseClasses: [...this.state.courseClasses, [courseClass.CNo, courseClass.Capacity, courseClass.Start_datetime, courseClass.End_datetime, courseClass.Trainer]]
                     })
                 }
 
@@ -100,7 +100,7 @@ class AdminCoursePage extends Component{
         })
     }
     render(){
-        const { showAddClassModal, courseClasses, courseNameState, courseDescState, courseObjState, coursePreReqState, engineers, isTrainer } = this.state;
+        const { showAddClassModal, courseClasses, courseNameState, courseDescState, courseObjState, coursePreReqState, isTrainer } = this.state;
         const trainers = isTrainer.map((trainer) => <option value={trainer}>{trainer}</option>)
 
         
@@ -161,7 +161,7 @@ class AdminCoursePage extends Component{
             <Col>
                 <center>
                     <a style={{ cursor: 'pointer' }} href="/edit-classlist">
-                        <ClassCard classNum={ classInfo[0] } capacity={ classInfo[1] } startDateTime={ classInfo[2] } endDateTime={ classInfo[3] }/>
+                        <ClassCard classNum={ classInfo[0] } capacity={ classInfo[1] } startDateTime={ classInfo[2] } endDateTime={ classInfo[3] } trainer = { classInfo[4] }/>
                     </a>
                 </center>
             </Col>
@@ -186,9 +186,9 @@ class AdminCoursePage extends Component{
                             <Row xs={1} md={2} className="g-4">
                                 <Col>
                                     <Button className="add-class-btn" onClick={ this.openModal }>
-                                        <Card style={{ width: '13.5rem', height: '13.5rem', borderRadius: '25px', borderStyle:'dashed', borderWidth:'thick' }}>
+                                        <Card style={{ width: '15rem', height: '15.5rem', borderRadius: '25px', borderStyle:'dashed', borderWidth:'thick' }}>
                                             <div style={{ padding: 20 }}>
-                                                <Card.Title style={{ paddingTop: 70, textAlign: 'center', color:'#B9B9B9'}}  className="mb-2 text-muted"> Add Class </Card.Title>
+                                                <Card.Title style={{ paddingTop: 90, textAlign: 'center', color:'#B9B9B9'}}  className="mb-2 text-muted"> Add Class </Card.Title>
                                             </div>
                                         </Card>
                                     </Button>

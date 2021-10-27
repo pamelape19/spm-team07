@@ -1,6 +1,5 @@
 from flask import Flask, request, jsonify
 
-from sqlalchemy.sql.expression import false
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 

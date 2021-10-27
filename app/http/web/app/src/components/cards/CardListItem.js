@@ -12,16 +12,16 @@ class CardListItem extends Component{
         const { perc, coursebtn, assigned, CourseName, ClassNum, startDate, endDate, courseDesc } = this.props;
 
         // variable to allow the href to pass in the course number to get the correct quiz 
-        let CourseMaterialhref =  "/course-materials/" + CourseName + "/" + ClassNum
+        let courseMaterialhref =  "/course-materials/" + CourseName + "/" + ClassNum
  
         
         // conditional rendering for card button
         let courseButton;
         if (coursebtn === "resume"){
-            courseButton = <Button variant="primary" href= { CourseMaterialhref }> Resume Course </Button>;
+            courseButton = <Button variant="primary" href= { courseMaterialhref }> Resume Course </Button>;
         }
         if (coursebtn === "start"){
-            courseButton = <Button variant="primary" href= { CourseMaterialhref }> Start Course </Button>;
+            courseButton = <Button variant="primary" href= { courseMaterialhref }> Start Course </Button>;
         }
 
         // conditional rendering 'assigned' badge

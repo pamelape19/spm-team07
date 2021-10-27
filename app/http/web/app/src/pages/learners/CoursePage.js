@@ -27,11 +27,11 @@ class CoursePage extends Component{
             courseNameState: courseName
         })
 
-        fetch('http://localhost:5002')
+        fetch('http://127.0.0.1:5002')
         .then(res => res.json())
         .then(result => {
             let courses = result.data.courses;
-            const course = courses.map((course) => {
+            courses.map((course) => {
                 if (course.course_name === this.state.courseNameState){
                     this.setState({
                         courseDescState: course.description,
@@ -58,10 +58,10 @@ class CoursePage extends Component{
             this.setState({
                 allClasses: result.data.classes
             })
-            const courseClass = this.state.allClasses.map((courseClass)=>{
+            this.state.allClasses.map((courseClass)=>{
                 if ( courseClass.Course_name === this.state.courseNameState ){
                     this.setState ({ 
-                        courseClasses: [...this.state.courseClasses, [courseClass.CNo, courseClass.Capacity, courseClass.Start_date, courseClass.End_date, courseClass.Trainer]]
+                        courseClasses: [...this.state.courseClasses, [courseClass.CNo, courseClass.Capacity, courseClass.Start_datetime, courseClass.End_datetime, courseClass.Trainer]]
                     })
                     console.log(courseClass)
                 }

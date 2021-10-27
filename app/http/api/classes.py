@@ -1,16 +1,7 @@
-import os
-from typing import Coroutine
-from flask import Flask, request, jsonify, send_file
-from io import BytesIO
-import enum
+from flask import Flask, jsonify
 
-from flask.helpers import flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
-
-from sqlalchemy import func
-
-from datetime import datetime
 
 from os import environ
 
@@ -82,6 +73,25 @@ def get_specific_class(Course_name, CNo):
         {
             "code": 404,
             "message": "Class does not exist." 
+        }
+    ), 404
+
+@app.route("/<string:engin_email>/<string:course_name>/<int:classNum>")
+def get_trainer_class(engin_email, course_name, classNum):
+    trainer_class = CLASSES.query.filter_by(engin_email=engin_email, Course_name=course_name, CNo=classNum).first()
+    if trainer_class:
+        return jsonify(
+            {
+                "code": 200,
+                "data": {
+                    "trainer_class": trainer_class.json()
+                }
+            }
+        )
+    return jsonify(
+        {
+            "code": 404,
+            "message": "No classes assigned to this trainer." 
         }
     ), 404
 

@@ -5,6 +5,9 @@ import CompletedCardListItem from '../../components/cards/CompletedCardListItem'
 class LearnersCompleted extends Component{
     constructor(props){
         super(props);
+        this.state = {
+            loginEmailState: "samueltan@allinone.com"
+        }
     }
     render(){
         return(

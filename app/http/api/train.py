@@ -34,12 +34,12 @@ class TRAIN (db.Model):
     course_name = db.Column(db.String(100), nullable=False, primary_key=True)
 
     def __init__(self, engin_email, CNo, course_name):
-        self.engin_email = engin_email
+        self.trainer_email = engin_email
         self.CNo = CNo
         self.course_name = course_name
 
     def json(self):
-        return {"trainer_email": self.engin_email, "CNo": self.CNo, "course_name": self.course_name}
+        return {"engin_email": self.engin_email, "CNo": self.CNo, "course_name": self.course_name}
 
 @app.route("/")
 def get_all_train():
@@ -57,6 +57,25 @@ def get_all_train():
         {
             "code": 404,
             "message": "There are no train assignments."
+        }
+    ), 404
+
+@app.route("/<string:trainer_email>")
+def get_trainer(trainer_email):
+    trainerClassList = TRAIN.query.filter_by(engin_email=trainer_email).all()
+    if len(trainerClassList):
+        return jsonify(
+            {
+                "code": 200,
+                "data": {
+                    "train": [train.json() for train in trainerClassList]
+                }
+            }
+        )
+    return jsonify(
+        {
+            "code": 404,
+            "message": "No classes assigned to this trainer."
         }
     ), 404
 

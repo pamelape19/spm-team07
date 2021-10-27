@@ -131,12 +131,12 @@ class AdminCoursePage extends Component{
         console.log(formData);
         fetch('http://127.0.0.1:5003/' + this.state.courseNameState + '/' + this.state.numClasses,{
             method: "POST",
-            body: formData
-            
-            // JSON.stringify({CNo: this.props.CNo, Course_name: this.props.Course_name, Start_datetime: , End_datetime: , Capacity, Trainer:})
-
-
+            body: formData          
         })
+        this.setState({
+            showAddClassModal: false
+        })
+        window.location.reload(false)
         
 
     }

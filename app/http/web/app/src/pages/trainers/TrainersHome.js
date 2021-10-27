@@ -30,14 +30,11 @@ class TrainersHome extends Component{
     }
 
     render(){
-        console.log(this.state.trainCourseState)
         const { trainCourseState } = this.state;
         return(
             <div style={{ margin: '8% 0' }}>
-
                 <Container>
                     <h1>Assigned Classes to Teach</h1>
-
                     
                     {trainCourseState.map((trainCourse) => (
                         <CompletedCardListItem  view="trainers" courseName = { trainCourse[1] }
@@ -45,7 +42,6 @@ class TrainersHome extends Component{
 
                     ))}
 
-            
                 </Container>
             </div>
         )

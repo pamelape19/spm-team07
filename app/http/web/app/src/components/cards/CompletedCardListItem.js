@@ -10,14 +10,22 @@ class CompletedCardListItem extends Component{
     }
 
     render(){
-        const { view, courseName, classNum, startDateTime, endDateTime, capacity } = this.props;
+        const { view, courseName, classNum, startDateTime, endDateTime, capacity, dateCompleted } = this.props;
        
         let typeBtn;
         let cardDetails;
         if (view === "learners"){
-            typeBtn = <Button variant="primary">
-                        View Course
-                      </Button>;
+            let courseMaterialhref =  "/course-materials/" + courseName + "/" + classNum
+            typeBtn = <Nav.Link href={ courseMaterialhref } style={{ color: '#00000080' }}>
+                            <Button variant="primary">
+                                View Course
+                            </Button>
+                        </Nav.Link>
+            cardDetails = <div>
+                <div className="course-desc">
+                    Date completed: { dateCompleted }
+                </div>
+            </div>
         }
         else{
             let courseClassLink = '/trainers-course/' + courseName + '/' + classNum

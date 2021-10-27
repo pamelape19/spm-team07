@@ -71,7 +71,6 @@ class LearnersEnrolled extends Component{
                         // database need another column for assigned
                         // sends CNo and CourseName to cardlistitem which will then display according to the DB, CNo will be parsed into back of URL for CourseNum
 
-                        console.log(enrolledCourse),
                         <CardListItem 
                             perc={ 60 } 
                             coursebtn="resume" 

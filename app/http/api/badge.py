@@ -1,16 +1,8 @@
-import os
-from typing import Coroutine
-from flask import Flask, request, jsonify, send_file
-from io import BytesIO
-import enum
+from flask import Flask, request, jsonify
 
 from flask.helpers import flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
-
-from sqlalchemy import func
-
-from datetime import datetime
 
 from os import environ
 
@@ -32,15 +24,17 @@ class BADGE (db.Model):
     date_completed   = db.Column(db.DateTime, nullable=False)
     engin_email   = db.Column(db.String(50), nullable=False, primary_key=True)
     course_name = db.Column(db.String(100), nullable=False, primary_key=True)
+    class_num = db.Column(db.Integer, nullable=False)
 
 
-    def __init__(self, date_completed, engin_email, course_name):
+    def __init__(self, date_completed, engin_email, course_name, class_num):
         self.date_completed = date_completed
         self.engin_email = engin_email
         self.course_name = course_name
+        self.class_num = class_num
 
     def json(self):
-        return {"date_completed": self.date_completed, "engin_email": self.engin_email, "course_name": self.course_name}
+        return {"date_completed": self.date_completed, "engin_email": self.engin_email, "course_name": self.course_name, "class_num": self.class_num}
 
 
 @app.route("/")
@@ -62,6 +56,24 @@ def get_all_badge():
         }
     ), 404
 
+@app.route("/<string:engin_email>")
+def get_completed_classes(engin_email):
+    completedClassesList = BADGE.query.filter_by(engin_email=engin_email).all()
+    if len(completedClassesList):
+        return jsonify(
+            {
+                "code": 200,
+                "data": {
+                    "completedClasses": [completedClass.json() for completedClass in completedClassesList]
+                }
+            }
+        )
+    return jsonify(
+        {
+            "code": 404,
+            "message": "No completed classes by this engineer."
+        }
+    ), 404
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5012, debug=True)
-

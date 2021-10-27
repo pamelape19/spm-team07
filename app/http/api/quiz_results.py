@@ -70,6 +70,7 @@ def get_all_quiz_results():
 @app.route("/<string:quizId>", methods=['POST'])
 def addNewResult(quizId):
     data = request.get_json()
+    print(data)
     attempt_engin = db.session.query(QUIZ_RESULTS).filter(QUIZ_RESULTS.engin_email == data['enginEmail'])
     attempt_count = attempt_engin.count()
     new_result = QUIZ_RESULTS(attemptNo=attempt_count, score=data['result'], outcome=data['outcome'], engin_email=data['enginEmail'], quizID=quizId, total_questions=data['totalqns'])

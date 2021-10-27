@@ -2,7 +2,6 @@ import { React, Component } from 'react';
 import {Button } from 'react-bootstrap';
 import Question from './Question';
 import './css/test.css';
-import QuizAttempt from '../../pages/learners/QuizAttempt';
 
 class QuestionPaper extends Component{
     constructor(props){

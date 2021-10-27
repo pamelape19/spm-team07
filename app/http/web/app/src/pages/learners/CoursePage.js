@@ -63,23 +63,19 @@ class CoursePage extends Component{
                     this.setState ({ 
                         courseClasses: [...this.state.courseClasses, [courseClass.CNo, courseClass.Capacity, courseClass.Start_datetime, courseClass.End_datetime, courseClass.Trainer]]
                     })
-                    console.log(courseClass)
                 }
 
             })
         })
 
     }
-
-
-
     
     render(){
         const { courseClasses, courseNameState, courseDescState, courseObjState, coursePreReqState } = this.state;
 
         const classInfo = courseClasses.map((classInfo)=>
             <Col>
-                <ClassCard courseName={ this.state.courseNameState } classNum={ classInfo[0] } capacity={ classInfo[1] } startDateTime={ classInfo[2] } endDateTime={ classInfo[3] } trainer = { classInfo[4] }/>
+                <ClassCard user="learner" courseName={ this.state.courseNameState } classNum={ classInfo[0] } capacity={ classInfo[1] } startDateTime={ classInfo[2] } endDateTime={ classInfo[3] } trainer = { classInfo[4] }/>
             </Col>
         )
 

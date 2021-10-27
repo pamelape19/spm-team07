@@ -161,7 +161,7 @@ class AdminCoursePage extends Component{
             <Col>
                 <center>
                     <a style={{ cursor: 'pointer' }} href="/edit-classlist">
-                        <ClassCard classNum={ classInfo[0] } capacity={ classInfo[1] } startDateTime={ classInfo[2] } endDateTime={ classInfo[3] } trainer = { classInfo[4] }/>
+                        <ClassCard user="admin" classNum={ classInfo[0] } capacity={ classInfo[1] } startDateTime={ classInfo[2] } endDateTime={ classInfo[3] } trainer = { classInfo[4] }/>
                     </a>
                 </center>
             </Col>

@@ -78,7 +78,7 @@ def find_enrollment_by_engin_email(engin_email):
 @app.route("/<string:courseName>/<int:classNum>", methods=['POST'])
 def addToEnrollmentTable(courseName, classNum):
     data = request.get_json()
-    new_row = ENROLLMENT(engin_email=data['enginEmail'], CNo=classNum, Course_name=courseName, assigned=1, enrolled=0)
+    new_row = ENROLLMENT(engin_email=data['enginEmail'], CNo=classNum, Course_name=courseName, assigned=0, enrolled=0)
     try:
         db.session.add(new_row)
         db.session.commit()

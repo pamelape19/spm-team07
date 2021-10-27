@@ -1,16 +1,8 @@
-import os
-from typing import Coroutine
-from flask import Flask, request, jsonify, send_file
-from io import BytesIO
-import enum
+from flask import Flask, request, jsonify
 
 from flask.helpers import flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
-
-from sqlalchemy import func
-
-from datetime import datetime
 
 from os import environ
 
@@ -70,7 +62,6 @@ def get_all_quiz_results():
 @app.route("/<string:quizId>", methods=['POST'])
 def addNewResult(quizId):
     data = request.get_json()
-    print(data)
     attempt_engin = db.session.query(QUIZ_RESULTS).filter(QUIZ_RESULTS.engin_email == data['enginEmail'])
     attempt_count = attempt_engin.count()
     new_result = QUIZ_RESULTS(attemptNo=attempt_count, score=data['result'], outcome=data['outcome'], engin_email=data['enginEmail'], quizID=quizId, total_questions=data['totalqns'])
@@ -84,4 +75,3 @@ def addNewResult(quizId):
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=5010, debug=True)
-

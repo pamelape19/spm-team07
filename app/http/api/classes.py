@@ -46,7 +46,7 @@ class CLASSES (db.Model):
 
 
     def json(self):
-        return {"CNo": self.CNo, "Start_datetime": self.Start_datetime, "End_datetime": self.End_datetime, "Capacity": self.Capacity, "Course_name": self.Course_name, "Trainer": self.engin_email}
+        return {"CNo": self.CNo, "Start_datetime": self.Start_datetime, "End_datetime": self.End_datetime, "Capacity": self.Capacity, "Course_name": self.Course_name, "engin_email": self.engin_email}
 
 
 @app.route("/")

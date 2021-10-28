@@ -3,7 +3,6 @@ import unittest
 from sqlalchemy.sql.expression import null
 from classes import CLASSES
 from classes import app
-from classes import *
 
 import json
 
@@ -14,7 +13,7 @@ app.testing = True
 class TestClass(unittest.TestCase):
     def setUp(self):
         self.ClassInput = CLASSES(5, '2021-10-08', '2021-11-08', 40, 'SOP for Repair Work', 'boblee@allinone.com')
-        self.DataToParse = {'Start_datetime': '2021-10-08', 'End_datetime': '2021-11-08', 'Capacity': 40, 'engin_email': 'boblee@allinone.com'}
+        self.DataToParse = {'CNo': 6, 'Start_datetime': '2021-11-08 10:30:00', 'End_datetime': '2021-12-08 10:30:00', 'Capacity': 88, 'Course_name': 'SOP for Repair Work', 'engin_email': 'boblee@allinone.com'}
         self.app = app.test_client()
 
     def teardown(self):
@@ -97,8 +96,41 @@ class TestClass(unittest.TestCase):
     #     LastQuizResult = Data[-1]["Capacity"]
     #     self.assertEqual(LastQuizResult, 50)
 
-    # def addNewClass
+    # def test_create_class(self):
+    #     Response = self.app.post("/new course/6", json= self.DataToParse)
+    #     self.assertEqual(Response.status_code, 200)
+        
+    #     Response = self.app.get("/")
+    #     Data = json.loads(Response.get_data())['data']['classes']
+    #     LastQuizResult = Data[-1]["Course_name"]
+    #     self.assertEqual(LastQuizResult, "new course")
 
+    def test_create_class(self):
+        Response = self.app.post("/SOP for Repair Work",
+                                    json=self.DataToParse)
+        self.assertEqual(Response.status_code, 200)
+        
+        Response = self.app.get("/")
+        Data = json.loads(Response.get_data())['data']['classes']
+
+        newCNo = Data[-1]["CNo"]
+        newCourse = Data[-1]["Course_name"]
+
+        self.assertEqual(newCNo, 6)
+        self.assertEqual(newCourse, "SOP for Repair Work")
+
+
+    # def test_create_startdatetime(self):
+    #     Response = self.app.post("/2021-11-08",
+    #                                 json=self.DataToParse)
+    #     self.assertEqual(Response.status_code, 200)
+        
+    #     Response = self.app.get("/")
+    #     Data = json.loads(Response.get_data())['data']['classes']
+
+    #     newCNo = Data[-1]["Start_datetime"]
+
+    #     self.assertEqual(newCNo, "2021-11-08")
     
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

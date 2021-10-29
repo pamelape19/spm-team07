@@ -6,7 +6,7 @@ from quiz import app
 import json 
 import unittest
 # set our application to testing mode
-# shawn
+# Shawn
 app.testing = True
 
 class TestQuiz(unittest.TestCase):

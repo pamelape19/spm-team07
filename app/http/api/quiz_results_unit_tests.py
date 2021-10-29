@@ -6,11 +6,10 @@ from quiz_results import app
 import json 
 import unittest
 # set our application to testing mode
+# Shawn
 app.testing = True
 
 class TestQuizResults(unittest.TestCase):
-
-
 
     def setUp(self):
         self.QuizResultInput = QUIZ_RESULTS(1, 2, True, "samueltan@allinone.com", "1001", 5)

@@ -87,5 +87,50 @@ def addToEnrollmentTable(courseName, classNum):
         return "Learner's application was not successful."
     return "Learner's application was successful."
 
+@app.route("/manage-applications")
+def find_pending():
+    pending = ENROLLMENT.query.filter_by(enrolled=0).all()
+    if pending:
+        return jsonify(
+            {
+                "code": 200,
+                "data": {
+                    "pending": [pending_engins.json() for pending_engins in pending]
+                }
+            }
+        )
+    return jsonify(
+        {
+            "code": 404,
+            "message": "No pending applications."
+        }
+    ), 404
+
+@app.route("/update-enrollment/<string:engin_email>/<string:Course_name>/<int:CNo>", methods=['PUT'])
+def update_enrollment(engin_email, Course_name, CNo):
+    old = ENROLLMENT.query.filter_by(engin_email=engin_email, Course_name=Course_name, CNo=CNo, enrolled=0).first()
+    if old:
+        try:
+            old.enrolled = 1
+            db.session.commit()
+        except Exception as e:
+            print(e)
+            return "Learner's application could not be updated."
+        return "Learner's application was updated."
+
+@app.route("/delete-enrollment/<string:engin_email>/<string:Course_name>/<int:CNo>", methods=['DELETE'])
+def delete_enrollment(engin_email, Course_name, CNo):
+    old = ENROLLMENT.query.filter_by(engin_email=engin_email, Course_name=Course_name, CNo=CNo, enrolled=0).first()
+    if old:
+        try:
+            db.session.delete(old)
+            db.session.commit()
+        except Exception as e:
+            print(e)
+            return "Learner's application could not be deleted."
+        return "Learner's application was deleted."
+        
+    
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5004, debug=True)

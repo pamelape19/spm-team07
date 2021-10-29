@@ -140,6 +140,19 @@ def get_classes_of_course(Course_name):
         }
     ), 404
 
+
+@app.route("/update-capacity/<string:Course_name>/<int:CNo>", methods=['PUT'])
+def update_capacity(Course_name, CNo):
+    old = CLASSES.query.filter_by(Course_name=Course_name, CNo=CNo).first()
+    if old:
+        try:
+            old.Capacity -= 1
+            db.session.commit()
+        except Exception as e:
+            print(e)
+            return "Class capacity could not be updated."
+        return "Class capacity was updated."
+
 # @app.route("/<int:Capacity>", methods=['POST'])
 # def addNewCapacity(Capacity):
 #     data = request.get_json()

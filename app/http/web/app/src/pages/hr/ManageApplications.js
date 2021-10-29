@@ -34,6 +34,10 @@ class ManageApplications extends Component{
         fetch('http://127.0.0.1:5004/' + updateHref, {
             method: "PUT"
         })
+        let updateCapacity = "update-capacity/" + Course_name + "/" + CNo
+        fetch('http://127.0.0.1:5003/' + updateCapacity, {
+            method: "PUT"
+        })
         window.location.reload(false);
     }
     rejectApplication(engin_email, Course_name, CNo){

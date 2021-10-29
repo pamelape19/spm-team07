@@ -32,6 +32,7 @@ class ClassCard extends Component{
         })
     }
     render(){
+        console.log(this.props.trainer)
         const { classNum, capacity, startDateTime, endDateTime, trainer } = this.props
         let numSeatsLeft;
         let cardDetails;

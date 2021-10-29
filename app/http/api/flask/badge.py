@@ -17,7 +17,7 @@ from os import environ
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = environ.get(
-    'dbURL') or 'mysql+mysqlconnector://root@localhost:3306/lms'
+    'dbURL') or 'mysql+mysqlconnector://root@localhost:3308/lms' or 'mysql+mysqlconnector://root@localhost:3306/lms'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_size': 100,
                                            'pool_recycle': 280}
@@ -26,40 +26,42 @@ db = SQLAlchemy(app)
 
 CORS(app)
 
-class CREATE_COURSE (db.Model):
-    __tablename__ = 'CREATE_COURSE'
-    date_created  = db.Column(db.DateTime, nullable=False)
-    hr_email  = db.Column(db.String(50), nullable=False, primary_key=True)
+
+class BADGE (db.Model):
+    __tablename__ = 'BADGE'
+    date_completed   = db.Column(db.DateTime, nullable=False)
+    engin_email   = db.Column(db.String(50), nullable=False, primary_key=True)
     course_name = db.Column(db.String(100), nullable=False, primary_key=True)
 
-    def __init__(self, date_created, hr_email, course_name):
-        self.date_created = date_created
-        self.hr_email = hr_email
+
+    def __init__(self, date_completed, engin_email, course_name):
+        self.date_completed = date_completed
+        self.engin_email = engin_email
         self.course_name = course_name
 
     def json(self):
-        return {"date_created": self.date_created, "hr_email": self.hr_email, "course_name": self.course_name}
+        return {"date_completed": self.date_completed, "engin_email": self.engin_email, "course_name": self.course_name}
 
 
 @app.route("/")
-def get_all_create_course():
-    create_course_list = CREATE_COURSE.query.all()
-    if len(create_course_list):
+def get_all_badge():
+    badgelist = BADGE.query.all()
+    if len(badgelist):
         return jsonify(
             {
                 "code": 200,
                 "data": {
-                    "create_course": [create_course.json() for create_course in create_course_list]
+                    "completed": [badge.json() for badge in badgelist]
                 }
             }
         )
     return jsonify(
         {
             "code": 404,
-            "message": "There are no create_course."
+            "message": "There are no badge."
         }
     ), 404
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5011, debug=True)
+    app.run(host='0.0.0.0', port=5012, debug=True)
 

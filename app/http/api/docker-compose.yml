@@ -8,221 +8,236 @@ services:
     build:
       context: ./
       dockerfile: badge.Dockerfile
-    image: shawntwj/badge:spm
+    env_file: .env
+    image: ${MYUSERNAME}/badge:spm
     restart: always
     environment:
-      dbURL: mysql+mysqlconnector://spm@host.docker.internal:3308/lms
+      dbURL: "mysql+mysqlconnector://spm@host.docker.internal:${SQLPORT}/lms"
       PYTHONUNBUFFERED: 1
     ports:
         - "5012:5012"
 
-  # ###################################
-  # # chapter: The chapter microservice
-  # ###################################
-  # chapter:
-  #   build:
-  #     context: ./
-  #     dockerfile: chapter.Dockerfile
-  #   image: shawntwj/chapter:spm
-  #   restart: always
-  #   environment:
-  #     dbURL: mysql+mysqlconnector://spm@host.docker.internal:3308/lms
-  #     PYTHONUNBUFFERED: 1
-  #   ports:
-  #       - "5006:5006"
+  ###################################
+  # chapter: The chapter microservice
+  ###################################
+  chapter:
+    build:
+      context: ./
+      dockerfile: chapter.Dockerfile
+    env_file: .env
+    image: ${MYUSERNAME}/chapter:spm
+    restart: always
+    environment:
+      dbURL: "mysql+mysqlconnector://spm@host.docker.internal:${SQLPORT}/lms"
+      PYTHONUNBUFFERED: 1
+    ports:
+        - "5006:5006"
 
-  # ###################################
-  # # classes: The classes microservice
-  # ###################################
-  # classes:
-  #   build:
-  #     context: ../
-  #     dockerfile: classes.Dockerfile
-  #   image: shawntwj/classes:spm
-  #   restart: always
-  #   environment:
-  #     dbURL: mysql+mysqlconnector://spm@host.docker.internal:3308/lms
-  #     PYTHONUNBUFFERED: 1
-  #   ports:
-  #       - "5003:5003"
+  ###################################
+  # classes: The classes microservice
+  ###################################
+  classes:
+    build:
+      context: ./
+      dockerfile: classes.Dockerfile
+    env_file: .env
+    image: ${MYUSERNAME}/classes:spm
+    restart: always
+    environment:
+      dbURL: "mysql+mysqlconnector://spm@host.docker.internal:${SQLPORT}/lms"
+      PYTHONUNBUFFERED: 1
+    ports:
+        - "5003:5003"
 
-  # ###################################
-  # # course_material: The course_material microservice
-  # ###################################
-  # course_material:
-  #   build:
-  #     context: ../
-  #     dockerfile: course_material.Dockerfile
-  #   image: shawntwj/course_material:spm
-  #   restart: always
-  #   environment:
-  #     dbURL: mysql+mysqlconnector://spm@host.docker.internal:3308/lms
-  #     PYTHONUNBUFFERED: 1
-  #   ports:
-  #       - "5007:5007"
+  ###################################
+  # course_material: The course_material microservice
+  ###################################
+  course_material:
+    build:
+      context: ./
+      dockerfile: course_material.Dockerfile
+    env_file: .env
+    image: ${MYUSERNAME}/course_material:spm
+    restart: always
+    environment:
+      dbURL: "mysql+mysqlconnector://spm@host.docker.internal:${SQLPORT}/lms"
+      PYTHONUNBUFFERED: 1
+    ports:
+        - "5007:5007"
 
-  # ##################################
-  # # create course: The create course microservice
-  # ##################################
-  # create_course:
-  #   build:
-  #     context: ../
-  #     dockerfile: create_course.Dockerfile
-  #   image: shawntwj/create_course:spm
-  #   restart: always
-  #   environment:
-  #     dbURL: mysql+mysqlconnector://spm@host.docker.internal:3308/lms
-  #     PYTHONUNBUFFERED: 1
-  #   ports:
-  #       - "5011:5011"
+  ##################################
+  # create course: The create course microservice
+  ##################################
+  create_course:
+    build:
+      context: ./
+      dockerfile: create_course.Dockerfile
+    env_file: .env
+    image: ${MYUSERNAME}/create_course:spm
+    restart: always
+    environment:
+      dbURL: "mysql+mysqlconnector://spm@host.docker.internal:${SQLPORT}/lms"
+      PYTHONUNBUFFERED: 1
+    ports:
+        - "5011:5011"
 
-  # ##################################
-  # # course: The course microservice
-  # ##################################
-  # course:
-  #   build:
-  #     context: ../
-  #     dockerfile: course.Dockerfile
-  #   image: shawntwj/course:spm
-  #   restart: always
-  #   environment:
-  #     dbURL: mysql+mysqlconnector://spm@host.docker.internal:3308/lms
-  #     PYTHONUNBUFFERED: 1
-  #   ports:
-  #       - "5002:5002"
+  ##################################
+  # course: The course microservice
+  ##################################
+  course:
+    build:
+      context: ./
+      dockerfile: course.Dockerfile
+    env_file: .env
+    image: ${MYUSERNAME}/course:spm
+    restart: always
+    environment:
+      dbURL: "mysql+mysqlconnector://spm@host.docker.internal:${SQLPORT}/lms"
+      PYTHONUNBUFFERED: 1
+    ports:
+        - "5002:5002"
 
-  # ###################################
-  # # engineer: The course microservice
-  # ###################################
-  # engineer:
-  #   build:
-  #     context: ../
-  #     dockerfile: engineer.Dockerfile
-  #   image: shawntwj/engineer:spm
-  #   restart: always
-  #   environment:
-  #     dbURL: mysql+mysqlconnector://spm@host.docker.internal:3308/lms
-  #     PYTHONUNBUFFERED: 1
-  #   ports:
-  #       - "5014:5014"
+  ###################################
+  # engineer: The course microservice
+  ###################################
+  engineer:
+    build:
+      context: ./
+      dockerfile: engineer.Dockerfile
+    env_file: .env
+    image: ${MYUSERNAME}/engineer:spm
+    restart: always
+    environment:
+      dbURL: "mysql+mysqlconnector://spm@host.docker.internal:${SQLPORT}/lms"
+      PYTHONUNBUFFERED: 1
+    ports:
+        - "5014:5014"
 
-  # ###################################
-  # # enrollment: The enrollment microservice
-  # ###################################
-  # enrollment:
-  #   build:
-  #     context: ../
-  #     dockerfile: enrollment.Dockerfile
-  #   image: shawntwj/enrollment:spm
-  #   restart: always
-  #   environment:
-  #     dbURL: mysql+mysqlconnector://spm@host.docker.internal:3308/lms
-  #     PYTHONUNBUFFERED: 1
-  #   ports:
-  #       - "5004:5004"
+  ###################################
+  # enrollment: The enrollment microservice
+  ###################################
+  enrollment:
+    build:
+      context: ./
+      dockerfile: enrollment.Dockerfile
+    env_file: .env
+    image: ${MYUSERNAME}/enrollment:spm
+    restart: always
+    environment:
+      dbURL: "mysql+mysqlconnector://spm@host.docker.internal:${SQLPORT}/lms"
+      PYTHONUNBUFFERED: 1
+    ports:
+        - "5004:5004"
         
 
-  # ###################################
-  # # hr: The hr microservice
-  # ###################################
-  # hr:
-  #   build:
-  #     context: ../
-  #     dockerfile: hr.Dockerfile
-  #   image: shawntwj/hr:spm
-  #   restart: always
-  #   environment:
-  #     dbURL: mysql+mysqlconnector://spm@host.docker.internal:3308/lms
-  #     PYTHONUNBUFFERED: 1
-  #   ports:
-  #       - "5001:5001"
+  ###################################
+  # hr: The hr microservice
+  ###################################
+  hr:
+    build:
+      context: ./
+      dockerfile: hr.Dockerfile
+    env_file: .env
+    image: ${MYUSERNAME}/hr:spm
+    restart: always
+    environment:
+      dbURL: "mysql+mysqlconnector://spm@host.docker.internal:${SQLPORT}/lms"
+      PYTHONUNBUFFERED: 1
+    ports:
+        - "5001:5001"
 
-  # ###################################
-  # # quiz_option: The quiz_option microservice
-  # ###################################
-  # quiz_option:
-  #   build:
-  #     context: ../
-  #     dockerfile: quiz_option.Dockerfile
-  #   image: shawntwj/quiz_option:spm
-  #   restart: always
-  #   environment:
-  #     dbURL: mysql+mysqlconnector://spm@host.docker.internal:3308/lms
-  #     PYTHONUNBUFFERED: 1
-  #   ports:
-  #       - "5013:5013"
+  ###################################
+  # quiz_option: The quiz_option microservice
+  ###################################
+  quiz_option:
+    build:
+      context: ./
+      dockerfile: quiz_option.Dockerfile
+    env_file: .env
+    image: ${MYUSERNAME}/quiz_option:spm
+    restart: always
+    environment:
+      dbURL: "mysql+mysqlconnector://spm@host.docker.internal:${SQLPORT}/lms"
+      PYTHONUNBUFFERED: 1
+    ports:
+        - "5013:5013"
 
-  # ###################################
-  # # quiz_question: The quiz_question microservice
-  # ###################################
-  # quiz_question:
-  #   build:
-  #     context: ../
-  #     dockerfile: quiz_question.Dockerfile
-  #   image: shawntwj/quiz_question:spm
-  #   restart: always
-  #   environment:
-  #     dbURL: mysql+mysqlconnector://spm@host.docker.internal:3308/lms
-  #     PYTHONUNBUFFERED: 1
-  #   ports:
-  #       - "5009:5009"
+  ###################################
+  # quiz_question: The quiz_question microservice
+  ###################################
+  quiz_question:
+    build:
+      context: ./
+      dockerfile: quiz_question.Dockerfile
+    env_file: .env
+    image: ${MYUSERNAME}/quiz_question:spm
+    restart: always
+    environment:
+      dbURL: "mysql+mysqlconnector://spm@host.docker.internal:${SQLPORT}/lms"
+      PYTHONUNBUFFERED: 1
+    ports:
+        - "5009:5009"
 
-  # ###################################
-  # # quiz_question: The quiz_question microservice
-  # ###################################
-  # quiz_question:
-  #   build:
-  #     context: ../
-  #     dockerfile: quiz_question.Dockerfile
-  #   image: shawntwj/quiz_question:spm
-  #   restart: always
-  #   environment:
-  #     dbURL: mysql+mysqlconnector://spm@host.docker.internal:3308/lms
-  #     PYTHONUNBUFFERED: 1
-  #   ports:
-  #       - "5009:5009"
+  ###################################
+  # quiz_question: The quiz_question microservice
+  ###################################
+  quiz_question:
+    build:
+      context: ./
+      dockerfile: quiz_question.Dockerfile
+    env_file: .env
+    image: ${MYUSERNAME}/quiz_question:spm
+    restart: always
+    environment:
+      dbURL: "mysql+mysqlconnector://spm@host.docker.internal:${SQLPORT}/lms"
+      PYTHONUNBUFFERED: 1
+    ports:
+        - "5009:5009"
 
-  # ###################################
-  # # quiz_results: The quiz_results microservice
-  # ###################################
-  # quiz_results:
-  #   build:
-  #     context: ../
-  #     dockerfile: quiz_results.Dockerfile
-  #   image: shawntwj/quiz_results:spm
-  #   restart: always
-  #   environment:
-  #     dbURL: mysql+mysqlconnector://spm@host.docker.internal:3308/lms
-  #     PYTHONUNBUFFERED: 1
-  #   ports:
-  #       - "5010:5010"
+  ###################################
+  # quiz_results: The quiz_results microservice
+  ###################################
+  quiz_results:
+    build:
+      context: ./
+      dockerfile: quiz_results.Dockerfile
+    env_file: .env
+    image: ${MYUSERNAME}/quiz_results:spm
+    restart: always
+    environment:
+      dbURL: "mysql+mysqlconnector://spm@host.docker.internal:${SQLPORT}/lms"
+      PYTHONUNBUFFERED: 1
+    ports:
+        - "5010:5010"
 
-  # ###################################
-  # # quiz: The quiz microservice
-  # ###################################
-  # quiz:
-  #   build:
-  #     context: ../
-  #     dockerfile: quiz.Dockerfile
-  #   image: shawntwj/quiz:spm
-  #   restart: always
-  #   environment:
-  #     dbURL: mysql+mysqlconnector://spm@host.docker.internal:3308/lms
-  #     PYTHONUNBUFFERED: 1
-  #   ports:
-  #       - "5008:5008"
+  ###################################
+  # quiz: The quiz microservice
+  ###################################
+  quiz:
+    build:
+      context: ./
+      dockerfile: quiz.Dockerfile
+    env_file: .env
+    image: ${MYUSERNAME}/quiz:spm
+    restart: always
+    environment:
+      dbURL: "mysql+mysqlconnector://spm@host.docker.internal:${SQLPORT}/lms"
+      PYTHONUNBUFFERED: 1
+    ports:
+        - "5008:5008"
 
-  # ###################################
-  # # train: The train microservice
-  # ###################################
-  # train:
-  #   build:
-  #     context: ../
-  #     dockerfile: train.Dockerfile
-  #   image: shawntwj/train:spm
-  #   restart: always
-  #   environment:
-  #     dbURL: mysql+mysqlconnector://spm@host.docker.internal:3308/lms
-  #     PYTHONUNBUFFERED: 1
-  #   ports:
-  #       - "5005:5005"
+  ###################################
+  # train: The train microservice
+  ###################################
+  train:
+    build:
+      context: ./
+      dockerfile: train.Dockerfile
+    env_file: .env
+    image: ${MYUSERNAME}/train:spm
+    restart: always
+    environment:
+      dbURL: "mysql+mysqlconnector://spm@host.docker.internal:${SQLPORT}/lms"
+      PYTHONUNBUFFERED: 1
+    ports:
+        - "5005:5005"

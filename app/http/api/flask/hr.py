@@ -1,3 +1,4 @@
+
 import os
 from typing import Coroutine
 from flask import Flask, request, jsonify, send_file
@@ -16,8 +17,13 @@ from os import environ
 
 app = Flask(__name__)
 
+
+# @app.route('/')
+# def hello_world():
+#     return "<p>Hello world</p>"
+
 app.config['SQLALCHEMY_DATABASE_URI'] = environ.get(
-    'dbURL') or 'mysql+mysqlconnector://root@localhost:3306/lms'
+    'dbURL') or 'mysql+mysqlconnector://root@localhost:3308/lms'  or 'mysql+mysqlconnector://root@localhost:3306/lms'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_size': 100,
                                            'pool_recycle': 280}
@@ -26,40 +32,37 @@ db = SQLAlchemy(app)
 
 CORS(app)
 
+class HR (db.Model):
+    __tablename__ = 'HR'
+    hr_email  = db.Column(db.String(50), primary_key=True)
+    hr_name  = db.Column(db.String(60), nullable=False)
 
-class TRAIN (db.Model):
-    __tablename__ = 'TRAIN'
-    engin_email = db.Column(db.String(50), primary_key=True)
-    CNo = db.Column(db.Integer, nullable=False, primary_key=True)
-    course_name = db.Column(db.String(100), nullable=False, primary_key=True)
-
-    def __init__(self, engin_email, CNo, course_name):
-        self.engin_email = engin_email
-        self.CNo = CNo
-        self.course_name = course_name
+    def __init__(self, hr_email, hr_name):
+        self.hr_email = hr_email
+        self.hr_name = hr_name
 
     def json(self):
-        return {"trainer_email": self.engin_email, "CNo": self.CNo, "course_name": self.course_name}
+        return {"hr_email": self.hr_email, "hr_name": self.hr_name}
+
 
 @app.route("/")
-def get_all_train():
-    trainlist = TRAIN.query.all()
-    if len(trainlist):
+def get_all_hr():
+    hr_list = HR.query.all()
+    if len(hr_list):
         return jsonify(
             {
                 "code": 200,
                 "data": {
-                    "train": [train.json() for train in trainlist]
+                    "engineers": [hr.json() for hr in hr_list]
                 }
             }
         )
     return jsonify(
         {
             "code": 404,
-            "message": "There are no train assignments."
+            "message": "There are no hr."
         }
     ), 404
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5005, debug=True)
-
+    app.run(host='0.0.0.0', port=5001, debug=True)

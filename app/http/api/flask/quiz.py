@@ -17,7 +17,7 @@ from os import environ
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = environ.get(
-    'dbURL')or 'mysql+mysqlconnector://root@localhost:3308/lms'   
+    'dbURL')or 'mysql+mysqlconnector://root@localhost:3308/lms'  or 'mysql+mysqlconnector://root@localhost:3306/lms'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_size': 100,
                                            'pool_recycle': 280}
@@ -85,6 +85,29 @@ def find_quizzes_by_course(course_name, CNo):
             "message": "No quiz available for this class of the course."
         }
     ), 404
+
+@app.route("/<string:course_name>/<int:CNo>/<string:chapter_name>")
+def find_quizzes_by_chapter(course_name, CNo, chapter_name):
+    chapter_quiz = QUIZ.query.filter_by(course_name=course_name, CNo=CNo, chapter_name=chapter_name).first()
+    if chapter_quiz:
+        return jsonify(
+            {
+                "code": 200,
+                "data": chapter_quiz.json()
+            }
+        )
+    return jsonify(
+        {
+            "code": 404,
+            "message": "No quiz available for this chapter of the class."
+        }
+    ), 404
+
+@app.route("/<string:course_name>/<int:CNo>", methods=['POST'])
+def addNewQuiz(Course_name,CNo,):
+    return "hi"
+
+
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=5008, debug=True)

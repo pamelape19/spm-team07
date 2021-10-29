@@ -1,16 +1,7 @@
-import os
-from typing import Coroutine
-from flask import Flask, request, jsonify, send_file
-from io import BytesIO
-import enum
+from flask import Flask, jsonify,request
 
-from flask.helpers import flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
-
-from sqlalchemy import func
-
-from datetime import datetime
 
 from os import environ
 
@@ -46,7 +37,7 @@ class CLASSES (db.Model):
 
 
     def json(self):
-        return {"CNo": self.CNo, "Start_date": self.Start_datetime, "End_date": self.End_datetime, "Capacity": self.Capacity, "Course_name": self.Course_name, "Trainer": self.engin_email}
+        return {"CNo": self.CNo, "Start_datetime": self.Start_datetime, "End_datetime": self.End_datetime, "Capacity": self.Capacity, "Course_name": self.Course_name, "engin_email": self.engin_email}
 
 
 @app.route("/")
@@ -85,6 +76,103 @@ def get_specific_class(Course_name, CNo):
         }
     ), 404
 
-if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=5003, debug=True)
+@app.route("/<string:engin_email>/<string:course_name>/<int:classNum>")
+def get_trainer_class(engin_email, course_name, classNum):
+    trainer_class = CLASSES.query.filter_by(engin_email=engin_email, Course_name=course_name, CNo=classNum).first()
+    if trainer_class:
+        return jsonify(
+            {
+                "code": 200,
+                "data": {
+                    "trainer_class": trainer_class.json()
+                }
+            }
+        )
+    return jsonify(
+        {
+            "code": 404,
+            "message": "No classes assigned to this trainer." 
+        }
+    ), 404
+     
+   
+
+@app.route("/<string:Course_name>/<int:CNo>", methods=['POST'])
+def addNewClass(Course_name,CNo):
+    data = request.form
+    startDate = data.get("startDate")
+    startTime = data.get("startTime")
+    endDate = data.get("endDate")
+    endTime = data.get("endTime")
+    Capacity = data.get("capacity")
+    trainer_email = data.get("trainer")
+    #2021-10-14
+    # 13:33
+    #2021-10-08 10:30:00
+    Start_datetime = startDate + " " + startTime + ":00"
+    End_datetime = endDate + " " + endTime + ":00"
+    new_class = CLASSES(Course_name=Course_name, CNo=CNo, Start_datetime=Start_datetime,End_datetime=End_datetime, Capacity=Capacity, engin_email=trainer_email)
+    try:
+        db.session.add(new_class)
+        db.session.commit()
+    except Exception as e:
+        return 'Class could not be created'
+    return 'Class has been created'
+    
+
+
+@app.route("/<string:Course_name>")
+def get_classes_of_course(Course_name):
+    specific_course = CLASSES.query.filter_by(Course_name=Course_name).all()
+    if specific_course:
+        return jsonify(
+            {
+                "code": 200,
+                "data": {
+                    "classes": [classes.json() for classes in specific_course]
+                }
+            }
+        )
+    return jsonify(
+        {
+            "code": 404,
+            "message": "No classes under this course." 
+        }
+    ), 404
+
+# @app.route("/<int:Capacity>", methods=['POST'])
+# def addNewCapacity(Capacity):
+#     data = request.get_json()
+#     new_capacity = CLASSES(Course_name=data['Course_name'], CNo=data['CNo'], Start_datetime=data['Start_datetime'],End_datetime=data['End_datetime'], Capacity=Capacity, engin_email=data['End_datetime'])
+#     try:
+#         db.session.add(new_capacity)
+#         db.session.commit()
+#     except Exception as e:
+#         return 'Result could not be added'
+#     return 'Result has been recorded'
+
+@app.route("/<string:Course_name>", methods=['POST'])
+def create_class(Course_name):
+    data = request.get_json()
+    new_class = CLASSES(Course_name=Course_name, CNo=data['CNo'], Start_datetime=data['Start_datetime'],End_datetime=data['End_datetime'], Capacity=data['Capacity'], engin_email=data['End_datetime'])
+    try:
+        db.session.add(new_class)
+        db.session.commit()
+    except Exception as e:
+        return 'Class could not be added'
+    return 'Class has been recorded'
+
+# @app.route("/<string:Start_datetime>", methods=['POST'])
+# def create_startdatetime(Start_datetime):
+#     data = request.get_json()
+#     new_class = CLASSES(Course_name=data['Course_name'], CNo=data['CNo'], Start_datetime=Start_datetime,End_datetime=data['End_datetime'], Capacity=data['Capacity'], engin_email=data['End_datetime'])
+#     try:
+#         db.session.add(new_class)
+#         db.session.commit()
+#     except Exception as e:
+#         return 'Class could not be added'
+#     return 'Class has been recorded'
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port=5003, debug=True)
 

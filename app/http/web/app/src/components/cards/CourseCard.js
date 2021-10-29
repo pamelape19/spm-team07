@@ -17,7 +17,7 @@ class CourseCard extends Component{
             this.setState({
                 allClasses: result.data.classes
             })
-            const classesInArray = this.state.allClasses.map((classesInArray)=>{
+            this.state.allClasses.map((classesInArray)=>{
                 if ( classesInArray.Course_name === this.props.name ){
                     this.setState ({ numClasses: this.state.numClasses + 1
                 })

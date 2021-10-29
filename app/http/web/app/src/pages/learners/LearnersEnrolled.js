@@ -7,7 +7,7 @@ class LearnersEnrolled extends Component{
         super(props);
         this.state = {
             enrolledCourseState: [],
-            loginEmailState: "samueltan@allinone.com"
+            loginEmailState: "darrentan@allinone.com"
         }
     }
     componentDidMount(){
@@ -18,15 +18,15 @@ class LearnersEnrolled extends Component{
             // retrieves all classes the engineer is enrolled in
             let allClassesEnrolled = result.data.enginClasses;
             allClassesEnrolled.map((enrolledCourse)=>{
-
+                console.log(enrolledCourse)
                 // retrieves data of specific course
-                fetch('http://127.0.0.1:5002/' + enrolledCourse.course_name)
+                fetch('http://127.0.0.1:5002/' + enrolledCourse.Course_name)
                 .then(res => res.json())
                 .then(result => {
                     let course_desc = result.data.description
                 
                 // retrieves data for specific class of course 
-                    fetch('http://127.0.0.1:5003/' + enrolledCourse.course_name + '/' + enrolledCourse.CNo)
+                    fetch('http://127.0.0.1:5003/' + enrolledCourse.Course_name + '/' + enrolledCourse.CNo)
                     .then(res => res.json())
                     .then(result => {
                         console.log(result.data)
@@ -35,9 +35,9 @@ class LearnersEnrolled extends Component{
                             enrolledCourseState: [...this.state.enrolledCourseState, 
                                 {
                                     classNo: enrolledCourse.CNo,
-                                    courseName: enrolledCourse.course_name,
-                                    startDate: classData.Start_date,
-                                    endDate: classData.End_date,
+                                    courseName: enrolledCourse.Course_name,
+                                    startDateTime: classData.Start_datetime,
+                                    endDateTime: classData.End_datetime,
                                     courseDesc: course_desc,
                                     assigned: enrolledCourse.assigned
                                 }]
@@ -50,7 +50,7 @@ class LearnersEnrolled extends Component{
 
     render(){
         const { enrolledCourseState } = this.state;
-        
+        console.log(enrolledCourseState)
         return(
             <div style={{ margin: '8% 0' }}>
                 <Container>
@@ -71,15 +71,14 @@ class LearnersEnrolled extends Component{
                         // database need another column for assigned
                         // sends CNo and CourseName to cardlistitem which will then display according to the DB, CNo will be parsed into back of URL for CourseNum
 
-                        console.log(enrolledCourse),
                         <CardListItem 
                             perc={ 60 } 
                             coursebtn="resume" 
                             assigned = { enrolledCourse['assigned'] } 
                             CourseName = { enrolledCourse['courseName'] } 
                             ClassNum = { enrolledCourse['classNo'] } 
-                            startDate={ enrolledCourse['startDate'] }
-                            endDate= { enrolledCourse['endDate'] }
+                            startDateTime={ enrolledCourse['startDateTime'] }
+                            endDateTime= { enrolledCourse['endDateTime'] }
                             courseDesc = { enrolledCourse['courseDesc'] }
                         />
                     ))}

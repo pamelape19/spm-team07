@@ -64,8 +64,8 @@ class CourseMaterials extends Component{
             allClasses.map((classOfCourse) => {
                 if (classOfCourse.Course_name === this.state.CourseNameState && classOfCourse.CNo === this.state.ClassNumState){
                     this.setState({
-                        StartDateTimeState: classOfCourse.Start_date,
-                        EndDateTimeState: classOfCourse.End_date,
+                        StartDateTimeState: classOfCourse.Start_datetime,
+                        EndDateTimeState: classOfCourse.End_datetime,
                         TrainerState: classOfCourse.Trainer
                     })
                 }

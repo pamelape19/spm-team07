@@ -1,0 +1,5 @@
+.manage-btns{
+    display: grid;
+    grid-template-columns: 0.5fr 1fr 1fr 0.5fr;
+    grid-column-gap: 20px;
+}

@@ -9,19 +9,19 @@ class CardListItem extends Component{
     }
     render(){
         
-        const { perc, coursebtn, assigned, CourseName, ClassNum, startDate, endDate, courseDesc } = this.props;
+        const { perc, coursebtn, assigned, CourseName, ClassNum, startDateTime, endDateTime, courseDesc } = this.props;
 
         // variable to allow the href to pass in the course number to get the correct quiz 
-        let CourseMaterialhref =  "/course-materials/" + CourseName + "/" + ClassNum
+        let courseMaterialhref =  "/course-materials/" + CourseName + "/" + ClassNum
  
         
         // conditional rendering for card button
         let courseButton;
         if (coursebtn === "resume"){
-            courseButton = <Button variant="primary" href= { CourseMaterialhref }> Resume Course </Button>;
+            courseButton = <Button variant="primary" href= { courseMaterialhref }> Resume Course </Button>;
         }
         if (coursebtn === "start"){
-            courseButton = <Button variant="primary" href= { CourseMaterialhref }> Start Course </Button>;
+            courseButton = <Button variant="primary" href= { courseMaterialhref }> Start Course </Button>;
         }
 
         // conditional rendering 'assigned' badge
@@ -51,7 +51,7 @@ class CardListItem extends Component{
                             { courseDesc }
                         </div>
                         <div className="course-start-date">
-                            Start Date: { startDate }
+                            Start Date: { startDateTime }
                         </div>
                         <div className="progress-bar-col">
                             <ProgressBar now={ perc } variant="warning" style={{ background: 'white', border: '1px solid #E5E5E5' }}/>
@@ -59,7 +59,7 @@ class CardListItem extends Component{
                         </div>
                     </div>
                     <div className="course-resumption">
-                        <h5>Ends on { endDate }</h5>
+                        <h5>Ends on { endDateTime }</h5>
                         <div className="resumption-btn">
                             { courseButton }
                         </div>

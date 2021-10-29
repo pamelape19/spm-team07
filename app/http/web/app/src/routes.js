@@ -19,6 +19,7 @@ import ManageLearners from './pages/hr/ManageLearners';
 import QuizAttempt from './pages/learners/QuizAttempt';
 import AdminCoursePage from './pages/hr/AdminCoursePage';
 import EditClassList from './pages/hr/EditClassList';
+import ManageApplications from './pages/hr/ManageApplications';
 
 class AllRoutes extends Component {
     render(){
@@ -34,6 +35,7 @@ class AllRoutes extends Component {
                 <Route exact path="/admin-course-page/:slug" component={ AdminCoursePage }/>
                 <Route exact path="/trainers-course/:slug/:slug" component={ TrainersCourse }/>
                 <Route exact path="/admin-home" component={ AdminHome }/>
+                <Route exact path="/manage-applications" component={ ManageApplications }/>
                 <Route exact path="/course-materials/:slug/:slug" component={ CourseMaterials }/>
                 <Route exact path="/chapter-quiz/:slug/:slug/:slug" component={ ChapterQuiz }/>
                 <Route exact path="/final-quiz/:slug/:slug" component={ GradedQuiz }/>

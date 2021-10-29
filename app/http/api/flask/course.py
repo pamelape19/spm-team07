@@ -17,11 +17,6 @@ from os import environ
 
 app = Flask(__name__)
 
-
-# @app.route('/')
-# def hello_world():
-#     return "<p>Hello world</p>"
-
 app.config['SQLALCHEMY_DATABASE_URI'] = environ.get(
     'dbURL')or 'mysql+mysqlconnector://root@localhost:3308/lms'  or 'mysql+mysqlconnector://root@localhost:3306/lms'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False

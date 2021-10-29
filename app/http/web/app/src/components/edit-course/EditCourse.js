@@ -47,13 +47,11 @@ class EditCourse extends Component{
         if ( this.state.courseDesignAdded === false ){
             courseDesignBtn = <button className="course-design-btn" onClick={ this.showEditCourseDesign }>
                             <ClassDesignModal btnName="Upload Content" courseName={ courseName } classNum={ classNum }/>
-                            {/* <ClassDesignModal btnName="Upload Content" uploadId={ this.state.courseId } courseName={ courseName } classNum={ classNum }/> */}
                         </button>
         }
         else{
             courseDesignBtn = <button className="course-design-btn" onClick={ this.showEditCourseDesign }>
                             <ClassDesignModal btnName="Edit Content" courseName={ courseName } classNum={ classNum }/>
-                            {/* <ClassDesignModal btnName="Edit Content" uploadId={ this.state.courseId } courseName={ courseName } classNum={ classNum }/> */}
                         </button>
         }
         return(

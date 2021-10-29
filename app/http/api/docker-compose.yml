@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+
+  ###################################
+  # course: The course microservice
+  ###################################
+  course:
+    build:
+      context: ./
+      dockerfile: course.Dockerfile
+    image: shawntwj/course:spm
+    restart: always
+    environment:
+      dbURL: mysql+mysqlconnector://lms@host.docker.internal:3308/inventory
+      PYTHONUNBUFFERED: 1
+    ports:
+        - "5002:5002"

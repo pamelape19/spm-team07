@@ -16,7 +16,7 @@ class AdminCoursePage extends Component{
             courseObjState: "",
             coursePreReqState: "",
             allClasses: [],
-            numClasses: 0,
+            numClass: 0,
             courseClasses: [],
             engineers: [],
             isTrainer: [],
@@ -103,7 +103,7 @@ class AdminCoursePage extends Component{
             let num_classes = result.data.classes.length
             console.log(num_classes)
             this.setState({
-                numClasses: num_classes+1
+                numClass: num_classes+1
             })
             // let engineers = result.data.engineers;
             // engineers.map((engineer) => {
@@ -129,7 +129,7 @@ class AdminCoursePage extends Component{
         console.log(classForm);
         const formData = new FormData(classForm);
         console.log(formData);
-        fetch('http://127.0.0.1:5003/' + this.state.courseNameState + '/' + this.state.numClasses,{
+        fetch('http://127.0.0.1:5003/' + this.state.courseNameState + '/' + this.state.numClass,{
             method: "POST",
             body: formData          
         })
@@ -148,7 +148,7 @@ class AdminCoursePage extends Component{
         if (showAddClassModal===true){
             addClassModal = <div className="add-class-modal-wrapper">
                                 <div style={{margin: '9% 15%', background: 'white', padding: '3% 5%'}}>
-                                    <h2>Class {this.state.numClasses} </h2>
+                                    <h2>Class {this.state.numClass} </h2>
                                     <form id="classForm" className="create-course-form">
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label label-course-create"> Trainer </label>

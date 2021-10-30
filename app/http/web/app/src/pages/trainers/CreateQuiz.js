@@ -12,7 +12,10 @@ class CreateQuiz extends Component{
             firstPage: true,
             totalQuestions: 0,
             questionTypes: [],
-            quizDuration: 1
+            quizDuration: 1,
+            courseNameState: '',
+            CNoState: '',
+            chapterNameState: ''
         };
         this.secondPage = this.secondPage.bind(this);
         this.createMcq = this.createMcq.bind(this);
@@ -39,7 +42,20 @@ class CreateQuiz extends Component{
         })
     }
     creationDone(){
-        window.location = "http://localhost:3000/trainers-course"
+        const classForm = document.getElementById('classForm');
+        console.log(classForm);
+        const formData = new FormData(classForm);
+        console.log(formData);
+        fetch('http://127.0.0.1:5008/' + this.state.courseNameState + '/' + this.state.CNoState + this.state.chapterNameState,{
+            method: "POST",
+            body: formData          
+        })
+        this.setState({
+            showAddClassModal: false
+        })
+        window.location.reload(false)
+
+        // window.location = "http://localhost:3000/trainers-course"
     }
     cancelCreation(){
         window.location = "http://localhost:3000/trainers-course"
@@ -49,6 +65,7 @@ class CreateQuiz extends Component{
             quizDuration: value
         })
     }
+
 
     render(){
         let page;
@@ -113,15 +130,20 @@ class CreateQuiz extends Component{
                 { questionType }
                 <Container className="quiz-creation">
                     <div className="mcq-btns">
-                        <button class="btn btn-primary" onClick={ this.createMcq }>+ Create question with MCQ options</button>
-                        <button class="btn btn-primary" onClick={ this.createTF }>+ Create question with T/F options</button>
+                        <div class="btn btn-primary" onClick={ this.createMcq }>+ Create question with MCQ options</div>
+                        <div class="btn btn-primary" onClick={ this.createTF }>+ Create question with T/F options</div>
                     </div>
                 </Container>
             </div>
+
+            
         }
         return(
             <div style={{ margin: '8% 0' }}>
+                <form>
                 { page }
+                </form>
+
             </div>
         )
     }

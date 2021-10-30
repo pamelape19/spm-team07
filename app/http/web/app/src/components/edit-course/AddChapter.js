@@ -67,11 +67,20 @@ class AddChapter extends Component{
     }
     // functions for quiz's 'upload content' button
     showEditQuiz(){
+        let tokenString = window.location.href.split('/');
+        let tokenWords = tokenString[4].split('%20');
+        let courseName = tokenWords.join(" ");
+        let classNum = tokenString[5];
+        let chapterTitle = this.state.chapterTitle
+        console.log(courseName)
+        console.log(classNum) 
+        console.log(chapterTitle)
         this.setState({
             quizAdded: true,
             hideTrashQuiz: false,
         })
-        window.location = "http://localhost:3000/create-quiz";
+        // window.location.reload(false)
+        window.location = "http://localhost:3000/create-quiz/" + courseName + "/" + classNum + "/" + chapterTitle;
     }
     clearQuiz(){
         this.setState({
@@ -86,7 +95,7 @@ class AddChapter extends Component{
     }
     render(){
         const { chapterItem, courseName, classNum }= this.props;
-       
+        // const { chapterTitle, titleAdded} = this.state
         // conditional rendering for title's button
         let titleBtn;
         if ( this.state.titleAdded === false ){
@@ -115,13 +124,19 @@ class AddChapter extends Component{
         else{
             quizBtn = <Button variant="primary" href="#">Edit Quiz</Button>
         }
+
+        let chapterTitleAdded;
+        if ( this.state.titleAdded ){
+            chapterTitleAdded = this.state.chapterTitle
+        }
         
         return(
             <div>
                 <Card className="chapter">
                     <div className="card-content-layout">
                         <div className="chapter-num"> 
-                            Chapter { chapterItem }
+                            Chapter { chapterItem }  {chapterTitleAdded}
+
                             <span style={{ marginLeft: 20 }} hidden={ this.state.hideEditTitle }>
                                 <input type="text" onChange={ e => this.addChapterTitle(e.target.value) }/>
                                 <button className="done-btn" onClick={ this.editCompleted }><img src={ Done } alt=""/></button>

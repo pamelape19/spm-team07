@@ -17,7 +17,7 @@ from os import environ
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = environ.get(
-    'dbURL')or 'mysql+mysqlconnector://root@localhost:3308/lms'  or 'mysql+mysqlconnector://root@localhost:3306/lms'
+    'dbURL')or 'mysql+mysqlconnector://root@localhost:3308/lms'   
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_size': 100,
                                            'pool_recycle': 280}
@@ -103,11 +103,24 @@ def find_quizzes_by_chapter(course_name, CNo, chapter_name):
         }
     ), 404
 
-@app.route("/<string:course_name>/<int:CNo>", methods=['POST'])
-def addNewQuiz(Course_name,CNo,):
-    return "hi"
+# @app.route("/<string:course_name>/<int:CNo>/<string:chapter_name>", methods=['POST'])
+@app.route("/<string:course_name>/<int:CNo>/<string:chapter_name>/a", methods=['POST'])
+def addNewQuiz(course_name,CNo,chapter_name):
+    data = request.get_json()
+    # quiz_add = db.session.query(QUIZ).filter(QUIZ.Course_name == data['Course_name'])
+    return request.get_json()
 
-
+# def addNewResult(quizId):
+#     data = request.get_json()
+#     attempt_engin = db.session.query(QUIZ_RESULTS).filter(QUIZ_RESULTS.engin_email == data['enginEmail'])
+#     attempt_count = attempt_engin.count()
+#     new_result = QUIZ_RESULTS(attemptNo=attempt_count, score=data['result'], outcome=data['outcome'], engin_email=data['enginEmail'], quizID=quizId, total_questions=data['totalqns'])
+#     try:
+#         db.session.add(new_result)
+#         db.session.commit()
+#     except Exception as e:
+#         return 'Result could not be added'
+#     return 'Result has been recorded'
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=5008, debug=True)
+    app.run(host='0.0.0.0', port=5008, debug=True)

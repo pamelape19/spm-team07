@@ -200,7 +200,7 @@ class AdminCoursePage extends Component{
         const classInfo = courseClasses.map((classInfo)=>
             <Col>
                 <center>
-                    <a style={{ cursor: 'pointer' }} href="/edit-classlist">
+                    <a style={{ cursor: 'pointer' }} href={"/edit-classlist/" + courseNameState + "/" + classInfo[0]}>
                         <ClassCard user="admin" classNum={ classInfo[0] } capacity={ classInfo[1] } startDateTime={ classInfo[2] } endDateTime={ classInfo[3] } trainer = { classInfo[4] }/>
                     </a>
                 </center>

@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, jsonify
 
 from flask.helpers import flash
 from flask_sqlalchemy import SQLAlchemy

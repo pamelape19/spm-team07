@@ -7,26 +7,37 @@ class ManageApplications extends Component{
     constructor(props){
         super(props)
         this.state = {
-            pendingApplications: []
+            pendingApplications: [],
+            noApplications: false,
         }
         this.acceptApplication = this.acceptApplication.bind(this);
         this.rejectApplication = this.rejectApplication.bind(this);
     }
     componentDidMount(){
         fetch('http://127.0.0.1:5004/manage-applications')
-        .then(res => res.json())
-        .then(result => {
-            let pending = result.data.pending
-            pending.map((application) => (
+        .then(res => {
+            // show 'no pending applications' if 404 returned
+            if (!res.ok){
                 this.setState({
-                    pendingApplications: [...this.state.pendingApplications, {
-                        engin_email: application.engin_email,
-                        Course_name: application.Course_name,
-                        CNo: application.CNo
-                    }]
+                    noApplications: true
                 })
-
-            ))
+            }
+            else{
+                res.json()
+                .then(result => {
+                    let pending = result.data.pending
+                    pending.map((application) => (
+                        this.setState({
+                            pendingApplications: [...this.state.pendingApplications, {
+                                engin_email: application.engin_email,
+                                Course_name: application.Course_name,
+                                CNo: application.CNo
+                            }]
+                        })
+        
+                    ))
+                })
+            }
         })
     }
     acceptApplication(engin_email, Course_name, CNo){
@@ -48,20 +59,11 @@ class ManageApplications extends Component{
         window.location.reload(false);
     }
     render(){
-        const { pendingApplications } = this.state;
-        return(
-            <div style={{ margin: '8% 0' }}>
-                <Container className="learners-container">
-                    <Nav variant="tabs" defaultActiveKey="/manage-applications" style={{margin: 10}}>
-                        <Nav.Item>
-                            <Nav.Link href="/admin-home" style={{color: '#00000080'}}>Home</Nav.Link>
-                        </Nav.Item>
-                        <Nav.Item>
-                            <Nav.Link href="/manage-applications" style={{color: '#000000', fontWeight: 'bold'}}>Manage Applications</Nav.Link>
-                        </Nav.Item>
-                    </Nav>
-
-                    <h2 style={{padding: '1% 2%'}}>Applications</h2>
+        const { pendingApplications, noApplications } = this.state;
+        let display;
+        if ( noApplications === false ){
+            display = <div>
+                 <h2 style={{padding: '1% 2%'}}>Applications</h2>
                     <Table striped bordered hover>
                         <thead>
                             <tr>
@@ -93,6 +95,23 @@ class ManageApplications extends Component{
                             
                         </tbody>
                     </Table>
+            </div>
+        }
+        else{
+            display = <h5>No pending applications.</h5>
+        }
+        return(
+            <div style={{ margin: '8% 0' }}>
+                <Container className="learners-container">
+                    <Nav variant="tabs" defaultActiveKey="/manage-applications" style={{margin: 10}}>
+                        <Nav.Item>
+                            <Nav.Link href="/admin-home" style={{color: '#00000080'}}>Home</Nav.Link>
+                        </Nav.Item>
+                        <Nav.Item>
+                            <Nav.Link href="/manage-applications" style={{color: '#000000', fontWeight: 'bold'}}>Manage Applications</Nav.Link>
+                        </Nav.Item>
+                    </Nav>
+                    { display }
                 </Container>
             </div>
         )

@@ -16,6 +16,7 @@ class TrainersHome extends Component{
         .then(res => res.json())
         .then(result => {
             let allTrain = result.data.train;
+            console.log(result.data.train)
             allTrain.map((trainCourse) => {
                 fetch('http://127.0.0.1:5003/' + this.state.loginEmailState + '/' + trainCourse.course_name + '/' + trainCourse.CNo)
                 .then(res => res.json())

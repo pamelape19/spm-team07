@@ -1,16 +1,7 @@
-import os
-from typing import Coroutine
-from flask import Flask, request, jsonify, send_file
-from io import BytesIO
-import enum
+from flask import Flask, jsonify
 
-from flask.helpers import flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
-
-from sqlalchemy import func
-
-from datetime import datetime
 
 from os import environ
 
@@ -62,4 +53,3 @@ def get_all_create_course():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5011, debug=True)
-

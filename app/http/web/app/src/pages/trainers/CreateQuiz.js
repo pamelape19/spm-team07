@@ -12,22 +12,61 @@ class CreateQuiz extends Component{
             firstPage: true,
             totalQuestions: 0,
             questionTypes: [],
+
+            // shawn's
             quizDuration: 1,
             courseNameState: '',
             CNoState: '',
             chapterNameState: ''
+
+            // shaam's
+            allQuizzes: [],
+            quizDuration: 1,
+            courseNameState : "",
+            classNoState: "",
+            chapterNameState: "",
+            quizIDstate: "",
+
         };
         this.secondPage = this.secondPage.bind(this);
         this.createMcq = this.createMcq.bind(this);
         this.createTF = this.createTF.bind(this);
         this.creationDone = this.creationDone.bind(this);
         this.cancelCreation = this.cancelCreation.bind(this);
-        this.updateQuizDuration = this.updateQuizDuration.bind(this);
+        // this.updateQuizDuration = this.updateQuizDuration.bind(this);
     }
+
+    componentDidMount(){
+        let tokenString = window.location.href.split('/');
+        let tokenWords = tokenString[4].split('%20');
+        let courseName = tokenWords.join(" ");
+        let classNum = parseInt(tokenString[5]);
+        let chapterName = tokenString[6];
+        let quizid = Math.floor(1000 + Math.random() * 8000).toString();  
+        console.log(typeof(quizid))  
+        // console.log(chapterName)   
+        this.setState({
+            courseNameState: courseName,
+            classNoState: classNum,
+            chapterNameState: chapterName,
+            quizIDstate: quizid
+        }) 
+    }
+
     secondPage(){
         this.setState({
             firstPage: false,
         })
+        fetch('http://127.0.0.1:5008/' + this.state.quizIDstate,{
+            method: "POST",
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify({course_name:this.state.courseNameState, CNo:this.state.classNoState,chapter_name:this.state.chapterNameState,
+                duration:this.state.quizDuration,total_questions:this.state.totalQuestions})
+        })
+        
+             
     }
     createMcq(){
         this.setState({
@@ -83,9 +122,16 @@ class CreateQuiz extends Component{
     }
     updateQuizDuration(value){
         this.setState({
-            quizDuration: value
+            quizDuration: value 
+            
         })
+        
+        // <string:course_name>/<int:CNo>/<string:chapter_name>
+
+        
+
     }
+    
 
 
     render(){
@@ -119,7 +165,7 @@ class CreateQuiz extends Component{
                             <div className="create-btn">
                                 <div></div>
                                 <button  type="submit" class="btn btn-secondary" onClick={ this.cancelCreation }>Cancel</button>
-                                <button type="submit" class="btn btn-primary" onClick={ this.secondPage }>Create</button>
+                                <button type="submit" class="btn btn-primary" onClick={this.secondPage}>Create</button>
                             </div>
                         </form>
                     </Container>

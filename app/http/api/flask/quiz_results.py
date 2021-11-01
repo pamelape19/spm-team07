@@ -1,6 +1,5 @@
 from flask import Flask, request, jsonify
 
-from flask.helpers import flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 
@@ -74,4 +73,4 @@ def addNewResult(quizId):
 
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=5010, debug=True)
+    app.run(host='0.0.0.0', port=5010, debug=True)

@@ -21,7 +21,12 @@ class AddChapter extends Component{
             quizAdded: false,
             hideTrashQuiz: true,
             chapterTitle: "",
+
             chapterNo: "",
+
+            courseNameState: "",
+            classNumState: 0,
+
         }
         this.showEditTitle = this.showEditTitle.bind(this);
         this.editCompleted = this.editCompleted.bind(this);
@@ -33,6 +38,20 @@ class AddChapter extends Component{
         this.addChapterTitle = this.addChapterTitle.bind(this);
     }
     // functions for add title button
+
+    componentDidMount(){
+        let tokenString = window.location.href.split('/');
+        let tokenWords = tokenString[4].split('%20');
+        let courseName = tokenWords.join(" ");
+        let classNum = parseInt(tokenString[5]);
+        this.setState({
+            classNumState: classNum,
+            courseNameState: courseName,
+            chapterTitle: "Chapter" + this.props.chapterItem           
+        })     
+
+    }
+    
     showEditTitle(){
         this.setState({
             hideEditTitle: false,
@@ -83,8 +102,13 @@ class AddChapter extends Component{
             quizAdded: true,
             hideTrashQuiz: false,
         })
+
         // window.location.reload(false)
         window.location = "http://localhost:3000/create-quiz/" + courseName + "/" + classNum + "/" + chapterTitle + "/" + chapterNo;
+
+        
+        window.location = "http://localhost:3000/create-quiz/" + this.state.courseNameState + '/' + this.state.classNumState + '/' + this.state.chapterTitle;
+
     }
     clearQuiz(){
         this.setState({
@@ -96,6 +120,7 @@ class AddChapter extends Component{
         this.setState({
             chapterTitle: value
         })
+        
     }
     render(){
         const { chapterItem, courseName, classNum }= this.props;

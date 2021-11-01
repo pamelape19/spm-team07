@@ -6,7 +6,7 @@ class TrainersHome extends Component{
     constructor(props){
         super(props);
         this.state = {
-            loginEmailState: "boblee@allinone.com",
+            loginEmailState: "alexlim@allinone.com",
             trainCourseState: [],
 
         }

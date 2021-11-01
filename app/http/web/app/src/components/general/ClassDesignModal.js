@@ -36,7 +36,7 @@ class ClassDesignModal extends Component{
         const formData = new FormData();
         formData.append('file', this.state.selectedFile);
         fetch(
-            'http://127.0.0.1:5007/' + this.props.courseName +'/' + this.props.classNum,
+            'http://127.0.0.1:5007/course-material/' + this.props.courseName +'/' + this.props.classNum,
             {
                 method: 'POST',
                 body: formData,
@@ -60,7 +60,6 @@ class ClassDesignModal extends Component{
                         <input type="file" 
                                 name = 'inputFile' 
                                 className="course-design-browse-btn" 
-                                // id={ 'course-design' + uploadId } 
                                 onChange={ this.changeHandler }
                         />
                         <br/>

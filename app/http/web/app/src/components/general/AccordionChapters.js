@@ -27,8 +27,8 @@ class AccordionChapters extends Component{
         let openQuizHref;
 
         if ( chapter < completed ){
-            checkMark = <img src={Check} alt=""/>;
-            lectureMaterialHref = 'http://127.0.0.1:5000/download/' + courseName + '/' + classNum + '/' + chapter
+            checkMark = <img src={ Check } alt=""/>;
+            lectureMaterialHref = 'http://127.0.0.1:5007/download/' + courseName + '/' + classNum + '/' + chapter
             openLecture = <a href={ lectureMaterialHref }><p>Lecture materials</p></a>
 
             openQuizHref = "/chapter-quiz/" + courseName + "/" + chapterName + "/" + classNum 

@@ -42,15 +42,11 @@ class CourseMaterials extends Component{
             let allCourses = result.data.chapter;
             
             allCourses.map((CourseChapter) => {
-              
-                if (CourseChapter.course_name == this.state.CourseNameState && CourseChapter.CNo == this.state.ClassNumState){
 
+                if (CourseChapter.course_name === CourseName && CourseChapter.CNo === ClassNum){
                     this.setState({
-                        
                         CourseChapters: [...this.state.CourseChapters, [CourseChapter.CNo, CourseChapter.course_name, CourseChapter.chapterNo, CourseChapter.chapter_name ]]
                     })
-
-                    
                 }
                 
 
@@ -66,7 +62,7 @@ class CourseMaterials extends Component{
                     this.setState({
                         StartDateTimeState: classOfCourse.Start_datetime,
                         EndDateTimeState: classOfCourse.End_datetime,
-                        TrainerState: classOfCourse.Trainer
+                        TrainerState: classOfCourse.engin_email
                     })
                 }
             })

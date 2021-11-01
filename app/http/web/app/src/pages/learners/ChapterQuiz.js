@@ -126,7 +126,7 @@ class ChapterQuiz extends Component{
         );
 
             return( 
-                <div style={{marginBottom: '3%'}}>
+                <div style={{ marginBottom: '3%' }}>
                     <div className="chapter-quiz-sticky-top">
                         <Container className="chapter-quiz-header">
                             <h1> Quiz - { this.state.CourseNameState } </h1>
@@ -135,7 +135,7 @@ class ChapterQuiz extends Component{
                         <hr/>
                     </div>
 
-                     <Container className = "chapter-quiz-questions">
+                     <Container className = "chapter-quiz-questions" style={{ padding: '0 8%' }}>
                         { questionAnswers }
                         { btnShown }
 

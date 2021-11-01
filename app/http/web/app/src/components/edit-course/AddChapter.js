@@ -20,7 +20,8 @@ class AddChapter extends Component{
             hideUploadLectureBtn: false,
             quizAdded: false,
             hideTrashQuiz: true,
-            chapterTitle: ""
+            chapterTitle: "",
+            chapterNo: "",
         }
         this.showEditTitle = this.showEditTitle.bind(this);
         this.editCompleted = this.editCompleted.bind(this);
@@ -40,10 +41,12 @@ class AddChapter extends Component{
     }
     editCompleted(){
         this.setState({
+            chapterNo: this.props.chapterItem,
             titleAdded: true,
             hideEditTitle: true,
             hideAddTitleBtn: false,
         })
+
     }
     clearTitle(){
         this.setState({
@@ -72,6 +75,7 @@ class AddChapter extends Component{
         let courseName = tokenWords.join(" ");
         let classNum = tokenString[5];
         let chapterTitle = this.state.chapterTitle
+        let chapterNo = this.state.chapterNo
         console.log(courseName)
         console.log(classNum) 
         console.log(chapterTitle)
@@ -80,7 +84,7 @@ class AddChapter extends Component{
             hideTrashQuiz: false,
         })
         // window.location.reload(false)
-        window.location = "http://localhost:3000/create-quiz/" + courseName + "/" + classNum + "/" + chapterTitle;
+        window.location = "http://localhost:3000/create-quiz/" + courseName + "/" + classNum + "/" + chapterTitle + "/" + chapterNo;
     }
     clearQuiz(){
         this.setState({
@@ -95,6 +99,7 @@ class AddChapter extends Component{
     }
     render(){
         const { chapterItem, courseName, classNum }= this.props;
+        const {chapterNo} = this.state;
         // const { chapterTitle, titleAdded} = this.state
         // conditional rendering for title's button
         let titleBtn;
@@ -135,10 +140,10 @@ class AddChapter extends Component{
                 <Card className="chapter">
                     <div className="card-content-layout">
                         <div className="chapter-num"> 
-                            Chapter { chapterItem }  {chapterTitleAdded}
+                            Chapter { chapterItem }  {chapterTitleAdded} {chapterNo}
 
                             <span style={{ marginLeft: 20 }} hidden={ this.state.hideEditTitle }>
-                                <input type="text" onChange={ e => this.addChapterTitle(e.target.value) }/>
+                                <input type="text" onChange={ e => this.addChapterTitle(e.target.value)}  />
                                 <button className="done-btn" onClick={ this.editCompleted }><img src={ Done } alt=""/></button>
                                 <button className="trash-btn" onClick={ this.clearTitle }><img src={ Trash } alt=""/></button>
                             </span>

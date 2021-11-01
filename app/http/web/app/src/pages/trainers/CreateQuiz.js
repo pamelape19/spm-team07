@@ -39,26 +39,47 @@ class CreateQuiz extends Component{
         this.setState({
             totalQuestions: this.state.totalQuestions + 1,
             questionTypes: [...this.state.questionTypes, "tf"]
+            
         })
     }
-    creationDone(){
-        const classForm = document.getElementById('classForm');
-        console.log(classForm);
-        const formData = new FormData(classForm);
-        console.log(formData);
-        fetch('http://127.0.0.1:5008/' + this.state.courseNameState + '/' + this.state.CNoState + this.state.chapterNameState,{
-            method: "POST",
-            body: formData          
+    creationDone(event){
+        let tokenString = window.location.href.split('/');
+        let tokenWords = tokenString[4].split('%20');
+        let courseName = tokenWords.join(" ");
+        let classNum = tokenString[5];
+        let chapterTitle = tokenString[6]
+        let chapterNo= tokenString[7]
+
+
+        const formData = new FormData(document.getElementById("test"));
+        formData.append
+        for (var [key, value] of formData.entries()) { 
+            console.log(key, value);
+           }
+
+        console.log(JSON.stringify({
+            formData
+        }))
+
+
+        
+
+        console.log('http://127.0.0.1:5008/' + courseName + '/' + classNum + "/" + chapterTitle + "/" + chapterNo )
+        fetch('http://127.0.0.1:5008/'  + courseName + '/' + classNum + "/" + chapterTitle + "/" + chapterNo  ,{
+            method: "POST",   
+            body:
+                formData
+            ,
+  
         })
-        this.setState({
-            showAddClassModal: false
-        })
-        window.location.reload(false)
+        event.preventDefault();
+
+        // window.location.reload(false)
 
         // window.location = "http://localhost:3000/trainers-course"
     }
     cancelCreation(){
-        window.location = "http://localhost:3000/trainers-course"
+        // window.location = "http://localhost:3000/trainers-course"
     }
     updateQuizDuration(value){
         this.setState({
@@ -72,7 +93,7 @@ class CreateQuiz extends Component{
         if ( this.state.firstPage === true ){
             page = <Container className="quiz-creation">
                         <h1>Quiz Creation</h1>
-                        <form className="quiz-form">
+                        <form className="quiz-form" id="test">
                             <div className="quiz-row">
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label">Title</label>
@@ -114,35 +135,39 @@ class CreateQuiz extends Component{
                 }
             )
                     
-            page = <div>
-                <div className="sticky-top">
-                    <Container className="create-quiz-header">
-                        <div>
-                            <h1> Quiz 1 - Introduction to 3D Printing </h1>
-                            <p> Estimated Length: { this.state.quizDuration } mins</p>
-                        </div>
-                        <div className="creation-done-btn">
-                            <button type="submit" class="btn btn-primary" onClick={ this.creationDone }>Done</button>
+            page = 
+            <form id="test" onSubmit={ this.creationDone }>
+                
+                <div>
+                    <div className="sticky-top">
+                        <Container className="create-quiz-header">
+                            <div>
+                                <h1> Quiz 1 - Introduction to 3D Printing </h1>
+                                <p> Estimated Length: { this.state.quizDuration } mins</p>
+                            </div>
+                            <div className="creation-done-btn">
+
+                                <button type="submit" class="btn btn-primary" onClick={ this.creationDone }>Done</button>
+                            </div>
+                        </Container>
+                        <hr/>
+                    </div>
+                    { questionType }
+                    <Container className="quiz-creation">
+                        <div className="mcq-btns">
+                            <div class="btn btn-primary" onClick={ this.createMcq }>+ Create question with MCQ options</div>
+                            <div class="btn btn-primary" onClick={ this.createTF }>+ Create question with T/F options</div>
                         </div>
                     </Container>
-                    <hr/>
                 </div>
-                { questionType }
-                <Container className="quiz-creation">
-                    <div className="mcq-btns">
-                        <div class="btn btn-primary" onClick={ this.createMcq }>+ Create question with MCQ options</div>
-                        <div class="btn btn-primary" onClick={ this.createTF }>+ Create question with T/F options</div>
-                    </div>
-                </Container>
-            </div>
-
+            </form>
             
         }
         return(
             <div style={{ margin: '8% 0' }}>
-                <form>
+                 
                 { page }
-                </form>
+                 
 
             </div>
         )

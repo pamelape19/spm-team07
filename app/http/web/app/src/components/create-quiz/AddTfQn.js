@@ -12,23 +12,23 @@ class AddTfQn extends Component{
         return(
             <div>
                 <Container className="quiz-creation">
-                    { qnNo }. <input type="text" placeholder="Enter question" className="mcq-spaced-options qns-and-options-input"/>
+                    { qnNo }. <input type="text" placeholder="Enter question" className="mcq-spaced-options qns-and-options-input" name={qnNo}/>
                     <Container>
                         <div class="form-check" className="mcq-spaced-options">
-                            <input class="form-check-input" type="radio" name="mcqRadios" id="option1" value="option1" disabled/>
+                            <input class="form-check-input" type="radio" name="mcqRadios" id={qnNo + "option1"} value="option1" name={qnNo} />
                             {"  "}
-                            <label class="form-check-label" for="option1">
+                            <label class="form-check-label" for={qnNo + "option1"} >
                                 True
                             </label>
-                            <button className="set-ans">Set as correct answer</button>
+                            <label for={qnNo + "option1"} className="set-ans">Set as correct answer</label>
                         </div>
                         <div class="form-check" className="mcq-spaced-options">
-                            <input class="form-check-input" type="radio" name="mcqRadios" id="option2" value="option2" disabled/>
+                            <input class="form-check-input" type="radio" name="mcqRadios" id={qnNo + "option2"} value="option2" name={qnNo}/>
                             {"  "}
-                            <label class="form-check-label" for="option2">
+                            <label class="form-check-label" for={qnNo + "option2"} >
                                 False  
                             </label>
-                            <button className="set-ans">Set as correct answer</button>
+                            <label for={qnNo + "option2"} className="set-ans">Set as correct answer</label>
                         </div>
                    </Container>
                 </Container>

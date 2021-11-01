@@ -104,11 +104,27 @@ def find_quizzes_by_chapter(course_name, CNo, chapter_name):
     ), 404
 
 # @app.route("/<string:course_name>/<int:CNo>/<string:chapter_name>", methods=['POST'])
-@app.route("/<string:course_name>/<int:CNo>/<string:chapter_name>/a", methods=['POST'])
-def addNewQuiz(course_name,CNo,chapter_name):
+@app.route("/<string:course_name>/<int:CNo>/<string:chapter_name>/<int:chapter_no>", methods=['POST'])
+# def addNewQuiz(course_name,CNo,chapter_name):
+def addNewQuiz(course_name, CNo, chapter_name, chapter_no):
     data = request.get_json()
     # quiz_add = db.session.query(QUIZ).filter(QUIZ.Course_name == data['Course_name'])
-    return request.get_json()
+    # print(request.form["esf22"])
+    # print(request.form["aaa"])
+    print(request.form)
+    print(course_name, CNo, chapter_name, chapter_no)
+
+    # might need course number
+    quiz_ID = "1" + str(CNo) + "0" + str(chapter_no)
+    # course no + chapterno + chaperno
+    # new_quiz = QUIZ( quizID=quiz_ID, course_name=course_name, CNo=CNo, chapter_name=chapter_name,End_datetime=End_datetime, Capacity=Capacity, engin_email=trainer_email)
+    #     quizID  = db.Column(db.String(50), nullable=False, primary_key=True)
+    # CNo = db.Column(db.Integer, nullable=False)
+    # course_name = db.Column(db.String(100), nullable=False)
+    # chapter_name  = db.Column(db.String(100))
+    # duration = db.Column(db.Integer)
+    # total_questions = db.Column(db.Integer, nullable=False)
+    return "a"
 
 # def addNewResult(quizId):
 #     data = request.get_json()

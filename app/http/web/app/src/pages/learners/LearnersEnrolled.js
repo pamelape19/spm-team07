@@ -7,7 +7,7 @@ class LearnersEnrolled extends Component{
         super(props);
         this.state = {
             enrolledCourseState: [],
-            loginEmailState: "darrentan@allinone.com"
+            loginEmailState: "samueltan@allinone.com"
         }
     }
     componentDidMount(){

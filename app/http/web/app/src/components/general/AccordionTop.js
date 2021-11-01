@@ -14,7 +14,7 @@ class AccordionTop extends Component{
 
     render(){
         const { courseName, classNum, courseDesc } = this.props;
-        let classDesignHref = 'http://127.0.0.1:5000/download/' + courseName + '/' + classNum
+        let classDesignHref = 'http://127.0.0.1:5007/download/' + courseName + '/' + classNum
         return(
             <div>
                 <AccordionItem>

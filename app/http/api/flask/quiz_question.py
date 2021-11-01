@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, request, jsonify
 
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
@@ -17,7 +17,7 @@ db = SQLAlchemy(app)
 
 CORS(app)
 
-
+ 
 class QUIZ_QUESTION (db.Model):
     __tablename__ = 'QUIZ_QUESTION'
     question = db.Column(db.String(1000), nullable=False)
@@ -73,6 +73,29 @@ def find_quiz_qn_by_quizID(quizID):
         }
     ), 404
 
+
+@app.route("/<int:quizID>", methods=['POST'])
+# def addNewQuiz(course_name,CNo,chapter_name):
+def addNewQuiz(quizID):
+    data = request.json
+    # quiz_add = db.session.query(QUIZ).filter(QUIZ.Course_name == data['Course_name'])
+    # print(request.form["esf22"])
+    # print(request.form["aaa"])
+    # print(request.form)
+    print(data)
+
+    try:
+        for qus in data["data"]:
+            print(qus)
+            new_quiz = QUIZ_QUESTION(question=qus["question"],questionNo=qus["question_no"], question_type=qus['question_type'], quizID=quizID )
+            print(new_quiz)
+            db.session.add(new_quiz)
+            db.session.commit()
+ 
+
+    except Exception as e:
+        return 'Quiz could not be added'
+    return 'Quiz has been added'
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5009, debug=True)

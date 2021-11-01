@@ -14,10 +14,10 @@ class CreateQuiz extends Component{
             questionTypes: [],
 
             // shawn's
-            quizDuration: 1,
-            courseNameState: '',
-            CNoState: '',
-            chapterNameState: ''
+            // quizDuration: 1,
+            // courseNameState: '',
+            // CNoState: '',
+            // chapterNameState: '',
 
             // shaam's
             allQuizzes: [],
@@ -26,6 +26,7 @@ class CreateQuiz extends Component{
             classNoState: "",
             chapterNameState: "",
             quizIDstate: "",
+            chapterTitle:  window.location.href.split('/')[6]
 
         };
         this.secondPage = this.secondPage.bind(this);
@@ -57,14 +58,14 @@ class CreateQuiz extends Component{
         this.setState({
             firstPage: false,
         })
-        fetch('http://127.0.0.1:5008/' + this.state.quizIDstate,{
-            method: "POST",
-            headers: {
-                'Content-Type' : 'application/json'
-            },
-            body: JSON.stringify({course_name:this.state.courseNameState, CNo:this.state.classNoState,chapter_name:this.state.chapterNameState,
-                duration:this.state.quizDuration,total_questions:this.state.totalQuestions})
-        })
+        // fetch('http://127.0.0.1:5008/' + this.state.quizIDstate,{
+        //     method: "POST",
+        //     headers: {
+        //         'Content-Type' : 'application/json'
+        //     },
+            // body: JSON.stringify({course_name:this.state.courseNameState, CNo:this.state.classNoState,chapter_name:this.state.chapterNameState,
+            //     duration:this.state.quizDuration,total_questions:this.state.totalQuestions})
+        // })
         
              
     }
@@ -87,35 +88,90 @@ class CreateQuiz extends Component{
         let courseName = tokenWords.join(" ");
         let classNum = tokenString[5];
         let chapterTitle = tokenString[6]
-        let chapterNo= tokenString[7]
-
+        let quizID = this.state.quizIDstate
+        let quizNum = 0
+        let duration = this.state.quizDuration
+        let quizQuestionArray = {"data":[]}
+        let optionArray = {"data":[]}
+        let selectedOption = {}
+         
+        let obj = ''
 
         const formData = new FormData(document.getElementById("test"));
-        formData.append
-        for (var [key, value] of formData.entries()) { 
-            console.log(key, value);
-           }
-
-        console.log(JSON.stringify({
-            formData
-        }))
-
-
         
+        for (var [key, value] of formData.entries()) { 
 
-        console.log('http://127.0.0.1:5008/' + courseName + '/' + classNum + "/" + chapterTitle + "/" + chapterNo )
-        fetch('http://127.0.0.1:5008/'  + courseName + '/' + classNum + "/" + chapterTitle + "/" + chapterNo  ,{
+            
+            if (key.split("_")[0] == "question"){
+                quizNum += 1
+                if (key.split("_")[1] == "mcq"){
+                    quizQuestionArray["data"].push({"question":value,"question_no":quizNum,"question_type":"mcq"})
+                } else if (key.split("_")[1] == "t/f"){
+                    quizQuestionArray["data"].push({"question":value,"question_no":quizNum,"question_type":"t/f"})
+                }
+            }
+            if (key.split("_")[0] == "selected"){
+                // optionArray[key.split("_")[1]] = value
+                selectedOption[key.split("_")[1]] = value
+                // selectedOptionArray.push(selectedOption)
+            }
+        }
+
+        // console.log(optionArray )
+        for (var [key, value] of formData.entries()) { 
+            let option = {}
+            
+            if (key.split("_")[0] == "option"){
+                
+                let questionNo = key.split("_")[2]
+                let optionNo = key.split("_")[1]
+                if (selectedOption[questionNo] == value && optionNo == 1){
+                    optionArray["data"].push({"optionNo":optionNo,"question_no":questionNo,"option_value":value, "selected":1, "answer": 1}) 
+                } else if (optionNo == 1 ){
+                    optionArray["data"].push({"optionNo":optionNo,"question_no":questionNo,"option_value":value, "selected":1, "answer": 0}) 
+                } else if (selectedOption[questionNo] == value) {
+                    optionArray["data"].push({"optionNo":optionNo,"question_no":questionNo,"option_value":value, "selected":0, "answer": 1}) 
+                } else {
+                    optionArray["data"].push({"optionNo":optionNo,"question_no":questionNo,"option_value":value, "selected":0, "answer": 0}) 
+                }
+                // console.log(selectedOption)
+            }
+             
+        }
+
+        console.log( JSON.stringify(optionArray))
+        console.log(selectedOption)
+        console.log( JSON.stringify(quizQuestionArray))
+
+        // quiz ready
+        console.log('http://127.0.0.1:5008/'  + courseName + '/' + classNum + "/" + chapterTitle + "/"  + quizID + "/" +  quizNum + "/" + duration)
+        fetch('http://127.0.0.1:5008/'  + courseName + '/' + classNum + "/" + chapterTitle + "/"  + quizID + "/" +  quizNum + "/" + duration ,{
             method: "POST",   
-            body:
-                formData
-            ,
   
         })
-        event.preventDefault();
 
+        // quiz questions ready
+        fetch('http://127.0.0.1:5009/'  + quizID  ,{
+            method: "POST",   
+            body:  JSON.stringify(quizQuestionArray),
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        }) 
+
+        // quiz options ready
+        fetch('http://127.0.0.1:5013/'  + quizID  ,{
+            method: "POST",   
+            body:  JSON.stringify(optionArray),
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        }) 
+        console.log("http://localhost:3000/trainers-course/" + courseName + "/" + classNum)
+        event.preventDefault();
         // window.location.reload(false)
 
-        // window.location = "http://localhost:3000/trainers-course"
+        window.location = "http://localhost:3000/trainers-course/" + courseName + "/" + classNum
     }
     cancelCreation(){
         // window.location = "http://localhost:3000/trainers-course"
@@ -123,7 +179,6 @@ class CreateQuiz extends Component{
     updateQuizDuration(value){
         this.setState({
             quizDuration: value 
-            
         })
         
         // <string:course_name>/<int:CNo>/<string:chapter_name>
@@ -144,7 +199,7 @@ class CreateQuiz extends Component{
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label">Title</label>
                                     <div class="col-sm-9">
-                                    <input type="text" readonly class="form-control-plaintext" id="quizTitle" value={" "+"Chapter 1 - What is 3D Printing?"}/>
+                                    <input type="text" readonly class="form-control-plaintext" id="quizTitle" value={" " + this.state.chapterTitle}/>
                                     </div>
                                 </div>
                             </div>

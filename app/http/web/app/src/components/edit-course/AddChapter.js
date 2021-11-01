@@ -22,7 +22,7 @@ class AddChapter extends Component{
             hideTrashQuiz: true,
             chapterTitle: "",
 
-            chapterNo: "",
+            // chapterNo: "",
 
             courseNameState: "",
             classNumState: 0,
@@ -60,7 +60,7 @@ class AddChapter extends Component{
     }
     editCompleted(){
         this.setState({
-            chapterNo: this.props.chapterItem,
+            // chapterNo: this.props.chapterItem,
             titleAdded: true,
             hideEditTitle: true,
             hideAddTitleBtn: false,
@@ -94,7 +94,7 @@ class AddChapter extends Component{
         let courseName = tokenWords.join(" ");
         let classNum = tokenString[5];
         let chapterTitle = this.state.chapterTitle
-        let chapterNo = this.state.chapterNo
+        // let chapterNo = this.state.chapterNo
         console.log(courseName)
         console.log(classNum) 
         console.log(chapterTitle)
@@ -104,10 +104,10 @@ class AddChapter extends Component{
         })
 
         // window.location.reload(false)
-        window.location = "http://localhost:3000/create-quiz/" + courseName + "/" + classNum + "/" + chapterTitle + "/" + chapterNo;
+        window.location = "http://localhost:3000/create-quiz/" + courseName + "/" + classNum + "/" + chapterTitle + "/"  ;
 
         
-        window.location = "http://localhost:3000/create-quiz/" + this.state.courseNameState + '/' + this.state.classNumState + '/' + this.state.chapterTitle;
+        // window.location = "http://localhost:3000/create-quiz/" + this.state.courseNameState + '/' + this.state.classNumState + '/' + this.state.chapterTitle;
 
     }
     clearQuiz(){
@@ -124,7 +124,7 @@ class AddChapter extends Component{
     }
     render(){
         const { chapterItem, courseName, classNum }= this.props;
-        const {chapterNo} = this.state;
+        // const {chapterNo} = this.state;
         // const { chapterTitle, titleAdded} = this.state
         // conditional rendering for title's button
         let titleBtn;
@@ -165,7 +165,7 @@ class AddChapter extends Component{
                 <Card className="chapter">
                     <div className="card-content-layout">
                         <div className="chapter-num"> 
-                            Chapter { chapterItem }  {chapterTitleAdded} {chapterNo}
+                            Chapter { chapterItem }  {chapterTitleAdded} 
 
                             <span style={{ marginLeft: 20 }} hidden={ this.state.hideEditTitle }>
                                 <input type="text" onChange={ e => this.addChapterTitle(e.target.value)}  />

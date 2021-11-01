@@ -44,8 +44,7 @@ class AllRoutes extends Component {
                 <Route exact path="/create-course" component={ CreateCourse }/>
                 <Route exact path="/manage-learners" component={ ManageLearners }/>
                 <Route exact path="/quiz-attempt/:slug/:slug" component={ QuizAttempt }/>
-                <Route exact path="/edit-classlist" component={ EditClassList }/>
-            </Fragment>
+                <Route exact path="/edit-classlist/:slug/:slug" component={ EditClassList }/>            </Fragment>
         )
     }
 }

@@ -1,23 +1,14 @@
-import os
-from typing import Coroutine
-from flask import Flask, request, jsonify, send_file
-from io import BytesIO
-import enum
+from flask import Flask, request, jsonify
 
-from flask.helpers import flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
-
-from sqlalchemy import func
-
-from datetime import datetime
 
 from os import environ
 
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = environ.get(
-    'dbURL')or 'mysql+mysqlconnector://root@localhost:3308/lms'   
+    'dbURL')or 'mysql+mysqlconnector://root@localhost:3306/lms'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_size': 100,
                                            'pool_recycle': 280}
@@ -46,7 +37,6 @@ class QUIZ (db.Model):
 
     def json(self):
         return {"quizID": self.quizID, "CNo": self.CNo, "course_name": self.course_name, "chapter_name": self.chapter_name, "duration": self.duration, "total_questions": self.total_questions}
-
 
 @app.route("/")
 def get_all_quiz():
@@ -103,6 +93,7 @@ def find_quizzes_by_chapter(course_name, CNo, chapter_name):
         }
     ), 404
 
+ 
 # @app.route("/<string:course_name>/<int:CNo>/<string:chapter_name>", methods=['POST'])
 @app.route("/<string:course_name>/<int:CNo>/<string:chapter_name>/<int:chapter_no>", methods=['POST'])
 # def addNewQuiz(course_name,CNo,chapter_name):
@@ -137,6 +128,26 @@ def addNewQuiz(course_name, CNo, chapter_name, chapter_no):
 #     except Exception as e:
 #         return 'Result could not be added'
 #     return 'Result has been recorded'
+
+@app.route("/<string:quizID>", methods=['POST'])
+def addNewChapterQuiz(quizID):
+    data=request.get_json()
+    print(data)
+    print(data['course_name'])
+    print(data['CNo'])
+    print(data['chapter_name'])
+    print(data['duration'])
+    print(data['total_questions'])
+    print(data['course_name'])
+    new_quiz = QUIZ(quizID=quizID,CNo=data['CNo'], chapter_name=data['chapter_name'], duration=data['duration'],total_questions=data['total_questions'],course_name=data['course_name'])
+    try:
+        db.session.add(new_quiz)
+        db.session.commit()
+    except Exception as e:
+        return 'Quiz could not be added'
+    return 'Quiz has been added'
+
+    
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5008, debug=True)

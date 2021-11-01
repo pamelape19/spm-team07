@@ -1,21 +1,14 @@
-import os
-from typing import Coroutine
 from flask import Flask, jsonify
-from io import BytesIO
-import enum
 
-from flask.helpers import flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
-
-from sqlalchemy import func
 
 from os import environ
 
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = environ.get(
-    'dbURL')or 'mysql+mysqlconnector://root@localhost:3308/lms'   
+    'dbURL')or 'mysql+mysqlconnector://root@localhost:3306/lms'   
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_size': 100,
                                            'pool_recycle': 280}
@@ -86,3 +79,4 @@ def quiz_options_by_quizID(quizID):
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5013, debug=True)
+

@@ -1,8 +1,7 @@
-import {React, Component } from 'react';
-import { Container, Button } from 'react-bootstrap';
+import { React, Component } from 'react';
+import { Container } from 'react-bootstrap';
 import "./css/chapterQuiz.css";
-import McqQn from '../../components/quiz/McqQn';
-import Question from '../../components/quiz/Question';
+import ChapterQn from '../../components/quiz/ChapterQn';
 
 class ChapterQuiz extends Component{
     constructor(props){
@@ -14,36 +13,18 @@ class ChapterQuiz extends Component{
             ClassNumState: "",
             ChapterNameState: "",
             quizID: "",
-            totalscore: 0,
-            totalmarks: 0,
             showAnswer: false,
             hideDoneBtn: true,
             ans: ''
         }
-        this.handleChange = this.handleChange.bind(this);
         this.handleSubmitted = this.handleSubmitted.bind(this);
     }
-
-    handleChange = (score) => {
-        this.setState({ 
-            totalscore: this.state.totalscore + score
-        });
-        console.log(this.state.totalscore)
-      }
     
     handleSubmitted(){
-        // aaa 
-        var result = this.state.totalscore;
         this.setState({
             showAnswer: true,
             hideDoneBtn: false
         })
-        if (result > (this.state.totalmarks/2)){
-            var pass = true
-        } 
-        else{
-            var pass = false
-        }
     }
     
     componentDidMount(){
@@ -97,15 +78,6 @@ class ChapterQuiz extends Component{
                                     }
                                 });
                                                           
-                                // let allQuizOptions = result.data.quizOptions;
-                                // // get all quiz options for a specific question
-                                // allQuizOptions.map((quizOption) => {  
-                                //     if (quizOption.questionNo === quizQuestion.questionNo){
-                                //         this.setState({
-                                //                 quizQnOptions: [...this.state.quizQnOptions, quizOption.option_value]
-                                //             }); 
-                                //         }
-                                // });
                                 // fill quiz_questions array with question data and their respective options
                                 this.setState({
                                     quiz_questions: [...this.state.quiz_questions, 
@@ -132,16 +104,8 @@ class ChapterQuiz extends Component{
     }
 
     render(){
-        const{ quiz_questions } = this.state;
-        if (quiz_questions.length > 0){
-            console.log(quiz_questions)
-            var totalmarks = 0;
-            const marksArray = quiz_questions.map( (question) => question.marks );
-            const reducer = (previousValue, currentValue) => previousValue + currentValue;
-            totalmarks = marksArray.reduce(reducer);
-        }
+        const { quiz_questions } = this.state;
          
-
         let btnShown;
         {btnShown = <form>
         <input type="button"
@@ -151,21 +115,13 @@ class ChapterQuiz extends Component{
         />
         </form>}
 
-
-
-        
         const questionAnswers = quiz_questions.map((question) =>
-            <Question 
+            <ChapterQn
                 question = { question.qtext }
                 number = { question.no } 
                 options = { question.options } 
                 answer = { question.ans } 
-                marks = { question.marks } 
-                applyNegativeMarking = { false } 
-                onAnswered = { (score)=>this.handleChange(score) }
                 showAnswer = { this.state.showAnswer }
-                totalscore = { this.state.totalscore }
-                totalmarks = { this.state.totalmarks }
             />
         );
 
@@ -179,30 +135,14 @@ class ChapterQuiz extends Component{
                         <hr/>
                     </div>
 
-
                      <Container className = "chapter-quiz-questions">
                         { questionAnswers }
                         { btnShown }
-                        
-                    {/* {quiz_questions.map((quiz_question)=>{
-
-                            if (quiz_question.qnType === "t/f")
-                                return (<McqQn qn_no = { quiz_question.no } qn = {quiz_question.qtext} options = {[ quiz_question.quizOptions[0], quiz_question.quizOptions[1] ]} />)
-                            else
-                                return (<McqQn qn_no = { quiz_question.no } qn = {quiz_question.qtext} options = {[ quiz_question.quizOptions[0], quiz_question.quizOptions[1], quiz_question.quizOptions[2], quiz_question.quizOptions[3]]} />)
-               
-                    })}
-                    <div className = "chapter-quiz-buttons">
-                        <div></div>
-                        <Button type="submit">Submit</Button>{' '}
-                        <div></div>
-                    </div>    */}
 
                     </Container> 
                 </div>
             )
         
-
     }
 }
 

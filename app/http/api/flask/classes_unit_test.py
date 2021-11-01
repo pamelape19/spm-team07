@@ -31,6 +31,7 @@ class TestClass(unittest.TestCase):
         FirstCN = Data[0]["Course_name"]
         LastCN = Data[-1]["Course_name"]
         
+        self.assertEqual(Response.status_code, 200)
         self.assertEqual("Introduction to Canon WorkCentre", FirstCN)
         self.assertEqual("SOP for Repair Work", LastCN)
     
@@ -59,6 +60,8 @@ class TestClass(unittest.TestCase):
         Data = json.loads(Response.get_data())['data']['classes']
         
         FirstStartDateTime = Data[0]["Start_datetime"]
+
+        self.assertEqual(Response.status_code, 200)
         self.assertEqual("Mon, 04 Oct 2021 10:30:00 GMT", FirstStartDateTime)
     
     # def test_set_StartDateTime(self):
@@ -75,6 +78,8 @@ class TestClass(unittest.TestCase):
         Response = self.app.get("/")
         Data = json.loads(Response.get_data())['data']['classes']
         FirstEndDateTime  = Data[0]["End_datetime"]
+
+        self.assertEqual(Response.status_code, 200)
         self.assertEqual("Thu, 04 Nov 2021 12:00:00 GMT", FirstEndDateTime)
 
     # def test_setEndDateTime(self):
@@ -83,6 +88,8 @@ class TestClass(unittest.TestCase):
         Response = self.app.get("/")
         Data = json.loads(Response.get_data())['data']['classes']
         FirstCapacity = Data[0]["Capacity"]
+
+        self.assertEqual(Response.status_code, 200)
         self.assertEqual(40, FirstCapacity)
 
     # def test_setCapacity(self):
@@ -116,6 +123,7 @@ class TestClass(unittest.TestCase):
         newCNo = Data[-1]["CNo"]
         newCourse = Data[-1]["Course_name"]
 
+        self.assertEqual(Response.status_code, 200)
         self.assertEqual(newCNo, 6)
         self.assertEqual(newCourse, "SOP for Repair Work")
 

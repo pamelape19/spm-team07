@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
@@ -77,5 +77,26 @@ def quiz_options_by_quizID(quizID):
         }
     ), 404
 
+
+@app.route("/<int:quizID>", methods=['POST'])
+def addNewOption(quizID):
+    data = request.json
+
+
+    try:
+        for option in data["data"]:
+            
+            new_option= QUIZ_OPTION(optionNo=option["optionNo"],option_value=option["question_no"], quizID=option['option_value'], questionNo=quizID,selected=option["selected"], answer=option["answer"])
+
+            db.session.add(new_option)
+            db.session.commit()
+ 
+
+    except Exception as e:
+        return 'Quiz could not be added'
+    return 'Quiz has been added'
+
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5013, debug=True)
+

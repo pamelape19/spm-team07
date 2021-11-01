@@ -21,8 +21,12 @@ class AddChapter extends Component{
             quizAdded: false,
             hideTrashQuiz: true,
             chapterTitle: "",
+
+            // chapterNo: "",
+
             courseNameState: "",
             classNumState: 0,
+
         }
         this.showEditTitle = this.showEditTitle.bind(this);
         this.editCompleted = this.editCompleted.bind(this);
@@ -56,10 +60,12 @@ class AddChapter extends Component{
     }
     editCompleted(){
         this.setState({
+            // chapterNo: this.props.chapterItem,
             titleAdded: true,
             hideEditTitle: true,
             hideAddTitleBtn: false,
         })
+
     }
     clearTitle(){
         this.setState({
@@ -83,12 +89,26 @@ class AddChapter extends Component{
     }
     // functions for quiz's 'upload content' button
     showEditQuiz(){
+        let tokenString = window.location.href.split('/');
+        let tokenWords = tokenString[4].split('%20');
+        let courseName = tokenWords.join(" ");
+        let classNum = tokenString[5];
+        let chapterTitle = this.state.chapterTitle
+        // let chapterNo = this.state.chapterNo
+        console.log(courseName)
+        console.log(classNum) 
+        console.log(chapterTitle)
         this.setState({
             quizAdded: true,
             hideTrashQuiz: false,
         })
+
+        // window.location.reload(false)
+        window.location = "http://localhost:3000/create-quiz/" + courseName + "/" + classNum + "/" + chapterTitle + "/"  ;
+
         
-        window.location = "http://localhost:3000/create-quiz/" + this.state.courseNameState + '/' + this.state.classNumState + '/' + this.state.chapterTitle;
+        // window.location = "http://localhost:3000/create-quiz/" + this.state.courseNameState + '/' + this.state.classNumState + '/' + this.state.chapterTitle;
+
     }
     clearQuiz(){
         this.setState({
@@ -104,7 +124,8 @@ class AddChapter extends Component{
     }
     render(){
         const { chapterItem, courseName, classNum }= this.props;
-       
+        // const {chapterNo} = this.state;
+        // const { chapterTitle, titleAdded} = this.state
         // conditional rendering for title's button
         let titleBtn;
         if ( this.state.titleAdded === false ){
@@ -133,15 +154,21 @@ class AddChapter extends Component{
         else{
             quizBtn = <Button variant="primary" href="#">Edit Quiz</Button>
         }
+
+        let chapterTitleAdded;
+        if ( this.state.titleAdded ){
+            chapterTitleAdded = this.state.chapterTitle
+        }
         
         return(
             <div>
                 <Card className="chapter">
                     <div className="card-content-layout">
                         <div className="chapter-num"> 
-                            Chapter { chapterItem }
+                            Chapter { chapterItem }  {chapterTitleAdded} 
+
                             <span style={{ marginLeft: 20 }} hidden={ this.state.hideEditTitle }>
-                                <input type="text" onChange={ e => this.addChapterTitle(e.target.value) }/>
+                                <input type="text" onChange={ e => this.addChapterTitle(e.target.value)}  />
                                 <button className="done-btn" onClick={ this.editCompleted }><img src={ Done } alt=""/></button>
                                 <button className="trash-btn" onClick={ this.clearTitle }><img src={ Trash } alt=""/></button>
                             </span>

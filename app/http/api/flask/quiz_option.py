@@ -89,10 +89,12 @@ def addNewOption(quizID):
             new_option= QUIZ_OPTION(optionNo=option["optionNo"],option_value=option["question_no"], quizID=option['option_value'], questionNo=quizID,selected=option["selected"], answer=option["answer"])
 
             db.session.add(new_option)
+            print('add')
             db.session.commit()
+            print('commit')
  
-
     except Exception as e:
+        print(e)
         return 'Quiz could not be added'
     return 'Quiz has been added'
 

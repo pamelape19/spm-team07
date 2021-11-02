@@ -55,10 +55,10 @@ def get_all_chapter():
 
 @app.route("/<string:course_name>/<int:CNo>/<int:chapterNo>/<string:chapter_name>", methods=['POST'])
 def update_chapter(course_name, CNo, chapterNo, chapter_name):
-
+    print(course_name, CNo, chapterNo, chapter_name)
     chapter = CHAPTER.query.filter_by(course_name=course_name, CNo=CNo).first()
 
-    if (chapter != None):
+    if (chapter == None):
         new_chapter = CHAPTER(chapterNo=chapterNo, chapter_name=chapter_name, CNo=CNo, course_name=course_name)
         try:
             db.session.add(new_chapter)
@@ -73,6 +73,7 @@ def update_chapter(course_name, CNo, chapterNo, chapter_name):
         try:
             chapter.chapter_name = chapter_name
             db.session.commit()
+            print("----------------------")
         except Exception as e:
             print(e)
             return 'Chapter name could not be updated'

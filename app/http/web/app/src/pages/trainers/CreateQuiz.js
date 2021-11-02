@@ -56,6 +56,12 @@ class CreateQuiz extends Component{
         this.setState({
             firstPage: false,
         }) 
+        this.createChapterRow();
+        // fetch('http://127.0.0.1:5006/' + courseName + '/' + classNum + '/' + chapterNum + '/' + chapterTitle, {
+        //     method: "POST",
+        // })
+        console.log('http://127.0.0.1:5006/' + this.state.courseNameState + '/' + this.state.classNoState + '/' + this.state.chapterNumState + '/' + this.state.chapterTitle)
+        // event.preventDefault();
     }
     createMcq(){
         this.setState({
@@ -108,7 +114,8 @@ class CreateQuiz extends Component{
         for (var [key, value] of formData.entries()) { 
             
             if (key.split("_")[0] === "option"){
-                
+                console.log(key.split("_")[2])
+                console.log("----------------")
                 let questionNo = key.split("_")[2]
                 let optionNo = key.split("_")[1]
                 if (selectedOption[questionNo] === value && optionNo === 1){
@@ -129,18 +136,15 @@ class CreateQuiz extends Component{
         console.log(selectedOption)
         console.log( JSON.stringify(quizQuestionArray))
 
-        this.createChapterRow();
-        // fetch('http://127.0.0.1:5006/' + courseName + '/' + classNum + '/' + chapterNum + '/' + chapterTitle, {
-        //     method: "POST",
-        // })
+
         
         this.createQuizRow(quizNum);
-        // quiz ready
-        // console.log('http://127.0.0.1:5008/'  + courseName + '/' + classNum + "/" + chapterTitle + "/"  + quizID + "/" +  quizNum + "/" + duration)
+        // // quiz ready
+        // // console.log('http://127.0.0.1:5008/'  + courseName + '/' + classNum + "/" + chapterTitle + "/"  + quizID + "/" +  quizNum + "/" + duration)
         
-            // fetch('http://127.0.0.1:5008/'  + courseName + '/' + classNum + "/" + chapterTitle + "/"  + quizID + "/" +  quizNum + "/" + duration ,{
-            //     method: "POST",   
-            // })
+        //     // fetch('http://127.0.0.1:5008/'  + courseName + '/' + classNum + "/" + chapterTitle + "/"  + quizID + "/" +  quizNum + "/" + duration ,{
+        //     //     method: "POST",   
+        //     // })
         
         this.createQnRow(quizQuestionArray)
         // quiz questions ready

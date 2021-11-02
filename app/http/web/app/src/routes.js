@@ -40,7 +40,7 @@ class AllRoutes extends Component {
                 <Route exact path="/chapter-quiz/:slug/:slug/:slug" component={ ChapterQuiz }/>
                 <Route exact path="/final-quiz/:slug/:slug" component={ GradedQuiz }/>
 
-                <Route exact path="/create-quiz/:slug/:slug/:slug" component={ CreateQuiz }/>
+                <Route exact path="/create-quiz/:slug/:slug/:slug/:slug" component={ CreateQuiz }/>
 
                 <Route exact path="/individual-trainer" component={ IndividualTrainer }/>
                 <Route exact path="/create-course" component={ CreateCourse }/>

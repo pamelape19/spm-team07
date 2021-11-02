@@ -81,9 +81,8 @@ class AdminCoursePage extends Component{
         .then(result => {
             let engineers = result.data.engineers;
             engineers.map((engineer) => {
-                if (engineer.trainer == "1") {
+                if (engineer.trainer === true) {
                     this.setState({
-                        isLoaded: true,
                         isTrainer: [...this.state.isTrainer, engineer.engin_email]
                     });
                 }

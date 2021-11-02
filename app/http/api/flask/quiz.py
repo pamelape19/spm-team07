@@ -93,68 +93,21 @@ def find_quizzes_by_chapter(course_name, CNo, chapter_name):
         }
     ), 404
 
- 
-# @app.route("/<string:course_name>/<int:CNo>/<string:chapter_name>", methods=['POST'])
 @app.route("/<string:course_name>/<int:CNo>/<string:chapter_name>/<string:quizID>/<int:quizNum>/<int:duration>", methods=['POST'])
-# def addNewQuiz(course_name,CNo,chapter_name):
 def addNewQuiz(course_name, CNo, chapter_name, quizID, quizNum, duration):
-    data = request.get_json()
-    # quiz_add = db.session.query(QUIZ).filter(QUIZ.Course_name == data['Course_name'])
-    # print(request.form["esf22"])
-    # print(request.form["aaa"])
-    # print(request.form)
+
     print(course_name, CNo, chapter_name, quizID, quizNum, duration)
-    new_quiz = QUIZ(course_name=course_name,CNo=CNo, chapter_name=chapter_name, quizID=quizID, total_questions=quizNum, duration=duration )
-    print(new_quiz)
+    new_quiz = QUIZ(course_name=course_name, CNo=CNo, chapter_name=chapter_name, quizID=quizID, total_questions=quizNum, duration=duration )
     try:
         db.session.add(new_quiz)
+        print('add')
         db.session.commit()
+        print('commit')
     except Exception as e:
+        print(e)
         return 'Quiz could not be added'
     return 'Quiz has been added'
 
-
-    # course no + chapterno + chaperno
-    # new_quiz = QUIZ( quizID=quiz_ID, course_name=course_name, CNo=CNo, chapter_name=chapter_name,End_datetime=End_datetime, Capacity=Capacity, engin_email=trainer_email)
-    #     quizID  = db.Column(db.String(50), nullable=False, primary_key=True)
-    # CNo = db.Column(db.Integer, nullable=False)
-    # course_name = db.Column(db.String(100), nullable=False)
-    # chapter_name  = db.Column(db.String(100))
-    # duration = db.Column(db.Integer)
-    # total_questions = db.Column(db.Integer, nullable=False)
-
-
-# def addNewResult(quizId):
-#     data = request.get_json()
-#     attempt_engin = db.session.query(QUIZ_RESULTS).filter(QUIZ_RESULTS.engin_email == data['enginEmail'])
-#     attempt_count = attempt_engin.count()
-#     new_result = QUIZ_RESULTS(attemptNo=attempt_count, score=data['result'], outcome=data['outcome'], engin_email=data['enginEmail'], quizID=quizId, total_questions=data['totalqns'])
-#     try:
-#         db.session.add(new_result)
-#         db.session.commit()
-#     except Exception as e:
-#         return 'Result could not be added'
-#     return 'Result has been recorded'
-
-# @app.route("/<string:quizID>", methods=['POST'])
-# def addNewChapterQuiz(quizID):
-#     data=request.get_json()
-#     print(data)
-#     print(data['course_name'])
-#     print(data['CNo'])
-#     print(data['chapter_name'])
-#     print(data['duration'])
-#     print(data['total_questions'])
-#     print(data['course_name'])
-#     new_quiz = QUIZ(quizID=quizID,CNo=data['CNo'], chapter_name=data['chapter_name'], duration=data['duration'],total_questions=data['total_questions'],course_name=data['course_name'])
-#     try:
-#         db.session.add(new_quiz)
-#         db.session.commit()
-#     except Exception as e:
-#         return 'Quiz could not be added'
-#     return 'Quiz has been added'
-
-    
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5008, debug=True)

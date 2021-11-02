@@ -53,6 +53,31 @@ def get_all_chapter():
         }
     ), 404
 
+@app.route("/<string:course_name>/<int:CNo>/<int:chapterNo>/<string:chapter_name>", methods=['POST'])
+def update_chapter(course_name, CNo, chapterNo, chapter_name):
+    chapter = CHAPTER.query.filter_by(course_name=course_name, CNo=CNo).first()
+    if (chapter):
+        new_chapter = CHAPTER(chapterNo=chapterNo, chapter_name=chapter_name, CNo=CNo, course_name=course_name)
+        try:
+            db.session.add(new_chapter)
+            print('add')
+            db.session.commit()
+            print('commit')
+        except Exception as e:
+            print(e)
+            return 'Chapter could not be added'
+        return 'Chapter has been added'
+    else:
+        try:
+            chapter.chapter_name = chapter_name
+            db.session.commit()
+        except Exception as e:
+            print(e)
+            return 'Chapter name could not be updated'
+        return 'Chapter name has been updated'
+        
+
+    
 
 
 if __name__ == '__main__':

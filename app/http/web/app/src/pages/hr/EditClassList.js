@@ -96,7 +96,7 @@ class EditClassList extends Component{
                                     <input type="search" id="form1" class="form-control" placeholder="Search" onChange={ this.handleChange } value={ this.state.searchValue }/>
                                     <div style={{ margin: '30px 0px' }}>
                                     { juniorTrainers.filter((trainer)=>{
-                                        if (this.state.searchValue == ""){
+                                        if (this.state.searchValue === ""){
                                             return trainer
                                         }
                                         else if (trainer.engin_name.toLowerCase().includes(this.state.searchValue.toLowerCase())){

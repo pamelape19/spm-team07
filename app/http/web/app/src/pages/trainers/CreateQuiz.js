@@ -134,6 +134,7 @@ class CreateQuiz extends Component{
         )
 
         event.preventDefault();
+        window.location.href = "http://localhost:3000/trainers-course/" + this.state.courseNameState + "/" + this.state.classNoState
 
     }
     createChapterRow(){

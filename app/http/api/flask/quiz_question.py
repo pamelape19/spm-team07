@@ -75,15 +75,9 @@ def find_quiz_qn_by_quizID(quizID):
 
 
 @app.route("/<int:quizID>", methods=['POST'])
-# def addNewQuiz(course_name,CNo,chapter_name):
 def addNewQuiz(quizID):
     data = request.json
-    # quiz_add = db.session.query(QUIZ).filter(QUIZ.Course_name == data['Course_name'])
-    # print(request.form["esf22"])
-    # print(request.form["aaa"])
-    # print(request.form)
     print(data)
-
     try:
         for qus in data["data"]:
             print(qus)

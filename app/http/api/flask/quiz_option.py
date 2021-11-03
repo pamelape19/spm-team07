@@ -81,13 +81,10 @@ def quiz_options_by_quizID(quizID):
 @app.route("/<int:quizID>", methods=['POST'])
 def addNewOption(quizID):
     data = request.json
-
-
     try:
         for option in data["data"]:
             print(option)
             new_option= QUIZ_OPTION(optionNo=option["optionNo"],option_value=option["option_value"], quizID=quizID,  questionNo=option['question_no'],selected=option["selected"], answer=option["answer"])
-            
             db.session.add(new_option)
             print('add')
             db.session.commit()
@@ -101,4 +98,3 @@ def addNewOption(quizID):
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5013, debug=True)
-

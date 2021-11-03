@@ -23,15 +23,11 @@ class CreateQuiz extends Component{
 
         };
         this.createChapterRow = this.createChapterRow.bind(this);
-        this.createQuizRow = this.createQuizRow.bind(this);
-        this.createQnRow = this.createQnRow.bind(this);
-        this.createOptionRow = this.createOptionRow.bind(this);
         this.secondPage = this.secondPage.bind(this);
         this.createMcq = this.createMcq.bind(this);
         this.createTF = this.createTF.bind(this);
         this.creationDone = this.creationDone.bind(this);
         this.cancelCreation = this.cancelCreation.bind(this);
-        // this.updateQuizDuration = this.updateQuizDuration.bind(this);
     }
 
     componentDidMount(){
@@ -57,11 +53,6 @@ class CreateQuiz extends Component{
             firstPage: false,
         }) 
         this.createChapterRow();
-        // fetch('http://127.0.0.1:5006/' + courseName + '/' + classNum + '/' + chapterNum + '/' + chapterTitle, {
-        //     method: "POST",
-        // })
-        console.log('http://127.0.0.1:5006/' + this.state.courseNameState + '/' + this.state.classNoState + '/' + this.state.chapterNumState + '/' + this.state.chapterTitle)
-        // event.preventDefault();
     }
     createMcq(){
         this.setState({
@@ -77,15 +68,7 @@ class CreateQuiz extends Component{
         })
     }
     creationDone(event){
-        // let tokenString = window.location.href.split('/');
-        // let tokenWords = tokenString[4].split('%20');
-        // let courseName = tokenWords.join(" ");
-        // let classNum = tokenString[5];
-        // let chapterNum = tokenString[6];
-        // let chapterTitle = tokenString[7];
-        // let quizID = this.state.quizIDstate
         let quizNum = 0
-        // let duration = this.state.quizDuration
         let quizQuestionArray = {"data":[]}
         let optionArray = {"data":[]}
         let selectedOption = {}
@@ -104,13 +87,10 @@ class CreateQuiz extends Component{
                 }
             }
             if (key.split("_")[0] === "selected"){
-                // optionArray[key.split("_")[1]] = value
                 selectedOption[key.split("_")[1]] = value
-                // selectedOptionArray.push(selectedOption)
             }
         }
 
-        // console.log(optionArray )
         for (var [key, value] of formData.entries()) { 
             
             if (key.split("_")[0] === "option"){
@@ -127,46 +107,32 @@ class CreateQuiz extends Component{
                 } else {
                     optionArray["data"].push({"optionNo":optionNo,"question_no":questionNo,"option_value":value, "selected":0, "answer": 0}) 
                 }
-                // console.log(selectedOption)
             }
              
         }
 
-        console.log( JSON.stringify(optionArray))
-        console.log(selectedOption)
-        console.log( JSON.stringify(quizQuestionArray))
+        fetch('http://127.0.0.1:5008/'  + this.state.courseNameState + '/' + this.state.classNoState + "/" + this.state.chapterTitle + "/"  + this.state.quizIDstate + "/" +  quizNum + "/" + this.state.quizDuration, {
+            method: "POST",   
+        })
+        .then(
+            fetch('http://127.0.0.1:5009/'  + this.state.quizIDstate, {
+                method: "POST",   
+                body:  JSON.stringify(quizQuestionArray),
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+        )
+        .then(
+            fetch('http://127.0.0.1:5013/'  + this.state.quizIDstate, {
+            method: "POST",   
+            body:  JSON.stringify(optionArray),
+            headers: {
+                'Content-Type': 'application/json',
+            }
+            })
+        )
 
-
-        
-        this.createQuizRow(quizNum);
-        // // quiz ready
-        // // console.log('http://127.0.0.1:5008/'  + courseName + '/' + classNum + "/" + chapterTitle + "/"  + quizID + "/" +  quizNum + "/" + duration)
-        
-        //     // fetch('http://127.0.0.1:5008/'  + courseName + '/' + classNum + "/" + chapterTitle + "/"  + quizID + "/" +  quizNum + "/" + duration ,{
-        //     //     method: "POST",   
-        //     // })
-        
-        this.createQnRow(quizQuestionArray)
-        // quiz questions ready
-        // fetch('http://127.0.0.1:5009/'  + quizID  ,{
-        //     method: "POST",   
-        //     body:  JSON.stringify(quizQuestionArray),
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //     }
-        // }) 
-
-        this.createOptionRow(optionArray)
-        // quiz options ready
-        
-            // fetch('http://127.0.0.1:5013/'  + quizID  ,{
-            //     method: "POST",   
-            //     body:  JSON.stringify(optionArray),
-            //     headers: {
-            //         'Content-Type': 'application/json',
-            //     }
-            // }) 
-        
         event.preventDefault();
 
     }
@@ -175,29 +141,7 @@ class CreateQuiz extends Component{
             method: "POST",
         })
     }
-    createQuizRow(quizNum){
-        fetch('http://127.0.0.1:5008/'  + this.state.courseNameState + '/' + this.state.classNoState + "/" + this.state.chapterTitle + "/"  + this.state.quizIDstate + "/" +  quizNum + "/" + this.state.quizDuration, {
-            method: "POST",   
-        })
-    }
-    createQnRow(quizQuestionArray){
-        fetch('http://127.0.0.1:5009/'  + this.state.quizIDstate, {
-            method: "POST",   
-            body:  JSON.stringify(quizQuestionArray),
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        }) 
-    }
-    createOptionRow(optionArray){
-        fetch('http://127.0.0.1:5013/'  + this.state.quizIDstate, {
-            method: "POST",   
-            body:  JSON.stringify(optionArray),
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        }) 
-    }
+
     cancelCreation(){
         window.location.href = "http://localhost:3000/trainers-course/" + this.state.courseNameState + "/" + this.state.classNoState
     }
@@ -206,8 +150,6 @@ class CreateQuiz extends Component{
             quizDuration: value 
         })
     }
-    
-
 
     render(){
         let page;
@@ -285,11 +227,8 @@ class CreateQuiz extends Component{
             
         }
         return(
-            <div style={{ margin: '8% 0' }}>
-                 
+            <div style={{ margin: '8% 0' }}>      
                 { page }
-                 
-
             </div>
         )
     }

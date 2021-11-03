@@ -96,7 +96,6 @@ class EditCourse extends Component{
                             { courseDesignBtn }
                         </span>
                     </Card>
-                    {/* { existingChapters.sort((a,b)=> (a.chapterNo < b.chapterNo) ? 1 : -1 )} */}
                     
                     {existingChapters.map((chapter) => (
                         <ExistingChapter chapterItem={ chapter.chapterNo } chapterName={ chapter.chapter_name }/>

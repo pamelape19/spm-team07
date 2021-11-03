@@ -87,11 +87,15 @@ def addNewQuiz(quizID):
     try:
         for qus in data["data"]:
             print(qus)
-            new_quiz = QUIZ_QUESTION(question=qus["question"],questionNo=qus["question_no"], question_type=qus['question_type'], quizID=quizID )
+            new_quiz = QUIZ_QUESTION(question=qus["question"], questionNo=qus["question_no"], question_type=qus['question_type'], quizID=quizID )
             print(new_quiz)
-            db.session.add(new_quiz)
-            db.session.commit()
- 
+            try:
+                db.session.add(new_quiz)
+                print('add')
+                db.session.commit()
+                print('commit')
+            except Exception as e:
+                print (e)
 
     except Exception as e:
         return 'Quiz could not be added'

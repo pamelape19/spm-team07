@@ -53,6 +53,25 @@ def get_all_chapter():
         }
     ), 404
 
+@app.route("/<string:course_name>/<int:CNo>")
+def get_class_chapters(course_name, CNo):
+    chapterlist = CHAPTER.query.filter_by(course_name=course_name, CNo=CNo).all()
+    if len(chapterlist):
+        return jsonify(
+            {
+                "code": 200,
+                "data": {
+                    "chapter": [chapter.json() for chapter in chapterlist]
+                }
+            }
+        )
+    return jsonify(
+        {
+            "code": 404,
+            "message": "There are no chapter."
+        }
+    ), 404
+
 @app.route("/<string:course_name>/<int:CNo>/<int:chapterNo>/<string:chapter_name>", methods=['POST'])
 def update_chapter(course_name, CNo, chapterNo, chapter_name):
     print(course_name, CNo, chapterNo, chapter_name)

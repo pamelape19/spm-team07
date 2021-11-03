@@ -11,6 +11,7 @@ class TrainersCourse extends Component{
             classNumState: 0,
             startDateTimeState: null,
             endDateTimeState: null,
+            isLoaded: false
         }
     }
     componentDidMount(){
@@ -22,6 +23,7 @@ class TrainersCourse extends Component{
         this.setState({
             classNumState: classNum,
             courseNameState: courseName,
+            isLoaded: true
         })
         fetch('http://127.0.0.1:5003')
         .then(res => res.json())
@@ -38,27 +40,34 @@ class TrainersCourse extends Component{
         })
     }
     render(){
-        const { courseNameState, classNumState, startDateTimeState, endDateTimeState } = this.state;
-        return(
-            
-            <div style={{ margin: '8% 0' }}>
-                <Container className="edit-course-header">
-                    <div>
-                        <h2>
-                            { courseNameState }
-                        </h2>
-                        <div className="course-start-date">
-                            Class duration: <br/> { startDateTimeState } - { endDateTimeState } <br/>
+        const { courseNameState, classNumState, startDateTimeState, endDateTimeState, isLoaded } = this.state;
+        if ( isLoaded ){
+            return(
+                
+                <div style={{ margin: '8% 0' }}>
+                    <Container className="edit-course-header">
+                        <div>
+                            <h2>
+                                { courseNameState }
+                            </h2>
+                            <div className="course-start-date">
+                                Class duration: <br/> { startDateTimeState } - { endDateTimeState } <br/>
+                            </div>
                         </div>
-                    </div>
-                    <span className="img-grid">
-                        <img src={ EnrolledClassSample } alt="" className="course-img"/>
-                    </span>
-                </Container>
-                <EditCourse courseName={ courseNameState } classNum={ classNumState }/>
+                        <span className="img-grid">
+                            <img src={ EnrolledClassSample } alt="" className="course-img"/>
+                        </span>
+                    </Container>
+                    <EditCourse courseName={ courseNameState } classNum={ classNumState }/>
 
-            </div>
-        )
+                </div>
+            )
+        }
+        else{
+            return(
+                <div>loading</div>
+            )
+        }
     }
 }
 

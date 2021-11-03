@@ -26,14 +26,23 @@ class EditCourse extends Component{
 
     componentDidMount(){
         fetch('http://127.0.0.1:5006/' + this.props.courseName + "/" + this.props.classNum)
-        .then(res => res.json())
-        .then(result => {
-            this.setState({
-                existingChapters: result.data.chapter,
-                numChapters: result.data.chapter.length + 1
-            })
-        })
-
+        .then(res => {
+            if (!res.ok){
+                this.setState({
+                    numChapters: 2,
+                    listChapters: [1]
+                })
+            }
+            else{
+                res.json()
+                .then(result => {
+                    this.setState({
+                        existingChapters: result.data.chapter,
+                        numChapters: result.data.chapter.length + 1
+                    })
+                })
+            }
+        })        
     }
 
     handleAdd = () => {

@@ -67,6 +67,7 @@ class EditCourse extends Component{
     render(){
         const { courseName, classNum } = this.props;
         const { existingChapters, hideTrashCourseDesign, listChapters } = this.state;
+        existingChapters.sort((a,b)=> (a.chapterNo < b.chapterNo) ? -1 : 1 )
         // conditional rendering for course design's button
         let courseDesignBtn;
         if ( this.state.courseDesignAdded === false ){
@@ -95,7 +96,9 @@ class EditCourse extends Component{
                             { courseDesignBtn }
                         </span>
                     </Card>
-                    { existingChapters.map((chapter) => (
+                    {/* { existingChapters.sort((a,b)=> (a.chapterNo < b.chapterNo) ? 1 : -1 )} */}
+                    
+                    {existingChapters.map((chapter) => (
                         <ExistingChapter chapterItem={ chapter.chapterNo } chapterName={ chapter.chapter_name }/>
                     ))}
                     {Array.from({ length: this.state.listChapters.length }).map((_, idx) => (

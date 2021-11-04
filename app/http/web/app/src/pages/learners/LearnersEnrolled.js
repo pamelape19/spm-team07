@@ -5,9 +5,14 @@ import CardListItem from '../../components/cards/CardListItem';
 class LearnersEnrolled extends Component{
     constructor(props){
         super(props);
+        var today = new Date();
         this.state = {
             enrolledCourseState: [],
-            loginEmailState: "samueltan@allinone.com"
+            loginEmailState: "samueltan@allinone.com",
+            date: today.getDate(),
+            months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            month: today.getMonth(),
+            year: today.getFullYear()
         }
     }
     componentDidMount(){
@@ -18,30 +23,56 @@ class LearnersEnrolled extends Component{
             // retrieves all classes the engineer is enrolled in
             let allClassesEnrolled = result.data.enginClasses;
             allClassesEnrolled.map((enrolledCourse)=>{
-                console.log(enrolledCourse)
                 // retrieves data of specific course
                 fetch('http://127.0.0.1:5002/' + enrolledCourse.Course_name)
                 .then(res => res.json())
                 .then(result => {
                     let course_desc = result.data.description
-                
                 // retrieves data for specific class of course 
                     fetch('http://127.0.0.1:5003/' + enrolledCourse.Course_name + '/' + enrolledCourse.CNo)
                     .then(res => res.json())
                     .then(result => {
-                        console.log(result.data)
                         let classData = result.data
-                        this.setState({
-                            enrolledCourseState: [...this.state.enrolledCourseState, 
-                                {
-                                    classNo: enrolledCourse.CNo,
-                                    courseName: enrolledCourse.Course_name,
-                                    startDateTime: classData.Start_datetime,
-                                    endDateTime: classData.End_datetime,
-                                    courseDesc: course_desc,
-                                    assigned: enrolledCourse.assigned
-                                }]
-                        })
+                        if ( this.state.year < Number(classData.End_datetime.split(" ")[3]) ){
+                            this.setState({
+                                enrolledCourseState: [...this.state.enrolledCourseState, 
+                                    {
+                                        classNo: enrolledCourse.CNo,
+                                        courseName: enrolledCourse.Course_name,
+                                        startDateTime: classData.Start_datetime,
+                                        endDateTime: classData.End_datetime,
+                                        courseDesc: course_desc,
+                                        assigned: enrolledCourse.assigned
+                                    }]
+                            })
+                        } else if ( this.state.year === Number(classData.End_datetime.split(" ")[3]) && this.state.month < Number(this.state.months.indexOf(classData.End_datetime.split(" ")[2]))){
+                            this.setState({
+                                enrolledCourseState: [...this.state.enrolledCourseState, 
+                                    {
+                                        classNo: enrolledCourse.CNo,
+                                        courseName: enrolledCourse.Course_name,
+                                        startDateTime: classData.Start_datetime,
+                                        endDateTime: classData.End_datetime,
+                                        courseDesc: course_desc,
+                                        assigned: enrolledCourse.assigned
+                                    }]
+                            })
+                        } else if ( this.state.year === Number(classData.End_datetime.split(" ")[3])
+                        && this.state.month === Number(this.state.months.indexOf(classData.End_datetime.split(" ")[2])) 
+                        && this.state.date < Number(classData.End_datetime.split(" ")[1])){
+                            this.setState({
+                                enrolledCourseState: [...this.state.enrolledCourseState, 
+                                    {
+                                        classNo: enrolledCourse.CNo,
+                                        courseName: enrolledCourse.Course_name,
+                                        startDateTime: classData.Start_datetime,
+                                        endDateTime: classData.End_datetime,
+                                        courseDesc: course_desc,
+                                        assigned: enrolledCourse.assigned
+                                    }]
+                            })
+
+                        }
                     })
                 })
             })
@@ -50,7 +81,6 @@ class LearnersEnrolled extends Component{
 
     render(){
         const { enrolledCourseState } = this.state;
-        console.log(enrolledCourseState)
         return(
             <div style={{ margin: '8% 0' }}>
                 <Container>
@@ -68,7 +98,6 @@ class LearnersEnrolled extends Component{
                     </Nav>
 
                     { enrolledCourseState.map((enrolledCourse)=>(
-                        // database need another column for assigned
                         // sends CNo and CourseName to cardlistitem which will then display according to the DB, CNo will be parsed into back of URL for CourseNum
 
                         <CardListItem 

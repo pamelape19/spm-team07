@@ -13,7 +13,7 @@ class TestHR(unittest.TestCase):
         self.app = app.test_client()
 
     def teardown(self):
-        self.QuizInput = None
+        self.HRInput = None
 
     def test_JSON(self):
         JsonInput = self.HRInput.json()

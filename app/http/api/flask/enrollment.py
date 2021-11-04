@@ -75,6 +75,25 @@ def find_enrollment_by_engin_email(engin_email):
         }
     ), 404
 
+@app.route("/<string:courseName>/<int:classNum>")
+def getLearnersEnrolled(courseName, classNum):
+    currentlyEnrolled = ENROLLMENT.query.filter_by(Course_name=courseName, CNo=classNum, enrolled=1).all()
+    if currentlyEnrolled:
+        return jsonify(
+            {
+                "code": 200,
+                "data": {
+                    "enrolled": [enrolled_engins.json() for enrolled_engins in currentlyEnrolled]
+                }
+            }
+        )
+    return jsonify(
+        {
+            "code": 404,
+            "message": "No pending applications."
+        }
+    ), 404
+
 @app.route("/<string:courseName>/<int:classNum>", methods=['POST'])
 def addToEnrollmentTable(courseName, classNum):
     data = request.get_json()
@@ -105,6 +124,20 @@ def find_pending():
             "message": "No pending applications."
         }
     ), 404
+
+@app.route("/add-enrollment/<string:engin_email>/<string:Course_name>/<int:CNo>", methods=['POST'])
+def assign(engin_email, Course_name, CNo):
+    new_row = ENROLLMENT(engin_email=engin_email, Course_name=Course_name, CNo=CNo, enrolled=1, assigned=1)
+    try:
+        db.session.add(new_row)
+        print('added')
+        db.session.commit()
+        print('committed')
+    except Exception as e:
+        print(e)
+        return "Learner could not be assigned."
+    return "Learner has been assigned."
+
 
 @app.route("/update-enrollment/<string:engin_email>/<string:Course_name>/<int:CNo>", methods=['PUT'])
 def update_enrollment(engin_email, Course_name, CNo):

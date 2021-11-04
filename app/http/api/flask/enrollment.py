@@ -93,7 +93,6 @@ def getLearnersEnrolled(courseName, classNum):
             "message": "No pending applications."
         }
     ), 404
-    return "Learner's application was successful."
 
 @app.route("/<string:courseName>/<int:classNum>", methods=['POST'])
 def addToEnrollmentTable(courseName, classNum):
@@ -125,6 +124,20 @@ def find_pending():
             "message": "No pending applications."
         }
     ), 404
+
+@app.route("/add-enrollment/<string:engin_email>/<string:Course_name>/<int:CNo>", methods=['POST'])
+def assign(engin_email, Course_name, CNo):
+    new_row = ENROLLMENT(engin_email=engin_email, Course_name=Course_name, CNo=CNo, enrolled=1, assigned=1)
+    try:
+        db.session.add(new_row)
+        print('added')
+        db.session.commit()
+        print('committed')
+    except Exception as e:
+        print(e)
+        return "Learner could not be assigned."
+    return "Learner has been assigned."
+
 
 @app.route("/update-enrollment/<string:engin_email>/<string:Course_name>/<int:CNo>", methods=['PUT'])
 def update_enrollment(engin_email, Course_name, CNo):

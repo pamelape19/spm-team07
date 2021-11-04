@@ -13,7 +13,9 @@ class EditClassList extends Component{
             startDateTimeState: null,
             endDateTimeState: null,
             juniorTrainers: [],
-            searchValue: ""
+            searchValue: "",
+            enrolledEngins: [],
+            noEnrolledEngins: false
         };
         this.handleSubmitted = this.handleSubmitted.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -44,19 +46,48 @@ class EditClassList extends Component{
 
             })
         })
-
-        fetch('http://127.0.0.1:5014')
-        .then(res => res.json())
-        .then(result => {
-            let engineers = result.data.engineers;
-            engineers.map((engineer) => {
-                if (engineer.trainer === false) {
-                    this.setState({
-                        juniorTrainers: [...this.state.juniorTrainers, {engin_email: engineer.engin_email, engin_name: engineer.engin_name }]
-                    });
-                }
-            })
+        
+        fetch('http://127.0.0.1:5004/' + courseName + '/' + classNum)
+        .then(res => {
+            if (!res.ok){
+                this.setState({
+                    noEnrolledEngins: true
+                })
+            }
+            else{
+                res.json()
+                .then(result => {
+                    let enrolled_array = result.data.enrolled
+                    enrolled_array.map((engin)=>{
+                        fetch('http://127.0.0.1:5014/' + engin.engin_email)
+                        .then(res => res.json())
+                        .then(result => {
+                            this.setState({
+                                enrolledEngins: [...this.state.enrolledEngins, result.data.engin_name]
+                            })
+                        })
+                        .then(
+                            fetch('http://127.0.0.1:5014')
+                            .then(res => res.json())
+                            .then(result => {
+                                let engineers = result.data.engineers;
+                                engineers.map((engineer) => {
+                                    // check that engineer is not a trainer and not already enrolled in this course and class
+                                    if (engineer.trainer === false && this.state.enrolledEngins.indexOf(engineer.engin_name) > -1 === false) {
+                                        this.setState({
+                                            juniorTrainers: [...this.state.juniorTrainers, {engin_email: engineer.engin_email, engin_name: engineer.engin_name }]
+                                        });
+                                    }
+                                })
+                        }))
+                    })
+                })
+                
+            }
         })
+            
+            
+        
     }
 
     handleSubmitted(){
@@ -76,7 +107,30 @@ class EditClassList extends Component{
         })
     }
     render(){
-        const { courseNameState, startDateTimeState, endDateTimeState, juniorTrainers } = this.state;
+        const { courseNameState, classNumState, startDateTimeState, endDateTimeState, juniorTrainers, noEnrolledEngins, enrolledEngins } = this.state;
+        let enrolledTable;
+        if (noEnrolledEngins){
+            enrolledTable = <h5>No learners enrolled.</h5>
+        }
+        else{
+            enrolledTable = <Table striped bordered hover>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Engineer's Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                    { enrolledEngins.map((enrolledEngin, idx)=>
+                        <tr>
+                            <td>{ idx + 1 }</td>
+                            <td>{ enrolledEngin }</td>
+                        </tr>
+                    ) }
+
+            </tbody>
+        </Table>
+        }
 
         return(
             <div style={{margin: '8% 15%'}}>
@@ -95,18 +149,18 @@ class EditClassList extends Component{
                                 <form>
                                     <input type="search" id="form1" class="form-control" placeholder="Search" onChange={ this.handleChange } value={ this.state.searchValue }/>
                                     <div style={{ margin: '30px 0px' }}>
-                                    { juniorTrainers.filter((trainer)=>{
+                                    { juniorTrainers.filter((learner)=>{
                                         if (this.state.searchValue === ""){
-                                            return trainer
+                                            return learner
                                         }
-                                        else if (trainer.engin_name.toLowerCase().includes(this.state.searchValue.toLowerCase())){
-                                            return trainer
+                                        else if (learner.engin_name.toLowerCase().includes(this.state.searchValue.toLowerCase())){
+                                            return learner
                                         }
                                     })
-                                    .map((trainer)=><div class="form-check"  style={{ textAlign: 'left' }}>
-                                                                        <input class="form-check-input" type="checkbox" value="" id={ trainer.engin_name }/>
-                                                                        <label class="form-check-label" for={ trainer.engin_name }>
-                                                                            { trainer.engin_name }
+                                    .map((learner)=><div class="form-check"  style={{ textAlign: 'left' }}>
+                                                                        <input class="form-check-input" type="checkbox" value="" id={ learner.engin_name }/>
+                                                                        <label class="form-check-label" for={ learner.engin_name }>
+                                                                            { learner.engin_name }
                                                                         </label>
                                                                     </div>
                                     ) }
@@ -116,25 +170,8 @@ class EditClassList extends Component{
                         </div>
                         <div></div>
                         <div>
-                            <h3>Engineers in class XX</h3>
-                            <Table striped bordered hover>
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Engineer's Name</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Mark</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Jacob</td>
-                                    </tr>
-                                </tbody>
-                            </Table>
+                            <h3>Engineers in class { classNumState }</h3>
+                            { enrolledTable }
                         </div>                               
                         
                         <Button variant="primary" style={{ width: 150, margin: 'auto' }}>Assign Engineers</Button>

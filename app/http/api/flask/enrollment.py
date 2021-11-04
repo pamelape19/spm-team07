@@ -75,6 +75,26 @@ def find_enrollment_by_engin_email(engin_email):
         }
     ), 404
 
+@app.route("/<string:courseName>/<int:classNum>")
+def getLearnersEnrolled(courseName, classNum):
+    currentlyEnrolled = ENROLLMENT.query.filter_by(Course_name=courseName, CNo=classNum, enrolled=1).all()
+    if currentlyEnrolled:
+        return jsonify(
+            {
+                "code": 200,
+                "data": {
+                    "enrolled": [enrolled_engins.json() for enrolled_engins in currentlyEnrolled]
+                }
+            }
+        )
+    return jsonify(
+        {
+            "code": 404,
+            "message": "No pending applications."
+        }
+    ), 404
+    return "Learner's application was successful."
+
 @app.route("/<string:courseName>/<int:classNum>", methods=['POST'])
 def addToEnrollmentTable(courseName, classNum):
     data = request.get_json()

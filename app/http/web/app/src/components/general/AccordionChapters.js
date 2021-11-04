@@ -14,9 +14,10 @@ class AccordionChapters extends Component{
     constructor(props){
         super(props);
     }
+
     render(){
         const { chapter, completed, chapterName, classNum , courseName } = this.props;
-        
+
         // conditional rendering for when # of chapter is less than # of completed chapters
         let checkMark;
         let openLecture;
@@ -33,7 +34,6 @@ class AccordionChapters extends Component{
 
             openQuizHref = "/chapter-quiz/" + courseName + "/" + chapterName + "/" + classNum 
             openQuiz = <a href= { openQuizHref } ><p>Quiz</p></a>
-            
         }
         else{
             checkMark = "";
@@ -47,8 +47,11 @@ class AccordionChapters extends Component{
 
         // conditional rendering to render resume button for the chapter that user left off from
         let resumeBtn;
+        let openClasshref;
+        openClasshref = "/chapter-class" + chapterName
+
         if ( chapter === completed ){
-            resumeBtn = <Button> Resume </Button>
+            resumeBtn = <a href= { openClasshref } ><Button> Resume </Button></a>
         }
         else{
             resumeBtn = ""

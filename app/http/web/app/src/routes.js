@@ -20,6 +20,7 @@ import QuizAttempt from './pages/learners/QuizAttempt';
 import AdminCoursePage from './pages/hr/AdminCoursePage';
 import EditClassList from './pages/hr/EditClassList';
 import ManageApplications from './pages/hr/ManageApplications';
+import ChapterClass from './components/general/AccordionChapters';
 
 class AllRoutes extends Component {
     render(){
@@ -36,11 +37,12 @@ class AllRoutes extends Component {
                 <Route exact path="/trainers-course/:slug/:slug" component={ TrainersCourse }/>
                 <Route exact path="/admin-home" component={ AdminHome }/>
                 <Route exact path="/manage-applications" component={ ManageApplications }/>
-                <Route exact path="/course-materials/:slug/:slug" component={ CourseMaterials }/>
+                <Route exact path="/course-materials/:slug/:slug/:slug" component={ CourseMaterials }/>
                 <Route exact path="/chapter-quiz/:slug/:slug/:slug" component={ ChapterQuiz }/>
                 <Route exact path="/final-quiz/:slug/:slug" component={ GradedQuiz }/>
 
                 <Route exact path="/create-quiz/:slug/:slug/:slug/:slug" component={ CreateQuiz }/>
+                <Route exact path="/chapter-class/:slug" component={ ChapterClass }/>
 
                 <Route exact path="/individual-trainer" component={ IndividualTrainer }/>
                 <Route exact path="/create-course" component={ CreateCourse }/>

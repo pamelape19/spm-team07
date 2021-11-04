@@ -6,13 +6,17 @@ import EnrolledClassSample from '../../resources/enrolledClassSample.png';
 class CardListItem extends Component{
     constructor(props){
         super(props);
+        this.state = {
+            loginEmailState: "samueltan@allinone.com"
+        }
     }
     render(){
         
         const { perc, coursebtn, assigned, CourseName, ClassNum, startDateTime, endDateTime, courseDesc } = this.props;
+        const { loginEmailState } = this.state;
 
         // variable to allow the href to pass in the course number to get the correct quiz 
-        let courseMaterialhref =  "/course-materials/" + CourseName + "/" + ClassNum
+        let courseMaterialhref =  "/course-materials/" + CourseName + "/" + ClassNum + "/" + loginEmailState
  
         
         // conditional rendering for card button

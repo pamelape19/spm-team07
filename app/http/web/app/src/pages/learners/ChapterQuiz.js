@@ -15,7 +15,11 @@ class ChapterQuiz extends Component{
             quizID: "",
             showAnswer: false,
             hideDoneBtn: true,
-            ans: ''
+            ans: '',
+            enrollment: [],
+            loginEmailState: "samueltan@allinone.com",
+            cname: "Introduction to IBM WorkCentre",
+            completedOrNot: false,
         }
         this.handleSubmitted = this.handleSubmitted.bind(this);
     }
@@ -23,10 +27,18 @@ class ChapterQuiz extends Component{
     handleSubmitted(){
         this.setState({
             showAnswer: true,
-            hideDoneBtn: false
+            hideDoneBtn: false,
+            completedOrNot: true
         })
+        const completedOrNot = {
+            method: 'PUT',
+        };
+        fetch('http://127.0.0.1:5004/', completedOrNot)
+            .then(response => response.json())
+            .then(data => this.setState({completedOrNot: data.completedOrNot}))
     }
     
+
     componentDidMount(){
         let tokenString = window.location.href.split('/');
         let tokenWords = tokenString[4].split('%20');
@@ -101,11 +113,25 @@ class ChapterQuiz extends Component{
             })
         })
 
+        fetch('http://127.0.0.1:5004/' + this.state.loginEmailState)
+        .then(res => res.json())
+        .then(result => {
+            // retrieves all classes the engineer is enrolled in
+            let enrollment = result.data.enginClasses;
+            enrollment.map((enrolledClass)=>{
+                if (enrolledClass.Course_name === this.state.cname) {
+                    this.setState({
+                        completedOrNot: enrolledClass.completed,
+                    }); 
+                }
+            })
+        })
+
     }
 
     render(){
-        const { quiz_questions } = this.state;
-         
+        const { quiz_questions, completedOrNot } = this.state;
+
         let btnShown;
         {btnShown = <form>
         <input type="button"

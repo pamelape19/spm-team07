@@ -16,10 +16,9 @@ class ChapterQuiz extends Component{
             showAnswer: false,
             hideDoneBtn: true,
             ans: '',
-            enrollment: [],
+            enrollment: "SOP for Repair Work",
             loginEmailState: "samueltan@allinone.com",
-            cname: "Introduction to IBM WorkCentre",
-            completedOrNot: false,
+            completed: false,
         }
         this.handleSubmitted = this.handleSubmitted.bind(this);
     }
@@ -28,14 +27,16 @@ class ChapterQuiz extends Component{
         this.setState({
             showAnswer: true,
             hideDoneBtn: false,
-            completedOrNot: true
+            // update completed 0 to 1
+            completed: true,
         })
-        const completedOrNot = {
-            method: 'PUT',
-        };
-        fetch('http://127.0.0.1:5004/', completedOrNot)
-            .then(response => response.json())
-            .then(data => this.setState({completedOrNot: data.completedOrNot}))
+
+        let updateCompleted = "update-completed/" + this.state.completed + "/" + this.state.enrollment + "/" + this.state.loginEmailState
+        console.log(updateCompleted)
+        fetch('http://127.0.0.1:5004/' + updateCompleted, {
+            method: "PUT"
+        })
+        window.location.reload(false);
     }
     
 
@@ -112,21 +113,6 @@ class ChapterQuiz extends Component{
                     
             })
         })
-
-        fetch('http://127.0.0.1:5004/' + this.state.loginEmailState)
-        .then(res => res.json())
-        .then(result => {
-            // retrieves all classes the engineer is enrolled in
-            let enrollment = result.data.enginClasses;
-            enrollment.map((enrolledClass)=>{
-                if (enrolledClass.Course_name === this.state.cname) {
-                    this.setState({
-                        completedOrNot: enrolledClass.completed,
-                    }); 
-                }
-            })
-        })
-
     }
 
     render(){
@@ -137,7 +123,7 @@ class ChapterQuiz extends Component{
         <input type="button"
             className="btn btn-primary" 
             value="Submit" 
-            onClick={ this.handleSubmitted }
+            onClick={this.handleSubmitted}
         />
         </form>}
 
@@ -164,8 +150,10 @@ class ChapterQuiz extends Component{
                      <Container className = "chapter-quiz-questions" style={{ padding: '0 8%' }}>
                         { questionAnswers }
                         { btnShown }
-
+                        
                     </Container> 
+
+                    
                 </div>
             )
         

@@ -1,5 +1,5 @@
 import { React, Component } from 'react';
-import { Container, Button } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import {
     AccordionItem,
     AccordionItemHeading,
@@ -13,6 +13,23 @@ import Lock from '../../resources/lock.png';
 class AccordionChapters extends Component{
     constructor(props){
         super(props);
+        this.state = {
+            lectureCompletionCheck: false,
+            quizCompletionCheck: false,
+
+        }
+        this.updateLecture = this.updateLecture.bind(this);
+        this.updateQuiz = this.updateQuiz.bind(this);
+    }
+    updateLecture(){
+        this.setState({
+            lectureCompletionCheck: true,
+        })
+    }
+    updateQuiz(){
+        this.setState({
+            quizCompletionCheck: true,
+        })
     }
 
     render(){
@@ -30,42 +47,41 @@ class AccordionChapters extends Component{
         if ( chapter < completed ){
             checkMark = <img src={ Check } alt=""/>;
             lectureMaterialHref = 'http://127.0.0.1:5007/download/' + courseName + '/' + classNum + '/' + chapter
-            openLecture = <a href={ lectureMaterialHref }><p>Lecture materials</p></a>
+            openLecture = <a href={ lectureMaterialHref } onClick={ this.updateLecture }><p>Lecture materials</p></a>
 
             openQuizHref = "/chapter-quiz/" + courseName + "/" + chapterName + "/" + classNum 
-            openQuiz = <a href= { openQuizHref } ><p>Quiz</p></a>
+            openQuiz = <a href= { openQuizHref } onClick={ this.updateQuiz }><p>Quiz</p></a>
+        }
+        else if ( chapter - 1 === completed ){
+            checkMark = "";
+            lectureMaterialHref = 'http://127.0.0.1:5007/download/' + courseName + '/' + classNum + '/' + chapter
+            openLecture = <a href={ lectureMaterialHref } onClick={ this.updateLecture }><p>Lecture materials</p></a>
+
+            openQuizHref = "/chapter-quiz/" + courseName + "/" + chapterName + "/" + classNum 
+            openQuiz = <a href= { openQuizHref } onClick={ this.updateQuiz }><p>Quiz</p></a>
         }
         else{
             checkMark = "";
             openLecture = <p>Lecture materials</p>
             // editted out for testing 
-            // openQuiz = <p>Quiz</p>
-
-            openQuizHref = "/chapter-quiz/" + courseName + "/" + chapterName + "/" + classNum 
-            openQuiz = <a href= { openQuizHref } ><p>Quiz</p></a>
-        }
-
-        // conditional rendering to render resume button for the chapter that user left off from
-        let resumeBtn;
-        let openClasshref;
-        openClasshref = "/chapter-class" + chapterName
-
-        if ( chapter === completed ){
-            resumeBtn = <a href= { openClasshref } ><Button> Resume </Button></a>
-        }
-        else{
-            resumeBtn = ""
+            openQuiz = <p>Quiz</p>
         }
 
         // conditional rendering for locked chapters (ie. # of chapter is more than # of completed chapters)
         let lockIcon;
-        if ( chapter > completed ){
+        if ( chapter > completed + 1 ){
             lockIcon = <img src={ Lock } alt="" style={{ marginTop: '-0.5%' }}/>
         }
         else{
             lockIcon = ""
         }
-
+        console.log(this.state.lectureCompletionCheck)
+        console.log(this.state.quizCompletionCheck)
+        if ( this.state.lectureCompletionCheck && this.state.quizCompletionCheck ){
+            fetch('http://127.0.0.1:5004/update-num-completed/' + this.props.enginEmail + '/' + this.props.courseName + '/' + this.props.classNum, {
+                method: 'PUT'
+            })
+        }
         return(
             <div>
                 <AccordionItem>
@@ -79,7 +95,6 @@ class AccordionChapters extends Component{
                             <p><u>
                                 { chapterName }
                             </u></p>
-                            <p>{ resumeBtn }</p>
                         </div>
                         
                         <Container className="accordion-content-layout">

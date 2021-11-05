@@ -14,11 +14,7 @@ class ChapterQuiz extends Component{
             ChapterNameState: "",
             quizID: "",
             showAnswer: false,
-            hideDoneBtn: true,
             ans: '',
-            enrollment: "SOP for Repair Work",
-            loginEmailState: "samueltan@allinone.com",
-            completed: false,
         }
         this.handleSubmitted = this.handleSubmitted.bind(this);
     }
@@ -26,17 +22,7 @@ class ChapterQuiz extends Component{
     handleSubmitted(){
         this.setState({
             showAnswer: true,
-            hideDoneBtn: false,
-            // update completed 0 to 1
-            completed: true,
         })
-
-        let updateCompleted = "update-completed/" + this.state.completed + "/" + this.state.enrollment + "/" + this.state.loginEmailState
-        console.log(updateCompleted)
-        fetch('http://127.0.0.1:5004/' + updateCompleted, {
-            method: "PUT"
-        })
-        window.location.reload(false);
     }
     
 
@@ -44,7 +30,6 @@ class ChapterQuiz extends Component{
         let tokenString = window.location.href.split('/');
         let tokenWords = tokenString[4].split('%20');
         let courseName = tokenWords.join(" ");
-
         let tokenWordsChapterName =  tokenString[5].split('%20');
         let chapterName = tokenWordsChapterName.join(" ");    
         let classNum = tokenString[6];
@@ -116,17 +101,8 @@ class ChapterQuiz extends Component{
     }
 
     render(){
-        const { quiz_questions, completedOrNot } = this.state;
-
-        let btnShown;
-        {btnShown = <form>
-        <input type="button"
-            className="btn btn-primary" 
-            value="Submit" 
-            onClick={this.handleSubmitted}
-        />
-        </form>}
-
+        const { quiz_questions } = this.state;   
+        
         const questionAnswers = quiz_questions.map((question) =>
             <ChapterQn
                 question = { question.qtext }
@@ -149,10 +125,14 @@ class ChapterQuiz extends Component{
 
                      <Container className = "chapter-quiz-questions" style={{ padding: '0 8%' }}>
                         { questionAnswers }
-                        { btnShown }
+                        
+                        <input type="button"
+                            className="btn btn-primary" 
+                            value="Submit" 
+                            onClick={ this.handleSubmitted }
+                        />
                         
                     </Container> 
-
                     
                 </div>
             )

@@ -21,7 +21,8 @@ class CourseMaterials extends Component{
             StartDateTimeState: null,
             EndDateTimeState: null,
             TrainerState: "",
-            courseDesc: ""
+            courseDesc: "",
+            numCompleted: 0
         }
     }
     componentDidMount(){
@@ -29,10 +30,11 @@ class CourseMaterials extends Component{
         let tokenWords = tokenString[4].split('%20');
         let CourseName = tokenWords.join(" ");
         let ClassNum = parseInt(tokenString[5])
-
+        let enginEmail = tokenString[6]
         this.setState({
             ClassNumState: ClassNum,
             CourseNameState: CourseName,
+            enginEmailState: enginEmail,
         })
 
         fetch('http://127.0.0.1:5006')
@@ -75,12 +77,20 @@ class CourseMaterials extends Component{
                 courseDesc: result.data.description
             })
         })
+
+        fetch('http://127.0.0.1:5004/get-completed/' + CourseName + '/' + ClassNum + '/' + enginEmail)
+        .then(res => res.json())
+        .then(result => {
+            // console.log(result.data.completed)
+            this.setState({
+                numCompleted: result.data.completed
+            })
+        })
     }
     render(){
-        const { CourseChapters, ClassNumState, CourseNameState, StartDateTimeState, EndDateTimeState, TrainerState, courseDesc } = this.state;
+        const { CourseChapters, ClassNumState, CourseNameState, StartDateTimeState, EndDateTimeState, TrainerState, courseDesc, numCompleted, enginEmailState } = this.state;
 
         // need a completed column for quiz 
-        const numCompleted = CourseChapters.length;
         const totalChapters = CourseChapters.length;
         return( 
             <div style={{ margin: '8% 0' }}>
@@ -102,7 +112,7 @@ class CourseMaterials extends Component{
                     <Accordion>
                         <AccordionTop courseName={ CourseNameState } classNum={ ClassNumState } courseDesc={ courseDesc }/>
                             {CourseChapters.map((CourseChapter)=>(
-                                <AccordionChapters chapter={ CourseChapter[2] } chapterName={ CourseChapter[3] } completed={ numCompleted } classNum = { ClassNumState } courseName = { CourseChapter[1] }/>
+                                <AccordionChapters chapter={ CourseChapter[2] } chapterName={ CourseChapter[3] } completed={ numCompleted } classNum = { ClassNumState } courseName = { CourseChapter[1] } enginEmail={ enginEmailState }/>
                             ))}
                         <AccordionFinalQuiz completed={ numCompleted } totalChapters={ totalChapters } courseName={ CourseNameState } classNum={ ClassNumState }/>
                     </Accordion>

@@ -98,7 +98,7 @@ class EditCourse extends Component{
                     </Card>
                     
                     {existingChapters.map((chapter) => (
-                        <ExistingChapter chapterItem={ chapter.chapterNo } chapterName={ chapter.chapter_name }/>
+                        <ExistingChapter chapterItem={ chapter.chapterNo } chapterName={ chapter.chapter_name } courseName={ courseName } classNum={ classNum }/>
                     ))}
                     {Array.from({ length: this.state.listChapters.length }).map((_, idx) => (
                         <AddChapter chapterItem={ listChapters[idx] }  courseName={ courseName } classNum={ classNum }/> 

@@ -16,9 +16,9 @@ class ChapterQuiz extends Component{
             showAnswer: false,
             hideDoneBtn: true,
             ans: '',
-            // enrollment: "SOP for Repair Work",
-            // loginEmailState: "samueltan@allinone.com",
-            // completed: 0
+            enrollment: "SOP for Repair Work",
+            loginEmailState: "samueltan@allinone.com",
+            completed: false,
         }
         this.handleSubmitted = this.handleSubmitted.bind(this);
     }
@@ -27,7 +27,16 @@ class ChapterQuiz extends Component{
         this.setState({
             showAnswer: true,
             hideDoneBtn: false,
+            // update completed 0 to 1
+            completed: true,
         })
+
+        let updateCompleted = "update-completed/" + this.state.completed + "/" + this.state.enrollment + "/" + this.state.loginEmailState
+        console.log(updateCompleted)
+        fetch('http://127.0.0.1:5004/' + updateCompleted, {
+            method: "PUT"
+        })
+        window.location.reload(false);
     }
     
 
@@ -114,7 +123,7 @@ class ChapterQuiz extends Component{
         <input type="button"
             className="btn btn-primary" 
             value="Submit" 
-            onClick={this.handleSubmitted()}
+            onClick={this.handleSubmitted}
         />
         </form>}
 

@@ -4,7 +4,6 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 
 from os import environ
-
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = environ.get(
@@ -17,7 +16,9 @@ db = SQLAlchemy(app)
 
 CORS(app)
 
+
 class CHAPTER (db.Model):
+
     __tablename__ = 'CHAPTER'
     chapterNo = db.Column(db.Integer, nullable=False, primary_key=True)
     chapter_name = db.Column(db.String(100), primary_key=True)
@@ -31,7 +32,9 @@ class CHAPTER (db.Model):
         self.course_name = course_name
 
     def json(self):
-        return {"chapterNo": self.chapterNo, "CNo": self.CNo, "chapter_name": self.chapter_name, "course_name": self.course_name}
+        return {"chapterNo": self.chapterNo,
+                "CNo": self.CNo, "chapter_name": self.chapter_name,
+                "course_name": self.course_name}
 
 
 @app.route("/")
@@ -42,7 +45,8 @@ def get_all_chapter():
             {
                 "code": 200,
                 "data": {
-                    "chapter": [chapter.json() for chapter in chapterlist]
+                    "chapter": [chapter.json()
+                                for chapter in chapterlist]
                 }
             }
         )
@@ -61,7 +65,8 @@ def get_class_chapters(course_name, CNo):
             {
                 "code": 200,
                 "data": {
-                    "chapter": [chapter.json() for chapter in chapterlist]
+                    "chapter": [chapter.json()
+                                for chapter in chapterlist]
                 }
             }
         )
@@ -71,6 +76,7 @@ def get_class_chapters(course_name, CNo):
             "message": "There are no chapter."
         }
     ), 404
+
 
 @app.route("/<string:course_name>/<int:CNo>/<int:chapterNo>/<string:chapter_name>", methods=['POST'])
 def update_chapter(course_name, CNo, chapterNo, chapter_name):
@@ -87,4 +93,5 @@ def update_chapter(course_name, CNo, chapterNo, chapter_name):
     return 'Chapter has been added'
 
 if __name__ == '__main__':
+
     app.run(host='0.0.0.0', port=5006, debug=True)

@@ -42,7 +42,7 @@ class TestQuiz(unittest.TestCase):
         self.assertEqual(1, CNo)
         self.assertEqual("Introduction to IBM WorkCentre",CourseName)
         self.assertEqual("1001", SpecificQuizID)
-    # def test_get_certain_quiz(self):
+    ## def test_get_certain_quiz(self):
 
 
 if __name__ == "__main__":

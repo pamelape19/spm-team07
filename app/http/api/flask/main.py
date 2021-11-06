@@ -4,20 +4,20 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
-import badge
-import chapter
-import classes
-import course
-import course_material
-import engineer
-import enrollment
-import hr
-import quiz
-import quiz_option
-import quiz_question
-import quiz_results
-import quiz
-import train
+import badge #noqa: E402,F401
+import chapter #noqa: E402,F401
+import classes #noqa: E402,F401
+import course #noqa: E402,F401
+import course_material #noqa: E402,F401
+import engineer #noqa: E402,F401
+import enrollment #noqa: E402,F401
+import hr #noqa: E402,F401
+import quiz #noqa: E402,F401
+import quiz_option #noqa: E402,F401
+import quiz_question #noqa: E402,F401
+import quiz_results #noqa: E402,F401
+import quiz #noqa: E402,F401
+import train #noqa: E402,F401
 
 @app.route('/')
 def hello_world():

@@ -28,8 +28,7 @@ class CLASSES (db.Model):
     Course_name = db.Column(db.String(200), primary_key=True)
     engin_email = db.Column(db.String(50), nullable=False)
 
-
-    def __init__(self, CNo, Start_datetime, 
+    def __init__(self, CNo, Start_datetime,
                  End_datetime, Capacity, Course_name,
                  engin_email):
         self.CNo = CNo
@@ -39,11 +38,13 @@ class CLASSES (db.Model):
         self.Course_name = Course_name
         self.engin_email = engin_email
 
-
     def json(self):
-        return {"CNo": self.CNo, "Start_datetime": self.Start_datetime,
-                "End_datetime": self.End_datetime, "Capacity": self.Capacity,
-                "Course_name": self.Course_name, "engin_email": self.engin_email}
+        return {"CNo": self.CNo,
+                "Start_datetime": self.Start_datetime,
+                "End_datetime": self.End_datetime,
+                "Capacity": self.Capacity,
+                "Course_name": self.Course_name,
+                "engin_email": self.engin_email}
 
 
 @app.route("/")
@@ -80,13 +81,15 @@ def get_specific_class(Course_name, CNo):
     return jsonify(
         {
             "code": 404,
-            "message": "Class does not exist." 
+            "message": "Class does not exist."
         }
     ), 404
 
+
 @app.route("/<string:engin_email>/<string:course_name>/<int:classNum>")
 def get_trainer_class(engin_email, course_name, classNum):
-    trainer_class = CLASSES.query.filter_by(engin_email=engin_email, Course_name=course_name, CNo=classNum).first()
+    trainer_class = CLASSES.query.filter_by(engin_email=engin_email,
+    Course_name=course_name, CNo=classNum).first()
     if trainer_class:
         return jsonify(
             {
@@ -99,13 +102,13 @@ def get_trainer_class(engin_email, course_name, classNum):
     return jsonify(
         {
             "code": 404,
-            "message": "No classes assigned to this trainer." 
+            "message": "No classes assigned to this trainer."
         }
     ), 404
 
 
 @app.route("/<string:Course_name>/<int:CNo>", methods=['POST'])
-def addNewClass(Course_name,CNo):
+def addNewClass(Course_name, CNo):
     data = request.form
     startDate = data.get("startDate")
     startTime = data.get("startTime")

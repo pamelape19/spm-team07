@@ -16,6 +16,7 @@ db = SQLAlchemy(app)
 
 CORS(app)
 
+
 class BADGE (db.Model):
 
 
@@ -60,8 +61,6 @@ def get_all_badge():
 
 
 @app.route("/<string:engin_email>")
-
-
 def get_completed_classes(engin_email):
     completedClassesList = BADGE.query.filter_by(engin_email=engin_email).all()
     if len(completedClassesList):

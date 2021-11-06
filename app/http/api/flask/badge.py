@@ -28,7 +28,7 @@ class BADGE (db.Model):
         self.engin_email = engin_email
         self.course_name = course_name
         self.class_num = class_num
-    
+
 
     def json(self):
         return {"date_completed": self.date_completed,
@@ -55,6 +55,7 @@ def get_all_badge():
         }
     ), 404
 
+
 @app.route("/<string:engin_email>")
 
 
@@ -65,9 +66,9 @@ def get_completed_classes(engin_email):
             {
                 "code": 200,
                 "data": {
-                    "completedClasses": [completedClass.json()
-                                        for completedClass
-                                        in completedClassesList]
+                        "completedClasses": [completedClass.json()
+                                            for completedClass
+                                            in completedClassesList]
                 }
             }
         )

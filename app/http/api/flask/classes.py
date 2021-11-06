@@ -19,7 +19,6 @@ CORS(app)
 
 class CLASSES (db.Model):
 
-
     __tablename__ = 'CLASS'
     CNo = db.Column(db.Integer, primary_key=True)
     Start_datetime = db.Column(db.DateTime, nullable=False)

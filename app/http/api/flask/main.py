@@ -18,9 +18,8 @@ import quiz_question  # noqa: E402,F401
 import quiz_results  # noqa: E402,F401
 import train  # noqa: E402,F401
 
+
 @app.route('/')
-
-
 def hello_world():
     return "<p>Hello world, It's me</p>"
 

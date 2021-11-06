@@ -10,16 +10,17 @@ import classes  # noqa: E402,F401
 import course  # noqa: E402,F401
 import course_material  # noqa: E402,F401
 import engineer  # noqa: E402,F401
-import enrollment  #noqa: E402,F401
+import enrollment  # noqa: E402,F401
 import hr  # noqa: E402,F401
 import quiz  # noqa: E402,F401
 import quiz_option  # noqa: E402,F401
 import quiz_question  # noqa: E402,F401
 import quiz_results  # noqa: E402,F401
-import quiz  # noqa: E402,F401
 import train  # noqa: E402,F401
 
 @app.route('/')
+
+
 def hello_world():
     return "<p>Hello world, It's me</p>"
 

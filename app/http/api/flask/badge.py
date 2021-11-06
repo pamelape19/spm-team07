@@ -28,6 +28,7 @@ class BADGE (db.Model):
         self.engin_email = engin_email
         self.course_name = course_name
         self.class_num = class_num
+    
 
     def json(self):
         return {"date_completed": self.date_completed,
@@ -56,6 +57,7 @@ def get_all_badge():
 
 @app.route("/<string:engin_email>")
 
+
 def get_completed_classes(engin_email):
     completedClassesList = BADGE.query.filter_by(engin_email=engin_email).all()
     if len(completedClassesList):
@@ -64,7 +66,8 @@ def get_completed_classes(engin_email):
                 "code": 200,
                 "data": {
                     "completedClasses": [completedClass.json()
-                                        for completedClass in completedClassesList]
+                                        for completedClass
+                                        in completedClassesList]
                 }
             }
         )
@@ -75,6 +78,8 @@ def get_completed_classes(engin_email):
         }
     ), 404
 
+
 if __name__ == '__main__':
+
 
     app.run(host='0.0.0.0', port=5012, debug=True)

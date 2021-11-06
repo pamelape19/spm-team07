@@ -17,6 +17,8 @@ db = SQLAlchemy(app)
 CORS(app)
 
 class BADGE (db.Model):
+
+
     __tablename__ = 'BADGE'
     date_completed = db.Column(db.DateTime, nullable=False)
     engin_email = db.Column(db.String(50), nullable=False, primary_key=True)
@@ -32,7 +34,8 @@ class BADGE (db.Model):
 
     def json(self):
         return {"date_completed": self.date_completed,
-                "engin_email": self.engin_email, "course_name": self.course_name,
+                "engin_email": self.engin_email,
+                "course_name": self.course_name,
                 "class_num": self.class_num}
 
 
@@ -67,8 +70,8 @@ def get_completed_classes(engin_email):
                 "code": 200,
                 "data": {
                         "completedClasses": [completedClass.json()
-                                            for completedClass
-                                            in completedClassesList]
+                                             for completedClass
+                                             in completedClassesList]
                 }
             }
         )
@@ -81,6 +84,5 @@ def get_completed_classes(engin_email):
 
 
 if __name__ == '__main__':
-
 
     app.run(host='0.0.0.0', port=5012, debug=True)

@@ -57,9 +57,11 @@ def get_all_chapter():
         }
     ), 404
 
+
 @app.route("/<string:course_name>/<int:CNo>")
 def get_class_chapters(course_name, CNo):
-    chapterlist = CHAPTER.query.filter_by(course_name=course_name, CNo=CNo).all()
+    chapterlist = CHAPTER.query.filter_by(course_name=course_name, 
+                                          CNo=CNo).all()
     if len(chapterlist):
         return jsonify(
             {
@@ -82,8 +84,8 @@ def get_class_chapters(course_name, CNo):
            "<int:chapterNo>/<string:chapter_name>", methods=['POST'])
 def update_chapter(course_name, CNo, chapterNo, chapter_name):
     print(course_name, CNo, chapterNo, chapter_name)
-    new_chapter = CHAPTER(chapterNo=chapterNo, 
-                          chapter_name=chapter_name, CNo=CNo, 
+    new_chapter = CHAPTER(chapterNo=chapterNo,
+                          chapter_name=chapter_name, CNo=CNo,
                           course_name=course_name)
     try:
         db.session.add(new_chapter)

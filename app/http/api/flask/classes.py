@@ -4,11 +4,10 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 
 from os import environ
-
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = environ.get(
-    'dbURL') or 'mysql+mysqlconnector://root@localhost:3306/lms'  
+    'dbURL') or 'mysql+mysqlconnector://root@localhost:3306/lms'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_size': 100,
                                            'pool_recycle': 280}
@@ -17,7 +16,10 @@ db = SQLAlchemy(app)
 
 CORS(app)
 
+
 class CLASSES (db.Model):
+
+
     __tablename__ = 'CLASS'
     CNo = db.Column(db.Integer, primary_key=True)
     Start_datetime = db.Column(db.DateTime, nullable=False)
@@ -27,7 +29,9 @@ class CLASSES (db.Model):
     engin_email = db.Column(db.String(50), nullable=False)
 
 
-    def __init__(self, CNo, Start_datetime, End_datetime, Capacity, Course_name, engin_email):
+    def __init__(self, CNo, Start_datetime, 
+                 End_datetime, Capacity, Course_name,
+                 engin_email):
         self.CNo = CNo
         self.Start_datetime = Start_datetime
         self.End_datetime = End_datetime
@@ -37,7 +41,9 @@ class CLASSES (db.Model):
 
 
     def json(self):
-        return {"CNo": self.CNo, "Start_datetime": self.Start_datetime, "End_datetime": self.End_datetime, "Capacity": self.Capacity, "Course_name": self.Course_name, "engin_email": self.engin_email}
+        return {"CNo": self.CNo, "Start_datetime": self.Start_datetime,
+                "End_datetime": self.End_datetime, "Capacity": self.Capacity,
+                "Course_name": self.Course_name, "engin_email": self.engin_email}
 
 
 @app.route("/")
@@ -59,9 +65,11 @@ def get_all_classes():
         }
     ), 404
 
+
 @app.route("/<string:Course_name>/<int:CNo>")
 def get_specific_class(Course_name, CNo):
-    specific_class = CLASSES.query.filter_by(Course_name=Course_name, CNo=CNo).first()
+    specific_class = CLASSES.query.filter_by(Course_name=Course_name,
+                                             CNo=CNo).first()
     if specific_class:
         return jsonify(
             {
@@ -94,8 +102,7 @@ def get_trainer_class(engin_email, course_name, classNum):
             "message": "No classes assigned to this trainer." 
         }
     ), 404
-     
-   
+
 
 @app.route("/<string:Course_name>/<int:CNo>", methods=['POST'])
 def addNewClass(Course_name,CNo):
@@ -106,19 +113,17 @@ def addNewClass(Course_name,CNo):
     endTime = data.get("endTime")
     Capacity = data.get("capacity")
     trainer_email = data.get("trainer")
-    #2021-10-14
-    # 13:33
-    #2021-10-08 10:30:00
     Start_datetime = startDate + " " + startTime + ":00"
     End_datetime = endDate + " " + endTime + ":00"
-    new_class = CLASSES(Course_name=Course_name, CNo=CNo, Start_datetime=Start_datetime,End_datetime=End_datetime, Capacity=Capacity, engin_email=trainer_email)
+    new_class = CLASSES(Course_name=Course_name, CNo=CNo,
+    Start_datetime=Start_datetime,End_datetime=End_datetime,
+    Capacity=Capacity, engin_email=trainer_email)
     try:
         db.session.add(new_class)
         db.session.commit()
     except Exception as e:
         return 'Class could not be created'
     return 'Class has been created'
-    
 
 
 @app.route("/<string:Course_name>")
@@ -167,7 +172,11 @@ def update_capacity(Course_name, CNo):
 @app.route("/<string:Course_name>", methods=['POST'])
 def create_class(Course_name):
     data = request.get_json()
-    new_class = CLASSES(Course_name=Course_name, CNo=data['CNo'], Start_datetime=data['Start_datetime'],End_datetime=data['End_datetime'], Capacity=data['Capacity'], engin_email=data['End_datetime'])
+    new_class = CLASSES(Course_name=Course_name, CNo=data['CNo'],
+                        Start_datetime=data['Start_datetime'],
+                        End_datetime=data['End_datetime'],
+                        Capacity=data['Capacity'],
+                        engin_email=data['End_datetime'])
     try:
         db.session.add(new_class)
         db.session.commit()
@@ -187,5 +196,5 @@ def create_class(Course_name):
 #     return 'Class has been recorded'
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5003, debug=True)
 
+    app.run(host='0.0.0.0', port=5003, debug=True)

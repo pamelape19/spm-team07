@@ -91,7 +91,7 @@ def get_specific_class(Course_name, CNo):
            "<int:classNum>")
 def get_trainer_class(engin_email, course_name, classNum):
     trainer_class = CLASSES.query.filter_by(engin_email=engin_email,
-    Course_name=course_name, CNo=classNum).first()
+                                            Course_name=course_name, CNo=classNum).first()
     if trainer_class:
         return jsonify(
             {
@@ -121,12 +121,13 @@ def addNewClass(Course_name, CNo):
     Start_datetime = startDate + " " + startTime + ":00"
     End_datetime = endDate + " " + endTime + ":00"
     new_class = CLASSES(Course_name=Course_name, CNo=CNo,
-    Start_datetime=Start_datetime, End_datetime=End_datetime,
-    Capacity=Capacity, engin_email=trainer_email)
+                        Start_datetime=Start_datetime, End_datetime=End_datetime,
+                        Capacity=Capacity, engin_email=trainer_email)
     try:
         db.session.add(new_class)
         db.session.commit()
     except Exception as e:
+        print(e)
         return 'Class could not be created'
     return 'Class has been created'
 
@@ -195,8 +196,8 @@ def create_class(Course_name):
 # def create_startdatetime(Start_datetime):
 #     data = request.get_json()
 #     new_class = CLASSES(Course_name=data['Course_name'],
-#     CNo=data['CNo'], Start_datetime=Start_datetime, 
-#     End_datetime=data['End_datetime'], 
+#     CNo=data['CNo'], Start_datetime=Start_datetime,
+#     End_datetime=data['End_datetime'],
 #     Capacity=data['Capacity'], engin_email=data['End_datetime'])
 #     try:
 #         db.session.add(new_class)

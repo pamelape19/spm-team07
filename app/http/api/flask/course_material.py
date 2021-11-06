@@ -103,7 +103,8 @@ def downloadCourseMaterial(courseName, cNo):
 @app.route('/download/<string:courseName>/<int:cNo>/<int:chapterNum>')
 def downloadLectureMaterial(courseName, cNo, chapterNum):
     file_data = COURSE_MATERIAL.query.filter_by(Course_name=courseName,
-                                                CNo=cNo, Chapter_num=chapterNum).first()
+                                                CNo=cNo,
+                                                Chapter_num=chapterNum).first()
     file_name = file_data.material_name + file_data.file_extension
     return send_file(BytesIO(file_data.content),
                      attachment_filename=file_name,

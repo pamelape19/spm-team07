@@ -19,8 +19,8 @@ CORS(app)
 class BADGE (db.Model):
 
     __tablename__ = 'BADGE'
-    date_completed   = db.Column(db.DateTime, nullable=False)
-    engin_email   = db.Column(db.String(50), nullable=False, primary_key=True)
+    date_completed = db.Column(db.DateTime, nullable=False)
+    engin_email = db.Column(db.String(50), nullable=False, primary_key=True)
     course_name = db.Column(db.String(100), nullable=False, primary_key=True)
     class_num = db.Column(db.Integer, nullable=False)
 
@@ -31,8 +31,9 @@ class BADGE (db.Model):
         self.class_num = class_num
 
     def json(self):
-        return {"date_completed": self.date_completed, "engin_email": self.engin_email, \
-        "course_name": self.course_name, "class_num": self.class_num}
+        return {"date_completed": self.date_completed,
+        "engin_email": self.engin_email, "course_name": self.course_name,
+        "class_num": self.class_num}
 
 
 @app.route("/")
@@ -63,7 +64,8 @@ def get_completed_classes(engin_email):
             {
                 "code": 200,
                 "data": {
-                    "completedClasses": [completedClass.json() for completedClass in completedClassesList]
+                    "completedClasses": [completedClass.json() 
+                    for completedClass in completedClassesList]
                 }
             }
         )

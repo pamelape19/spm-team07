@@ -21,7 +21,7 @@ CORS(app)
 class COURSE_MATERIAL(db.Model):
 
     material_id = db.Column(db.Integer, primary_key=True, nullable=False)
-    material_name  = db.Column(db.String(300), nullable=False)
+    material_name = db.Column(db.String(300), nullable=False)
     content = db.Column(db.LargeBinary, nullable=False)
     CNo = db.Column(db.Integer, nullable=False)
     Course_name = db.Column(db.String(300), nullable=False)
@@ -39,28 +39,28 @@ class COURSE_MATERIAL(db.Model):
         self.Chapter_num = Chapter_num
         self.file_extension = file_extension
 
-def uploadCourseMaterial(courseName, cNo):
-    if 'file' in request.files:
-        file = request.files['file']
-        file_count = db.session.query(COURSE_MATERIAL).count()
-        new_mid = file_count + 1
-        if (file.content_type == 'application/pdf'):
-            fileExtension = '.pdf'
-        elif (file.content_type == 'video/mp4'):
-            fileExtension = '.mp4'
-        new_file = COURSE_MATERIAL(material_id=new_mid,
-                                   material_name=file.filename,
-                                   content=file.read(), CNo=cNo,
-                                   Course_name=courseName,
-                                   Chapter_num=0,
-                                   file_extension=fileExtension)
-        try:
-            db.session.add(new_file)
-            db.session.commit()
-        except Exception as e:
-            print(e)
-            return 'File could not be uploaded'
-        return 'File is uploaded'
+    def uploadCourseMaterial(courseName, cNo):
+        if 'file' in request.files:
+            file = request.files['file']
+            file_count = db.session.query(COURSE_MATERIAL).count()
+            new_mid = file_count + 1
+            if (file.content_type == 'application/pdf'):
+                fileExtension = '.pdf'
+            elif (file.content_type == 'video/mp4'):
+                fileExtension = '.mp4'
+            new_file = COURSE_MATERIAL(material_id=new_mid,
+                                    material_name=file.filename,
+                                    content=file.read(), CNo=cNo,
+                                    Course_name=courseName,
+                                    Chapter_num=0,
+                                    file_extension=fileExtension)
+            try:
+                db.session.add(new_file)
+                db.session.commit()
+            except Exception as e:
+                print(e)
+                return 'File could not be uploaded'
+            return 'File is uploaded'
 
 
 @app.route('/course-material/<string:courseName>/',
@@ -77,7 +77,8 @@ def uploadLectureMaterial(courseName, cNo, chapterNum):
         new_file = COURSE_MATERIAL(material_id=new_mid,
                                    material_name=file.filename,
                                    content=file.read(), CNo=cNo,
-                                   Course_name=courseName, Chapter_num=chapterNum,
+                                   Course_name=courseName,
+                                   Chapter_num=chapterNum,
                                    file_extension=fileExtension)
         try:
             db.session.add(new_file)
@@ -94,8 +95,8 @@ def downloadCourseMaterial(courseName, cNo):
                                                 CNo=cNo, Chapter_num=0).first()
     file_name = file_data.material_name + file_data.file_extension
     return send_file(BytesIO(file_data.content),
-                    attachment_filename=file_name,
-                    as_attachment=True)
+                     attachment_filename=file_name,
+                     as_attachment=True)
 
 
 @app.route('/download/<string:courseName>/<int:cNo>/<int:chapterNum>')
@@ -110,5 +111,3 @@ def downloadLectureMaterial(courseName, cNo, chapterNum):
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5007, debug=True)
-
-

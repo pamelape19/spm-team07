@@ -49,11 +49,11 @@ class COURSE_MATERIAL(db.Model):
             elif (file.content_type == 'video/mp4'):
                 fileExtension = '.mp4'
             new_file = COURSE_MATERIAL(material_id=new_mid,
-                                    material_name=file.filename,
-                                    content=file.read(), CNo=cNo,
-                                    Course_name=courseName,
-                                    Chapter_num=0,
-                                    file_extension=fileExtension)
+                                       material_name=file.filename,
+                                       content=file.read(), CNo=cNo,
+                                       Course_name=courseName,
+                                       Chapter_num=0,
+                                       file_extension=fileExtension)
             try:
                 db.session.add(new_file)
                 db.session.commit()
@@ -76,7 +76,8 @@ def uploadLectureMaterial(courseName, cNo, chapterNum):
             fileExtension = '.mp4'
         new_file = COURSE_MATERIAL(material_id=new_mid,
                                    material_name=file.filename,
-                                   content=file.read(), CNo=cNo,
+                                   content=file.read(),
+                                   CNo=cNo,
                                    Course_name=courseName,
                                    Chapter_num=chapterNum,
                                    file_extension=fileExtension)
@@ -105,8 +106,8 @@ def downloadLectureMaterial(courseName, cNo, chapterNum):
                                                 CNo=cNo, Chapter_num=chapterNum).first()
     file_name = file_data.material_name + file_data.file_extension
     return send_file(BytesIO(file_data.content),
-                    attachment_filename=file_name,
-                    as_attachment=True)
+                     attachment_filename=file_name,
+                     as_attachment=True)
 
 
 if __name__ == '__main__':

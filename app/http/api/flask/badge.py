@@ -17,7 +17,6 @@ db = SQLAlchemy(app)
 
 CORS(app)
 
-
 class BADGE (db.Model):
     __tablename__ = 'BADGE'
     date_completed   = db.Column(db.DateTime, nullable=False)

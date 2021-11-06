@@ -91,7 +91,8 @@ def get_specific_class(Course_name, CNo):
            "<int:classNum>")
 def get_trainer_class(engin_email, course_name, classNum):
     trainer_class = CLASSES.query.filter_by(engin_email=engin_email,
-                                            Course_name=course_name, CNo=classNum).first()
+                                            Course_name=course_name,
+                                            CNo=classNum).first()
     if trainer_class:
         return jsonify(
             {
@@ -121,7 +122,8 @@ def addNewClass(Course_name, CNo):
     Start_datetime = startDate + " " + startTime + ":00"
     End_datetime = endDate + " " + endTime + ":00"
     new_class = CLASSES(Course_name=Course_name, CNo=CNo,
-                        Start_datetime=Start_datetime, End_datetime=End_datetime,
+                        Start_datetime=Start_datetime,
+                        End_datetime=End_datetime,
                         Capacity=Capacity, engin_email=trainer_email)
     try:
         db.session.add(new_class)
@@ -147,7 +149,7 @@ def get_classes_of_course(Course_name):
     return jsonify(
         {
             "code": 404,
-            "message": "No classes under this course." 
+            "message": "No classes under this course."
         }
     ), 404
 
@@ -167,8 +169,10 @@ def update_capacity(Course_name, CNo):
 # @app.route("/<int:Capacity>", methods=['POST'])
 # def addNewCapacity(Capacity):
 #     data = request.get_json()
-#     new_capacity = CLASSES(Course_name=data['Course_name'], 
-#     CNo=data['CNo'], Start_datetime=data['Start_datetime'],End_datetime=data['End_datetime'], Capacity=Capacity, engin_email=data['End_datetime'])
+#     new_capacity = CLASSES(Course_name=data['Course_name'],
+#     CNo=data['CNo'], Start_datetime=data['Start_datetime'],
+#     End_datetime=data['End_datetime'], Capacity=Capacity,
+#     engin_email=data['End_datetime'])
 #     try:
 #         db.session.add(new_capacity)
 #         db.session.commit()
@@ -189,6 +193,7 @@ def create_class(Course_name):
         db.session.add(new_class)
         db.session.commit()
     except Exception as e:
+        print(e)
         return 'Class could not be added'
     return 'Class has been recorded'
 

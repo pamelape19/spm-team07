@@ -19,7 +19,6 @@ CORS(app)
 
 class BADGE (db.Model):
 
-
     __tablename__ = 'BADGE'
     date_completed = db.Column(db.DateTime, nullable=False)
     engin_email = db.Column(db.String(50), nullable=False, primary_key=True)
@@ -31,7 +30,6 @@ class BADGE (db.Model):
         self.engin_email = engin_email
         self.course_name = course_name
         self.class_num = class_num
-
 
     def json(self):
         return {"date_completed": self.date_completed,

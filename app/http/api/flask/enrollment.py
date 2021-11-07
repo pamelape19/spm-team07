@@ -25,16 +25,18 @@ class ENROLLMENT (db.Model):
     Course_name = db.Column(db.String(100), nullable=False, primary_key=True)
     assigned = db.Column(db.Boolean, nullable=False)
     enrolled = db.Column(db.Boolean, nullable=False)
+    completed = db.Column(db.Integer, nullable=False)
 
-    def __init__(self, engin_email, CNo, Course_name, assigned, enrolled):
+    def __init__(self, engin_email, CNo, Course_name, assigned, enrolled, completed):
         self.engin_email = engin_email
         self.CNo = CNo
         self.Course_name = Course_name
         self.assigned = assigned
         self.enrolled = enrolled
+        self.completed = completed
 
     def json(self):
-        return {"engin_email": self.engin_email, "CNo": self.CNo, "Course_name": self.Course_name, "assigned": self.assigned, "enrolled": self.enrolled}
+        return {"engin_email": self.engin_email, "CNo": self.CNo, "Course_name": self.Course_name, "assigned": self.assigned, "enrolled": self.enrolled, "completed": self.completed}
 
 
 @app.route("/")
@@ -97,7 +99,7 @@ def getLearnersEnrolled(courseName, classNum):
 @app.route("/<string:courseName>/<int:classNum>", methods=['POST'])
 def addToEnrollmentTable(courseName, classNum):
     data = request.get_json()
-    new_row = ENROLLMENT(engin_email=data['enginEmail'], CNo=classNum, Course_name=courseName, assigned=0, enrolled=0)
+    new_row = ENROLLMENT(engin_email=data['enginEmail'], CNo=classNum, Course_name=courseName, assigned=0, enrolled=0, completed=0)
     try:
         db.session.add(new_row)
         db.session.commit()
@@ -127,7 +129,7 @@ def find_pending():
 
 @app.route("/add-enrollment/<string:engin_email>/<string:Course_name>/<int:CNo>", methods=['POST'])
 def assign(engin_email, Course_name, CNo):
-    new_row = ENROLLMENT(engin_email=engin_email, Course_name=Course_name, CNo=CNo, enrolled=1, assigned=1)
+    new_row = ENROLLMENT(engin_email=engin_email, Course_name=Course_name, CNo=CNo, enrolled=1, assigned=1, completed=0)
     try:
         db.session.add(new_row)
         print('added')

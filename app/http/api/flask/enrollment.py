@@ -162,8 +162,6 @@ def delete_enrollment(engin_email, Course_name, CNo):
             print(e)
             return "Learner's application could not be deleted."
         return "Learner's application was deleted."
-        
-    
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5004, debug=True)

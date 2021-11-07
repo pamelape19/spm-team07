@@ -1,3 +1,6 @@
+# Pamela Pe
+# Port 5003
+
 from flask import Flask, jsonify, request
 
 from flask_sqlalchemy import SQLAlchemy
@@ -95,8 +98,6 @@ def get_trainer_class(engin_email, course_name, classNum):
         }
     ), 404
      
-   
-
 @app.route("/<string:Course_name>/<int:CNo>", methods=['POST'])
 def addNewClass(Course_name,CNo):
     data = request.form
@@ -118,8 +119,6 @@ def addNewClass(Course_name,CNo):
     except Exception as e:
         return 'Class could not be created'
     return 'Class has been created'
-    
-
 
 @app.route("/<string:Course_name>")
 def get_classes_of_course(Course_name):
@@ -140,51 +139,16 @@ def get_classes_of_course(Course_name):
         }
     ), 404
 
-
-@app.route("/update-capacity/<string:Course_name>/<int:CNo>", methods=['PUT'])
-def update_capacity(Course_name, CNo):
-    old = CLASSES.query.filter_by(Course_name=Course_name, CNo=CNo).first()
-    if old:
-        try:
-            old.Capacity -= 1
-            db.session.commit()
-        except Exception as e:
-            print(e)
-            return "Class capacity could not be updated."
-        return "Class capacity was updated."
-
-# @app.route("/<int:Capacity>", methods=['POST'])
-# def addNewCapacity(Capacity):
-#     data = request.get_json()
-#     new_capacity = CLASSES(Course_name=data['Course_name'], CNo=data['CNo'], Start_datetime=data['Start_datetime'],End_datetime=data['End_datetime'], Capacity=Capacity, engin_email=data['End_datetime'])
-#     try:
-#         db.session.add(new_capacity)
-#         db.session.commit()
-#     except Exception as e:
-#         return 'Result could not be added'
-#     return 'Result has been recorded'
-
 @app.route("/<string:Course_name>", methods=['POST'])
 def create_class(Course_name):
     data = request.get_json()
-    new_class = CLASSES(Course_name=Course_name, CNo=data['CNo'], Start_datetime=data['Start_datetime'],End_datetime=data['End_datetime'], Capacity=data['Capacity'], engin_email=data['End_datetime'])
+    new_class = CLASSES(Course_name=Course_name, CNo=data['CNo'], Start_datetime=data['Start_datetime'],End_datetime=data['End_datetime'], Capacity=data['Capacity'], engin_email=data['engin_email'])
     try:
         db.session.add(new_class)
         db.session.commit()
     except Exception as e:
         return 'Class could not be added'
     return 'Class has been recorded'
-
-# @app.route("/<string:Start_datetime>", methods=['POST'])
-# def create_startdatetime(Start_datetime):
-#     data = request.get_json()
-#     new_class = CLASSES(Course_name=data['Course_name'], CNo=data['CNo'], Start_datetime=Start_datetime,End_datetime=data['End_datetime'], Capacity=data['Capacity'], engin_email=data['End_datetime'])
-#     try:
-#         db.session.add(new_class)
-#         db.session.commit()
-#     except Exception as e:
-#         return 'Class could not be added'
-#     return 'Class has been recorded'
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5003, debug=True)

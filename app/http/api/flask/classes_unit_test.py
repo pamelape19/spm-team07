@@ -82,7 +82,17 @@ class TestClass(unittest.TestCase):
 
         self.assertEqual(Response.status_code, 200)
         self.assertEqual("Mon, 04 Oct 2021 10:30:00 GMT", FirstStartDateTime)
-    
+
+    # Get last class end_datetime
+    def test_get_enddatetime(self):
+        Response = self.app.get("/")
+        Data = json.loads(Response.get_data())['data']['classes']
+        
+        FirstStartDateTime = Data[-1]["End_datetime"]
+
+        self.assertEqual(Response.status_code, 200)
+        self.assertEqual("Tue, 08 Feb 2022 10:30:00 GMT", FirstStartDateTime)
+
     # Get first class capacity
     def test_getCapacity(self):
         Response = self.app.get("/")

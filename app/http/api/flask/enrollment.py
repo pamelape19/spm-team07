@@ -140,7 +140,6 @@ def assign(engin_email, Course_name, CNo):
         return "Learner could not be assigned."
     return "Learner has been assigned."
 
-
 @app.route("/update-enrollment/<string:engin_email>/<string:Course_name>/<int:CNo>", methods=['PUT'])
 def update_enrollment(engin_email, Course_name, CNo):
     old = ENROLLMENT.query.filter_by(engin_email=engin_email, Course_name=Course_name, CNo=CNo, enrolled=0).first()
@@ -152,6 +151,7 @@ def update_enrollment(engin_email, Course_name, CNo):
             print(e)
             return "Learner's application could not be updated."
         return "Learner's application was updated."
+    return "No learner's application was found."
 
 @app.route("/delete-enrollment/<string:engin_email>/<string:Course_name>/<int:CNo>", methods=['DELETE'])
 def delete_enrollment(engin_email, Course_name, CNo):
@@ -164,6 +164,7 @@ def delete_enrollment(engin_email, Course_name, CNo):
             print(e)
             return "Learner's application could not be deleted."
         return "Learner's application was deleted."
+    return "No learner's application was found."
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5004, debug=True)

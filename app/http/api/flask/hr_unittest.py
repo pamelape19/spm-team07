@@ -4,7 +4,8 @@ from sqlalchemy.sql.expression import null
 from hr import HR
 from hr import app
 import json 
-# set our application to testing mode
+
+#Lyndy
 app.testing = True
 
 class TestHR(unittest.TestCase):

@@ -37,8 +37,7 @@ class ENROLLMENT (db.Model):
 
     def json(self):
         return {"engin_email": self.engin_email, "CNo": self.CNo, "Course_name": self.Course_name, "assigned": self.assigned, "enrolled": self.enrolled, "completed": self.completed}
-
-
+    
 @app.route("/")
 def get_all_enrollment():
     enrollmentlist = ENROLLMENT.query.all()
@@ -152,6 +151,7 @@ def update_enrollment(engin_email, Course_name, CNo):
             print(e)
             return "Learner's application could not be updated."
         return "Learner's application was updated."
+    return "No learner's application was found."
 
 @app.route("/delete-enrollment/<string:engin_email>/<string:Course_name>/<int:CNo>", methods=['DELETE'])
 def delete_enrollment(engin_email, Course_name, CNo):
@@ -164,6 +164,7 @@ def delete_enrollment(engin_email, Course_name, CNo):
             print(e)
             return "Learner's application could not be deleted."
         return "Learner's application was deleted."
+    return "No learner's application was found."
         
 @app.route("/get-completed/<string:Course_name>/<int:CNo>/<string:engin_email>")
 def get_completed(Course_name, CNo, engin_email):

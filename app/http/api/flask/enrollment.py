@@ -164,35 +164,6 @@ def delete_enrollment(engin_email, Course_name, CNo):
             print(e)
             return "Learner's application could not be deleted."
         return "Learner's application was deleted."
-        
-@app.route("/get-completed/<string:Course_name>/<int:CNo>/<string:engin_email>")
-def get_completed(Course_name, CNo, engin_email):
-    numCompleted = ENROLLMENT.query.filter_by(Course_name=Course_name, CNo=CNo, engin_email=engin_email).first()
-    if numCompleted:
-        return jsonify(
-            {
-                "code": 200,
-                "data": numCompleted.json()
-            }
-        )
-    return jsonify(
-        {
-            "code": 404,
-            "message": "Engineer is not enrolled to this class." 
-        }
-    ), 404
-
-@app.route("/update-num-completed/<string:engin_email>/<string:Course_name>/<int:CNo>", methods=['PUT'])
-def update_num_completed(engin_email, Course_name, CNo):
-    old = ENROLLMENT.query.filter_by(engin_email=engin_email, Course_name=Course_name, CNo=CNo).first()
-    if old:
-        try:
-            old.completed += 1
-            db.session.commit()
-        except Exception as e:
-            print(e)
-            return "Number of chapters completed could not be updated."
-        return "Number of chapters completed has been updated."
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5004, debug=True)

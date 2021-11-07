@@ -4,7 +4,6 @@ from sqlalchemy.sql.expression import null
 from enrollment import ENROLLMENT
 from enrollment import app
 import json 
-import unittest
 
 #Done by: Lyndy Koo
 

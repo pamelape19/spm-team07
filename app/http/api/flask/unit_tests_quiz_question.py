@@ -27,10 +27,8 @@ class TestQuizQuestion(unittest.TestCase):
         Data = json.loads(Response.get_data())['data']['quiz_question']
         FirstQuestionQuizID = Data[0]["quizID"]
         LastQuestionQuizID = Data[-1]["quizID"]
-        NumberofQuiz = len(Data)
 
         self.assertEqual(Response.status_code, 200)
-        self.assertEqual(42, NumberofQuiz)
         self.assertEqual("1001", FirstQuestionQuizID)
         self.assertEqual("3201", LastQuestionQuizID)      
  
@@ -39,10 +37,8 @@ class TestQuizQuestion(unittest.TestCase):
         Data = json.loads(Response.get_data())['data']["quizQns"]
         FirstQuestionQuizID =  Data[0]["quizID"]
         LastQuestionQuizID = Data[-1]["quizID"]
-        NumberofQuiz = len(Data)
 
         self.assertEqual(Response.status_code, 200)
-        self.assertEqual(5, NumberofQuiz)
         self.assertEqual("1001", FirstQuestionQuizID)
         self.assertEqual("1001", LastQuestionQuizID)
  

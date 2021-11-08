@@ -63,7 +63,7 @@ class COURSE_MATERIAL(db.Model):
             return 'File is uploaded'
 
 
-@app.route('/course-material/<string:courseName>/<int:cNo>/<int:chapterNum>', methods=['POST'])
+@app.route('/course-material/<string:courseName>/<int:cNo>/<int:chapterNum>', methods=['POST'])   # noqa: E501
 def uploadLectureMaterial(courseName, cNo, chapterNum):
     if 'file' in request.files:
         file = request.files['file']

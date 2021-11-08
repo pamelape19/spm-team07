@@ -94,7 +94,7 @@ def find_quizzes_by_chapter(course_name, CNo, chapter_name):
     ), 404
 
 @app.route("/<string:course_name>/<int:CNo>/<string:chapter_name>/<string:quizID>/<int:quizNum>/<int:duration>", methods=['POST'])
-def addNewQuiz(course_name, CNo, chapter_name, quizID, quizNum, duration):
+def add_new_quiz(course_name, CNo, chapter_name, quizID, quizNum, duration):
 
     print(course_name, CNo, chapter_name, quizID, quizNum, duration)
     new_quiz = QUIZ(course_name=course_name, CNo=CNo, chapter_name=chapter_name, quizID=quizID, total_questions=quizNum, duration=duration )

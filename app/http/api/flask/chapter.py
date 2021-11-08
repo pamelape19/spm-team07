@@ -38,7 +38,7 @@ class CHAPTER (db.Model):
 
 
 @app.route("/")
-def get_all_chapter():
+def get_all_chapters():
     chapterlist = CHAPTER.query.all()
     if len(chapterlist):
         return jsonify(

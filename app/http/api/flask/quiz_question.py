@@ -75,7 +75,7 @@ def find_quiz_qn_by_quizID(quizID):
 
 
 @app.route("/<int:quizID>", methods=['POST'])
-def addNewQuiz(quizID):
+def add_question(quizID):
     data = request.json
     print(data)
     try:

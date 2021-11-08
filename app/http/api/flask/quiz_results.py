@@ -59,7 +59,7 @@ def get_all_quiz_results():
     ), 404
 
 @app.route("/<string:quizId>", methods=['POST'])
-def addNewResult(quizId):
+def add_new_result(quizId):
     data = request.get_json()
     attempt_engin = db.session.query(QUIZ_RESULTS).filter(QUIZ_RESULTS.engin_email == data['enginEmail'])
     attempt_count = attempt_engin.count()

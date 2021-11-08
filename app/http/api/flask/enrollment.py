@@ -104,7 +104,8 @@ def getLearnersEnrolled(courseName, classNum):
 @app.route("/<string:courseName>/<int:classNum>", methods=['POST'])
 def addToEnrollmentTable(courseName, classNum):
     data = request.get_json()
-    new_row = ENROLLMENT(engin_email=data['enginEmail'], CNo=classNum, Course_name=courseName,
+    new_row = ENROLLMENT(engin_email=data['enginEmail'],
+                         CNo=classNum, Course_name=courseName,
                          assigned=0, enrolled=0, completed=0)
     try:
         db.session.add(new_row)
@@ -137,7 +138,8 @@ def find_pending():
 
 @app.route("/add-enrollment/<string:engin_email>/<string:Course_name>/<int:CNo>", methods=['POST'])  # noqa: E501
 def assign(engin_email, Course_name, CNo):
-    new_row = ENROLLMENT(engin_email=engin_email, Course_name=Course_name, CNo=CNo,
+    new_row = ENROLLMENT(engin_email=engin_email,
+                         Course_name=Course_name, CNo=CNo,
                          enrolled=1, assigned=1, completed=0)
     try:
         db.session.add(new_row)
@@ -150,10 +152,11 @@ def assign(engin_email, Course_name, CNo):
     return "Learner has been assigned."
 
 
-@app.route("/update-enrollment/<string:engin_email>/<string:Course_name>/<int:CNo>", methods=['PUT'])
+@app.route("/update-enrollment/<string:engin_email>/<string:Course_name>/<int:CNo>", methods=['PUT'])  # noqa: E501
 def update_enrollment(engin_email, Course_name, CNo):
     old = ENROLLMENT.query.filter_by(engin_email=engin_email,
-                                     Course_name=Course_name, CNo=CNo, enrolled=0).first()
+                                     Course_name=Course_name,
+                                     CNo=CNo, enrolled=0).first()
     if old:
         try:
             old.enrolled = 1
@@ -168,7 +171,8 @@ def update_enrollment(engin_email, Course_name, CNo):
 @app.route("/delete-enrollment/<string:engin_email>/<string:Course_name>/<int:CNo>", methods=['DELETE'])  # noqa: E501
 def delete_enrollment(engin_email, Course_name, CNo):
     old = ENROLLMENT.query.filter_by(engin_email=engin_email,
-                                     Course_name=Course_name, CNo=CNo, enrolled=0).first()
+                                     Course_name=Course_name,
+                                     CNo=CNo, enrolled=0).first()
     if old:
         try:
             db.session.delete(old)

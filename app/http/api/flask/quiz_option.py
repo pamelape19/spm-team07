@@ -91,7 +91,7 @@ def addNewOption(quizID):
     try:
         for option in data["data"]:
             print(option)
-            new_option= QUIZ_OPTION(optionNo=option["optionNo"],
+            new_option = QUIZ_OPTION(optionNo=option["optionNo"],
                                     option_value=option["option_value"],
                                     quizID=quizID,
                                     questionNo=option['question_no'],

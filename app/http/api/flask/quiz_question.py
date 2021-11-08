@@ -94,9 +94,10 @@ def addNewQuiz(quizID):
                 db.session.commit()
                 print('commit')
             except Exception as e:
-                print (e)
+                print(e)
 
     except Exception as e:
+        print(e)
         return 'Quiz could not be added'
     return 'Quiz has been added'
 

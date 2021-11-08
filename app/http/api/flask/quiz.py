@@ -27,7 +27,8 @@ class QUIZ (db.Model):
     duration = db.Column(db.Integer)
     total_questions = db.Column(db.Integer, nullable=False)
 
-    def __init__(self, quizID, CNo, course_name, chapter_name, duration, total_questions):
+    def __init__(self, quizID, CNo, course_name, chapter_name,
+                 duration, total_questions):
         self.quizID = quizID
         self.CNo = CNo
         self.course_name = course_name
@@ -107,7 +108,8 @@ def find_quizzes_by_chapter(course_name, CNo, chapter_name):
 def addNewQuiz(course_name, CNo, chapter_name, quizID, quizNum, duration):
 
     print(course_name, CNo, chapter_name, quizID, quizNum, duration)
-    new_quiz = QUIZ(course_name=course_name, CNo=CNo, chapter_name=chapter_name,
+    new_quiz = QUIZ(course_name=course_name, CNo=CNo,
+                    chapter_name=chapter_name,
                     quizID=quizID, total_questions=quizNum, duration=duration)
     try:
         db.session.add(new_quiz)

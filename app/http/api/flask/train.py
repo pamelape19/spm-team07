@@ -42,7 +42,7 @@ class TRAIN (db.Model):
         return {"engin_email": self.engin_email, "CNo": self.CNo, "course_name": self.course_name}
 
 @app.route("/")
-def get_all_train():
+def get_all_trainers():
     trainlist = TRAIN.query.all()
     if len(trainlist):
         return jsonify(

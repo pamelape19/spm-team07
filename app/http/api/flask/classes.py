@@ -113,7 +113,7 @@ def get_trainer_class(engin_email, course_name, classNum):
 
 
 @app.route("/<string:Course_name>/<int:CNo>", methods=['POST'])
-def addNewClass(Course_name, CNo):
+def add_new_class(Course_name, CNo):
     data = request.form
     startDate = data.get("startDate")
     startTime = data.get("startTime")
@@ -136,7 +136,7 @@ def addNewClass(Course_name, CNo):
     return 'Class has been created'
 
 @app.route("/<string:Course_name>")
-def get_classes_of_course(Course_name):
+def get_course_classes(Course_name):
     specific_course = CLASSES.query.filter_by(Course_name=Course_name).all()
     if specific_course:
         return jsonify(

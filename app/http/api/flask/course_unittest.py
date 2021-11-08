@@ -35,5 +35,19 @@ class TestCourse(unittest.TestCase):
         self.assertEqual(Response.status_code, 200)
         self.assertEqual(4, DataLength)
 
+    def test_get_specific_course(self):
+        Response = self.app.get("/Introduction to HP WorkCentre")
+        Data = json.loads(Response.get_data())['data']
+        DataLength = len(Data)
+        self.assertEqual(Response.status_code, 200)
+        self.assertEqual(4, DataLength)
+        
+    def test_get_course_description(self):
+        Response = self.app.get("/Introduction to HP WorkCentre")
+        Data = json.loads(Response.get_data())['data']["description"]
+        self.assertEqual(Response.status_code, 200)
+        self.assertEqual("The fundamentals of the workcentre at HP", Data)
+        
+        
 if __name__ == "__main__":
     unittest.main()

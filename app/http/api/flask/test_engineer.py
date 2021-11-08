@@ -1,3 +1,6 @@
+# G Shaamini
+# 01393074
+
 import unittest
 
 from sqlalchemy.sql.expression import null
@@ -37,10 +40,6 @@ class TestEngineer(unittest.TestCase):
         self.assertEqual("alexlim@allinone.com", FirstEngineerEmail)
         self.assertEqual("samueltan@allinone.com", LastEngineerEmail) 
         self.assertEqual(9,num_trainers)  
-
-
-
-
 
 
 if __name__ == "__main__":

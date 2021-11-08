@@ -5,7 +5,7 @@ from enrollment import ENROLLMENT
 from enrollment import app
 import json 
 
-#Done by: Lyndy Koo
+# Done by: Lyndy Koo
 
 app.testing = True
 

@@ -91,12 +91,12 @@ def addNewOption(quizID):
     try:
         for option in data["data"]:
             print(option)
-            new_option= QUIZ_OPTION(optionNo = option["optionNo"],
-                                    option_value = option["option_value"],
-                                    quizID = quizID,
-                                    questionNo = option['question_no'],
-                                    selected = option["selected"],
-                                    answer = option["answer"])
+            new_option= QUIZ_OPTION(optionNo=option["optionNo"],
+                                    option_value=option["option_value"],
+                                    quizID=quizID,
+                                    questionNo=option['question_no'],
+                                    selected=option["selected"],
+                                    answer=option["answer"])
             db.session.add(new_option)
             print('add')
             db.session.commit()

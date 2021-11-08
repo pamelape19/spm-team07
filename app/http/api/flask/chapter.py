@@ -80,7 +80,7 @@ def get_class_chapters(course_name, CNo):
     ), 404
 
 
-@app.route("/<string:course_name>/<int:CNo>/<int:chapterNo>/<string:chapter_name>", methods=['POST']) # noqa: E501
+@app.route("/<string:course_name>/<int:CNo>/<int:chapterNo>/<string:chapter_name>", methods=['POST'])  # noqa: E501
 def update_chapter(course_name, CNo, chapterNo, chapter_name):
     print(course_name, CNo, chapterNo, chapter_name)
     new_chapter = CHAPTER(chapterNo=chapterNo,

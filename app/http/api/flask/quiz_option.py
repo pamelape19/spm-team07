@@ -8,7 +8,7 @@ from os import environ
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = environ.get(
-    'dbURL')or 'mysql+mysqlconnector://root@localhost:3306/lms'   
+    'dbURL')or 'mysql+mysqlconnector://root@localhost:3306/lms'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_size': 100,
                                            'pool_recycle': 280}
@@ -16,6 +16,7 @@ app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_size': 100,
 db = SQLAlchemy(app)
 
 CORS(app)
+
 
 class QUIZ_OPTION (db.Model):
     __tablename__ = 'QUIZ_OPTION'
@@ -58,6 +59,7 @@ def get_all_quiz_option():
         }
     ), 404
 
+
 @app.route("/<int:quizID>")
 def quiz_options_by_quizID(quizID):
     quizOptions = QUIZ_OPTION.query.filter_by(quizID=quizID).all()
@@ -84,7 +86,9 @@ def addNewOption(quizID):
     try:
         for option in data["data"]:
             print(option)
-            new_option= QUIZ_OPTION(optionNo=option["optionNo"],option_value=option["option_value"], quizID=quizID,  questionNo=option['question_no'],selected=option["selected"], answer=option["answer"])
+            new_option= QUIZ_OPTION(optionNo=option["optionNo"],option_value=option["option_value"],
+                                    quizID=quizID,  questionNo=option['question_no'],selected=option["selected"],
+                                    answer=option["answer"])
             db.session.add(new_option)
             print('add')
             db.session.commit()

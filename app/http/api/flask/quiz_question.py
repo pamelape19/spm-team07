@@ -8,7 +8,7 @@ from os import environ
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = environ.get(
-    'dbURL') or 'mysql+mysqlconnector://root@localhost:3306/lms'  
+    'dbURL') or 'mysql+mysqlconnector://root@localhost:3306/lms'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_size': 100,
                                            'pool_recycle': 280}
@@ -17,7 +17,7 @@ db = SQLAlchemy(app)
 
 CORS(app)
 
- 
+
 class QUIZ_QUESTION (db.Model):
     __tablename__ = 'QUIZ_QUESTION'
     question = db.Column(db.String(1000), nullable=False)
@@ -32,7 +32,8 @@ class QUIZ_QUESTION (db.Model):
         self.quizID = quizID
 
     def json(self):
-        return {"question": self.question, "questionNo": self.questionNo, "question_type": self.question_type,"quizID": self.quizID}
+        return {"question": self.question, "questionNo": self.questionNo,
+                "question_type": self.question_type,"quizID": self.quizID}
 
 
 @app.route("/")
@@ -53,6 +54,7 @@ def get_all_quiz_question():
             "message": "There are no quiz_question."
         }
     ), 404
+
 
 @app.route("/<int:quizID>")
 def find_quiz_qn_by_quizID(quizID):
@@ -81,7 +83,8 @@ def addNewQuiz(quizID):
     try:
         for qus in data["data"]:
             print(qus)
-            new_quiz = QUIZ_QUESTION(question=qus["question"], questionNo=qus["question_no"], question_type=qus['question_type'], quizID=quizID )
+            new_quiz = QUIZ_QUESTION(question=qus["question"], questionNo=qus["question_no"],
+                                     question_type=qus['question_type'], quizID=quizID )
             print(new_quiz)
             try:
                 db.session.add(new_quiz)

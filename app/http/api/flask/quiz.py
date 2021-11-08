@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, jsonify
 
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
@@ -8,7 +8,7 @@ from os import environ
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = environ.get(
-    'dbURL')or 'mysql+mysqlconnector://root@localhost:3306/lms'   
+    'dbURL')or 'mysql+mysqlconnector://root@localhost:3306/lms'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_size': 100,
                                            'pool_recycle': 280}
@@ -16,6 +16,7 @@ app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_size': 100,
 db = SQLAlchemy(app)
 
 CORS(app)
+
 
 class QUIZ (db.Model):
     __tablename__ = 'QUIZ'
@@ -36,7 +37,10 @@ class QUIZ (db.Model):
         self.total_questions = total_questions
 
     def json(self):
-        return {"quizID": self.quizID, "CNo": self.CNo, "course_name": self.course_name, "chapter_name": self.chapter_name, "duration": self.duration, "total_questions": self.total_questions}
+        return {"quizID": self.quizID, "CNo": self.CNo, "course_name":self.course_name,
+                "chapter_name": self.chapter_name, "duration": self.duration,
+                "total_questions": self.total_questions}
+
 
 @app.route("/")
 def get_all_quiz():
@@ -57,6 +61,7 @@ def get_all_quiz():
         }
     ), 404
 
+
 @app.route("/<string:course_name>/<int:CNo>")
 def find_quizzes_by_course(course_name, CNo):
     course_quizzes = QUIZ.query.filter_by(course_name=course_name, CNo=CNo).all()
@@ -76,9 +81,11 @@ def find_quizzes_by_course(course_name, CNo):
         }
     ), 404
 
+
 @app.route("/<string:course_name>/<int:CNo>/<string:chapter_name>")
 def find_quizzes_by_chapter(course_name, CNo, chapter_name):
-    chapter_quiz = QUIZ.query.filter_by(course_name=course_name, CNo=CNo, chapter_name=chapter_name).first()
+    chapter_quiz = QUIZ.query.filter_by(course_name=course_name,
+                                        CNo=CNo, chapter_name=chapter_name).first()
     if chapter_quiz:
         return jsonify(
             {
@@ -93,11 +100,13 @@ def find_quizzes_by_chapter(course_name, CNo, chapter_name):
         }
     ), 404
 
-@app.route("/<string:course_name>/<int:CNo>/<string:chapter_name>/<string:quizID>/<int:quizNum>/<int:duration>", methods=['POST'])
+
+@app.route("/<string:course_name>/<int:CNo>/<string:chapter_name>/<string:quizID>/<int:quizNum>/<int:duration>", methods=['POST'])  # noqa: E501
 def addNewQuiz(course_name, CNo, chapter_name, quizID, quizNum, duration):
 
     print(course_name, CNo, chapter_name, quizID, quizNum, duration)
-    new_quiz = QUIZ(course_name=course_name, CNo=CNo, chapter_name=chapter_name, quizID=quizID, total_questions=quizNum, duration=duration )
+    new_quiz = QUIZ(course_name=course_name, CNo=CNo, chapter_name=chapter_name,
+                    quizID=quizID, total_questions=quizNum, duration=duration )
     try:
         db.session.add(new_quiz)
         print('add')

@@ -88,9 +88,7 @@ def get_specific_class(Course_name, CNo):
     ), 404
 
 
-@app.route("/<string:engin_email>/",
-           "<string:course_name>/",
-           "<int:classNum>")
+@app.route("/<string:engin_email>/<string:course_name>/<int:classNum>")
 def get_trainer_class(engin_email, course_name, classNum):
     trainer_class = CLASSES.query.filter_by(engin_email=engin_email,
                                             Course_name=course_name,

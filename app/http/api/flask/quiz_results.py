@@ -34,7 +34,7 @@ class QUIZ_RESULTS (db.Model):
         self.outcome = outcome
         self.engin_email = engin_email
         self.quizID = quizID
-        self.total_questions = total_questions 
+        self.total_questions = total_questions
 
     def json(self):
         return {"attemptNo": self.attemptNo,

@@ -64,12 +64,14 @@ def addNewResult(quizId):
     attempt_engin = db.session.query(QUIZ_RESULTS).filter(QUIZ_RESULTS.engin_email == data['enginEmail'])
     attempt_count = attempt_engin.count()
     new_result = QUIZ_RESULTS(attemptNo=attempt_count, score=data['result'], outcome=data['outcome'], engin_email=data['enginEmail'], quizID=quizId, total_questions=data['totalqns'])
+    print(new_result)
     try:
         db.session.add(new_result)
         db.session.commit()
     except Exception as e:
         return 'Result could not be added'
     return 'Result has been recorded'
+
 
 
 if __name__ == '__main__':

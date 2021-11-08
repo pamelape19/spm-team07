@@ -13,7 +13,7 @@ class TestQuizResults(unittest.TestCase):
 
     def setUp(self):
         self.QuizResultInput = QUIZ_RESULTS(1, 2, True, "samueltan@allinone.com", "1001", 5)
-        self.DataToParse =  {'attemptNo': 3, 'result': 3, 'outcome': True, 'enginEmail': 'samueltan@allinone.com', 'totalqns': 5}
+        self.DataToParse =  {'result': 2, 'outcome': True, 'enginEmail': 'samueltan@allinone.com', 'totalqns': 5}
         self.app = app.test_client()
 
     def teardown(self):
@@ -27,21 +27,18 @@ class TestQuizResults(unittest.TestCase):
     def test_get_all_quiz(self):
         Response = self.app.get("/")
         Data = json.loads(Response.get_data())['data']['quiz_results']
-        # NumberofResults = len(Data)
-        # FirstQuizResult = Data[0]["score"]
-        # LastQuizResult = Data[-1]["score"]
         self.assertEqual(Response.status_code, 200)
 
     def test_post_quiz_result(self):
-        Response = self.app.post("/1001", 
-                                 json= self.DataToParse)
-        
+        Response = self.app.post("/1002", json = self.DataToParse)
+        print(Response.get_data())
         self.assertEqual(Response.status_code, 200)
 
         Response = self.app.get("/")
         Data = json.loads(Response.get_data())['data']['quiz_results']
+
         LastQuizResult = Data[-1]["score"]
-        self.assertEqual(LastQuizResult, 3)
+        self.assertEqual(LastQuizResult, 2)
 
 if __name__ == "__main__":
     unittest.main()

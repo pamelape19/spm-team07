@@ -5,7 +5,7 @@ from hr import HR
 from hr import app
 import json 
 
-#Done By: Lyndy Koo
+# Done By: Lyndy Koo
 
 app.testing = True
 

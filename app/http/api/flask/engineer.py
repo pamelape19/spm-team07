@@ -30,7 +30,7 @@ class ENGINEER (db.Model):
         self.trainer = trainer
 
     def json(self):
-        return {"engin_email": self.engin_email, "engin_name": self.engin_name, "trainer": self.trainer}
+        return {"engin_email": self.engin_email, "engin_name": self.engin_name, "trainer": self.trainer}  # noqa: E501
 
 
 @app.route("/")
@@ -51,6 +51,8 @@ def get_all_engineer():
             "message": "There are no engineers."
         }
     ), 404
+
+
 @app.route("/<string:engin_email>")
 def get_specific_engineer(engin_email):
     specific_engineer = ENGINEER.query.filter_by(engin_email=engin_email).first()
@@ -67,5 +69,7 @@ def get_specific_engineer(engin_email):
             "message": "Engineer does not exist." 
         }
     ), 404
+
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5014, debug=True)

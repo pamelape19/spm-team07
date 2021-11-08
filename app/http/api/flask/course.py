@@ -31,7 +31,7 @@ class COURSE (db.Model):
         self.prereq_name = prereq_name
 
     def json(self):
-        return {"course_name": self.course_name, "description": self.description, "objectives": self.objectives, "prereq_name": self.prereq_name}
+        return {"course_name": self.course_name, "description": self.description, "objectives": self.objectives, "prereq_name": self.prereq_name}  # noqa: E501
 
 
 @app.route("/")
@@ -53,6 +53,7 @@ def get_all_course():
         }
     ), 404
 
+
 @app.route("/<string:course_name>")
 def get_course_desc(course_name):
     course_desc = COURSE.query.filter_by(course_name=course_name).first()
@@ -66,7 +67,7 @@ def get_course_desc(course_name):
     return jsonify(
         {
             "code": 404,
-            "message": "Course does not exist." 
+            "message": "Course does not exist."
         }
     ), 404
 

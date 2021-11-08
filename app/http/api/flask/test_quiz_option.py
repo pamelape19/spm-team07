@@ -18,7 +18,7 @@ class TestQuizOption(unittest.TestCase):
     def teardown(self):
         self.QuizInput = None
 
-    def test_JSON(self):
+    def test_JSON(self): 
         JsonInput = self.QuizInput.json()
         JsonCheck = {'optionNo': 1, 'option_value': 'testing', 'quizID': '1001', 'questionNo': 1, 'selected': 1, 'answer': 1}
         self.assertEqual(JsonCheck,JsonInput)

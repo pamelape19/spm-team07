@@ -32,13 +32,13 @@ class TestQuizResults(unittest.TestCase):
         self.assertEqual(Response.status_code, 200)
 
     def test_post_quiz_result(self):
-        Response = self.app.post("/1001", 
-                                 json= self.DataToParse)
-        
+        Response = self.app.post("/1002", json = self.DataToParse)
+        print(Response.get_data())
         self.assertEqual(Response.status_code, 200)
 
         Response = self.app.get("/")
         Data = json.loads(Response.get_data())['data']['quiz_results']
+
         LastQuizResult = Data[-1]["score"]
         self.assertEqual(LastQuizResult, 1)
 

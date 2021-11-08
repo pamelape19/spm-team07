@@ -8,7 +8,7 @@ from os import environ
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = environ.get(
-    'dbURL')or 'mysql+mysqlconnector://root@localhost:3306/lms'   
+    'dbURL') or 'mysql+mysqlconnector://root@localhost:3306/lms'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_size': 100,
                                            'pool_recycle': 280}
@@ -16,6 +16,7 @@ app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_size': 100,
 db = SQLAlchemy(app)
 
 CORS(app)
+
 
 class QUIZ_OPTION (db.Model):
     __tablename__ = 'QUIZ_OPTION'
@@ -26,7 +27,8 @@ class QUIZ_OPTION (db.Model):
     selected = db.Column(db.Boolean, nullable=False)
     answer = db.Column(db.Boolean, nullable=False)
 
-    def __init__(self, optionNo, option_value, quizID, questionNo, selected, answer ):
+    def __init__(self, optionNo, option_value, quizID,
+                 questionNo, selected, answer):
         self.optionNo = optionNo
         self.option_value = option_value
         self.quizID = quizID
@@ -35,8 +37,12 @@ class QUIZ_OPTION (db.Model):
         self.answer = answer
 
     def json(self):
-        return {"optionNo": self.optionNo, "option_value": self.option_value, "quizID": self.quizID,
-        "questionNo": self.questionNo, "selected": self.selected, "answer": self.answer}
+        return {"optionNo": self.optionNo,
+                "option_value": self.option_value,
+                "quizID": self.quizID,
+                "questionNo": self.questionNo,
+                "selected": self.selected,
+                "answer": self.answer}
 
 
 @app.route("/")
@@ -47,7 +53,7 @@ def get_all_quiz_option():
             {
                 "code": 200,
                 "data": {
-                    "quiz_option": [quiz_option.json() for quiz_option in quiz_option_list]
+                    "quiz_option": [quiz_option.json() for quiz_option in quiz_option_list]   # noqa: E501
                 }
             }
         )
@@ -58,6 +64,7 @@ def get_all_quiz_option():
         }
     ), 404
 
+
 @app.route("/<int:quizID>")
 def get_quiz_options_by_quizID(quizID):
     quizOptions = QUIZ_OPTION.query.filter_by(quizID=quizID).all()
@@ -66,7 +73,7 @@ def get_quiz_options_by_quizID(quizID):
             {
                 "code": 200,
                 "data": {
-                    "quizOptions": [quizOption.json() for quizOption in quizOptions]
+                    "quizOptions": [quizOption.json() for quizOption in quizOptions]  # noqa: E501
                 }
             }
         )
@@ -84,12 +91,17 @@ def add_new_option(quizID):
     try:
         for option in data["data"]:
             print(option)
-            new_option= QUIZ_OPTION(optionNo=option["optionNo"],option_value=option["option_value"], quizID=quizID,  questionNo=option['question_no'],selected=option["selected"], answer=option["answer"])
+            new_option = QUIZ_OPTION(optionNo=option["optionNo"],
+                                     option_value=option["option_value"],
+                                     quizID=quizID,
+                                     questionNo=option['question_no'],
+                                     selected=option["selected"],
+                                     answer=option["answer"])
             db.session.add(new_option)
             print('add')
             db.session.commit()
             print('commit')
- 
+
     except Exception as e:
         print(e)
         return 'Quiz could not be added'

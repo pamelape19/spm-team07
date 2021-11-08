@@ -133,6 +133,7 @@ def addNewClass(Course_name, CNo):
         return 'Class could not be created'
     return 'Class has been created'
 
+
 @app.route("/<string:Course_name>")
 def get_classes_of_course(Course_name):
     specific_course = CLASSES.query.filter_by(Course_name=Course_name).all()

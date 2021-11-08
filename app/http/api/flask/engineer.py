@@ -1,6 +1,5 @@
 from flask import Flask, jsonify
 
-from flask.helpers import flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 
@@ -9,7 +8,7 @@ from os import environ
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = environ.get(
-    'dbURL')or 'mysql+mysqlconnector://root@localhost:3306/lms' 
+    'dbURL') or 'mysql+mysqlconnector://root@localhost:3306/lms'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_size': 100,
                                            'pool_recycle': 280}
@@ -17,6 +16,7 @@ app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_size': 100,
 db = SQLAlchemy(app)
 
 CORS(app)
+
 
 class ENGINEER (db.Model):
     __tablename__ = 'ENGINEER'
@@ -55,7 +55,7 @@ def get_all_engineer():
 
 @app.route("/<string:engin_email>")
 def get_specific_engineer(engin_email):
-    specific_engineer = ENGINEER.query.filter_by(engin_email=engin_email).first()
+    specific_engineer = ENGINEER.query.filter_by(engin_email=engin_email).first()  # noqa: E501
     if specific_engineer:
         return jsonify(
             {
@@ -66,7 +66,7 @@ def get_specific_engineer(engin_email):
     return jsonify(
         {
             "code": 404,
-            "message": "Engineer does not exist." 
+            "message": "Engineer does not exist."
         }
     ), 404
 

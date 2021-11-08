@@ -1,8 +1,7 @@
 import os
 from typing import Coroutine
-from flask import Flask, request, jsonify, send_file
+from flask import Flask, jsonify
 from io import BytesIO
-import enum
 
 from flask.helpers import flash
 from flask_sqlalchemy import SQLAlchemy
@@ -17,7 +16,7 @@ from os import environ
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = environ.get(
-    'dbURL') or 'mysql+mysqlconnector://root@localhost:3306/lms'   
+    'dbURL') or 'mysql+mysqlconnector://root@localhost:3306/lms'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_size': 100,
                                            'pool_recycle': 280}
@@ -39,7 +38,9 @@ class TRAIN (db.Model):
         self.course_name = course_name
 
     def json(self):
-        return {"engin_email": self.engin_email, "CNo": self.CNo, "course_name": self.course_name}
+        return {"engin_email": self.engin_email,
+                "CNo": self.CNo, "course_name": self.course_name}
+
 
 @app.route("/")
 def get_all_train():
@@ -60,6 +61,7 @@ def get_all_train():
         }
     ), 404
 
+
 @app.route("/<string:trainer_email>")
 def get_trainer(trainer_email):
     trainerClassList = TRAIN.query.filter_by(engin_email=trainer_email).all()
@@ -78,6 +80,7 @@ def get_trainer(trainer_email):
             "message": "No classes assigned to this trainer."
         }
     ), 404
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5005, debug=True)

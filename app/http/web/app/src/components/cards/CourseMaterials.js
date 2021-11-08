@@ -50,8 +50,6 @@ class CourseMaterials extends Component{
                         CourseChapters: [...this.state.CourseChapters, [CourseChapter.CNo, CourseChapter.course_name, CourseChapter.chapterNo, CourseChapter.chapter_name ]]
                     })
                 }
-                
-
             });
         })
 
@@ -81,7 +79,6 @@ class CourseMaterials extends Component{
         fetch('http://127.0.0.1:5004/get-completed/' + CourseName + '/' + ClassNum + '/' + enginEmail)
         .then(res => res.json())
         .then(result => {
-            // console.log(result.data.completed)
             this.setState({
                 numCompleted: result.data.completed
             })

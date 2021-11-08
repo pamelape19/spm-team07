@@ -17,7 +17,6 @@ class Question extends Component{
     };
     
     // method to show tick or cross after submission of answer
-    // var percScore = this.props.totalscore*100 / this.props.totalmarks;
     showAns = ( option ) => {
         if ( (this.props.totalscore*100 / this.props.totalmarks) > 50 ){
             if ( this.props.showAnswer === true && this.state.correctAnswerRecorded){

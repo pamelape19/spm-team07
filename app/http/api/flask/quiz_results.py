@@ -21,10 +21,10 @@ CORS(app)
 class QUIZ_RESULTS (db.Model):
     __tablename__ = 'QUIZ_RESULTS'
     attemptNo = db.Column(db.Integer, nullable=False, primary_key=True)
-    score = db.Column(db.Integer, nullable=False )
-    outcome = db.Column(db.Boolean, nullable=False )
+    score = db.Column(db.Integer, nullable=False)
+    outcome = db.Column(db.Boolean, nullable=False)
     engin_email = db.Column(db.String(50), nullable=False, primary_key=True)
-    quizID = db.Column(db.String(50),nullable=False, primary_key=True)
+    quizID = db.Column(db.String(50), nullable=False, primary_key=True)
     total_questions = db.Column(db.Integer, nullable=False)
 
     def __init__(self, attemptNo, score, outcome,

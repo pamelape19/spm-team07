@@ -13,7 +13,7 @@ class TestQuizResults(unittest.TestCase):
 
     def setUp(self):
         self.QuizResultInput = QUIZ_RESULTS(1, 2, True, "samueltan@allinone.com", "1001", 5)
-        self.DataToParse =  {'attemptNo': 3, 'result': 3, 'outcome': True, 'enginEmail': 'samueltan@allinone.com', 'totalqns': 5}
+        self.DataToParse =  {'attemptNo': 3, 'result': 1, 'outcome': True, 'enginEmail': 'samueltan@allinone.com', 'totalqns': 5}
         self.app = app.test_client()
 
     def teardown(self):
@@ -41,7 +41,7 @@ class TestQuizResults(unittest.TestCase):
         Response = self.app.get("/")
         Data = json.loads(Response.get_data())['data']['quiz_results']
         LastQuizResult = Data[-1]["score"]
-        self.assertEqual(LastQuizResult, 3)
+        self.assertEqual(LastQuizResult, 1)
 
 if __name__ == "__main__":
     unittest.main()

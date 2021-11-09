@@ -1,16 +1,16 @@
-# SPM proj
-To run our application, you will need to run the following commands:
-Command prompt to run docker
-Under the path  \spm-team07\app\http\api
-Run:
-docker-compose build
-docker-compose up -d
+## Team G2 T7
+# To run our application, you will need to run the following commands:
+Command prompt to run docker <br>
+Under the path  \spm-team07\app\http\api <br>
+Run: <br>
+docker-compose build <br>
+docker-compose up -d <br> <br>
 
-Then under spm-team07\app\http\api\flask
-Run:
-python main.py
-Powershell to run app
-Under the path \spm-team07
-Run:
-cd app/http/web/app
-npm start
+Then under spm-team07\app\http\api\flask <br>
+Run: <br>
+python main.py <br>
+Powershell to run app <br>
+Under the path \spm-team07 <br>
+Run: <br>
+cd app/http/web/app <br>
+npm start <br>

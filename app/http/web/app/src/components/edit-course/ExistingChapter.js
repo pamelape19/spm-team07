@@ -34,7 +34,7 @@ class ExistingChapter extends Component{
     }
 
     render(){
-        const { chapterItem, courseName, classNum, chapterName }= this.props;
+        const { chapterItem, courseName, classNum, chapterName } = this.props;
 
         // conditional rendering for lecture's button
         let lectureBtn;

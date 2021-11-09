@@ -36,7 +36,7 @@ class COURSE (db.Model):
 
 
 @app.route("/")
-def get_all_course():
+def get_all_courses():
     courselist = COURSE.query.all()
     if len(courselist):
         return jsonify(

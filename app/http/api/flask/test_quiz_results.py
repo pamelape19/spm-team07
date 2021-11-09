@@ -1,3 +1,6 @@
+# Shawn
+# 01389218
+
 import unittest
 
 from sqlalchemy.sql.expression import null
@@ -6,14 +9,13 @@ from quiz_results import app
 import json 
 import unittest
 # set our application to testing mode
-# Shawn
 app.testing = True
 
 class TestQuizResults(unittest.TestCase):
 
     def setUp(self):
         self.QuizResultInput = QUIZ_RESULTS(1, 2, True, "samueltan@allinone.com", "1001", 5)
-        self.DataToParse =  {'result': 2, 'outcome': True, 'enginEmail': 'samueltan@allinone.com', 'totalqns': 5}
+        self.DataToParse =  {'attemptNo': 3, 'result': 1, 'outcome': True, 'enginEmail': 'samueltan@allinone.com', 'totalqns': 5}
         self.app = app.test_client()
 
     def teardown(self):
@@ -38,7 +40,7 @@ class TestQuizResults(unittest.TestCase):
         Data = json.loads(Response.get_data())['data']['quiz_results']
 
         LastQuizResult = Data[-1]["score"]
-        self.assertEqual(LastQuizResult, 2)
+        self.assertEqual(LastQuizResult, 1)
 
 if __name__ == "__main__":
     unittest.main()

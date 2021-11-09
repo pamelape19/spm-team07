@@ -66,7 +66,7 @@ def get_all_quiz_results():
 
 
 @app.route("/<string:quizId>", methods=['POST'])
-def addNewResult(quizId):
+def add_new_result(quizId):
     data = request.get_json()
     attempt_engin = db.session.query(QUIZ_RESULTS).filter(QUIZ_RESULTS.engin_email == data['enginEmail'])  # noqa: E501
     attempt_count = attempt_engin.count()

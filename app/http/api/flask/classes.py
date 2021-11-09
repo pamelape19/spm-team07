@@ -1,6 +1,3 @@
-# Pamela Pe
-# Port 5003
-
 from flask import Flask, jsonify, request
 
 from flask_sqlalchemy import SQLAlchemy
@@ -111,7 +108,7 @@ def get_trainer_class(engin_email, course_name, classNum):
 
 
 @app.route("/<string:Course_name>/<int:CNo>", methods=['POST'])
-def addNewClass(Course_name, CNo):
+def add_new_class(Course_name, CNo):
     data = request.form
     startDate = data.get("startDate")
     startTime = data.get("startTime")
@@ -135,7 +132,7 @@ def addNewClass(Course_name, CNo):
 
 
 @app.route("/<string:Course_name>")
-def get_classes_of_course(Course_name):
+def get_course_classes(Course_name):
     specific_course = CLASSES.query.filter_by(Course_name=Course_name).all()
     if specific_course:
         return jsonify(
@@ -165,21 +162,6 @@ def update_capacity(Course_name, CNo):
             print(e)
             return "Class capacity could not be updated."
         return "Class capacity was updated."
-
-# @app.route("/<int:Capacity>", methods=['POST'])
-# def addNewCapacity(Capacity):
-#     data = request.get_json()
-#     new_capacity = CLASSES(Course_name=data['Course_name'],
-#     CNo=data['CNo'], Start_datetime=data['Start_datetime'],
-#     End_datetime=data['End_datetime'], Capacity=Capacity,
-#     engin_email=data['End_datetime'])
-#     try:
-#         db.session.add(new_capacity)
-#         db.session.commit()
-#     except Exception as e:
-#         return 'Result could not be added'
-#     return 'Result has been recorded'
-
 
 @app.route("/<string:Course_name>", methods=['POST'])
 def create_class(Course_name):

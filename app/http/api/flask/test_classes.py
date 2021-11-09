@@ -1,5 +1,5 @@
 # Pamela Pe
-# Port 5003
+# 01383595
 
 import unittest
 
@@ -91,7 +91,7 @@ class TestClass(unittest.TestCase):
         FirstStartDateTime = Data[-1]["End_datetime"]
 
         self.assertEqual(Response.status_code, 200)
-        self.assertEqual("Tue, 08 Feb 2022 10:30:00 GMT", FirstStartDateTime)
+        self.assertEqual("Wed, 08 Dec 2022 20:00:00 GMT", FirstStartDateTime)
 
     # Get first class capacity
     def test_getCapacity(self):

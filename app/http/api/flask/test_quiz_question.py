@@ -1,3 +1,5 @@
+# Shawn
+# 01389218
 import unittest
 
 from sqlalchemy.sql.expression import null
@@ -6,7 +8,6 @@ from quiz_question import app
 import json 
 import unittest
 # set our application to testing mode
-# Shawn
 app.testing = True
 
 class TestQuizQuestion(unittest.TestCase):
@@ -41,15 +42,6 @@ class TestQuizQuestion(unittest.TestCase):
         self.assertEqual(Response.status_code, 200)
         self.assertEqual("1001", FirstQuestionQuizID)
         self.assertEqual("1001", LastQuestionQuizID)
- 
-        # CNo = Data[0]["CNo"]
-        # CourseName = Data[0]["course_name"]
-        # SpecificQuizID =  Data[0]["quizID"]
-        # self.assertEqual(2, CNo)
-        # self.assertEqual("Introduction to IBM WorkCentre",CourseName)
-        # self.assertEqual("1002", SpecificQuizID)
-    # def test_get_certain_quiz(self):
-
 
 if __name__ == "__main__":
     unittest.main()

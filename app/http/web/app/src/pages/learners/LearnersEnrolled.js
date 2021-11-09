@@ -111,7 +111,6 @@ class LearnersEnrolled extends Component{
                             courseDesc = { enrolledCourse['courseDesc'] }
                         />
                     ))}
-                    {/* <CardListItem perc={ 0 } coursebtn="start" assigned="False"/> */}
                 </Container>
             </div>
         )

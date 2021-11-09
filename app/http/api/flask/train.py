@@ -35,7 +35,7 @@ class TRAIN (db.Model):
 
 
 @app.route("/")
-def get_all_train():
+def get_all_trainers():
     trainlist = TRAIN.query.all()
     if len(trainlist):
         return jsonify(

@@ -66,7 +66,7 @@ def get_all_quiz_option():
 
 
 @app.route("/<int:quizID>")
-def quiz_options_by_quizID(quizID):
+def get_quiz_options_by_quizID(quizID):
     quizOptions = QUIZ_OPTION.query.filter_by(quizID=quizID).all()
     if quizOptions:
         return jsonify(
@@ -86,7 +86,7 @@ def quiz_options_by_quizID(quizID):
 
 
 @app.route("/<int:quizID>", methods=['POST'])
-def addNewOption(quizID):
+def add_new_option(quizID):
     data = request.json
     try:
         for option in data["data"]:

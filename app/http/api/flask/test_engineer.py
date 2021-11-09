@@ -27,19 +27,33 @@ class TestEngineer(unittest.TestCase):
     def test_get_all_engineers(self):
         Response = self.app.get("/")
         Data = json.loads(Response.get_data())['data']['engineers']
-        FirstEngineerEmail = Data[0]["engin_email"]
-        LastEngineerEmail = Data[-1]["engin_email"]
         NumberofEngineers = len(Data)
         num_trainers = 0
         for engin in Data:
             if engin["trainer"] == 1:
-                num_trainers += 1  
+                num_trainers += 1
 
         self.assertEqual(Response.status_code, 200)
         self.assertEqual(11, NumberofEngineers)
-        self.assertEqual("alexlim@allinone.com", FirstEngineerEmail)
-        self.assertEqual("samueltan@allinone.com", LastEngineerEmail) 
         self.assertEqual(9,num_trainers)  
+    
+    def test_get_specific_engineer(self):
+        Response = self.app.get("/samueltan@allinone.com")
+        Data = json.loads(Response.get_data())['data']
+        EnginEmail = Data["engin_email"]
+        EnginName = Data["engin_name"]
+        isTrainer = Data["trainer"]
+
+        self.assertEqual(Response.status_code, 200)
+        self.assertEqual("samueltan@allinone.com", EnginEmail)
+        self.assertEqual("Samuel", EnginName)
+        self.assertEqual(False, isTrainer)
+
+
+
+
+        
+
 
 
 if __name__ == "__main__":

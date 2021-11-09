@@ -33,7 +33,7 @@ class TestEngineer(unittest.TestCase):
         num_trainers = 0
         for engin in Data:
             if engin["trainer"] == 1:
-                num_trainers += 1 
+                num_trainers += 1  
 
         self.assertEqual(Response.status_code, 200)
         self.assertEqual(11, NumberofEngineers)

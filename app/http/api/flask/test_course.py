@@ -11,7 +11,7 @@ app.testing = True
 class TestCourse(unittest.TestCase):
     def setUp(self):
         self.CourseInput = COURSE("Introduction to HP WorkCentre", "The fundamentals of the workcentre at HP", "For all the engineers to have a basic understanding of the products and solutions of HP", "Introduction to IBM WorkCentre")
-        self.app = app.test_client()
+        self.app = app.test_client() 
 
     def teardown(self):
         self.CourseInput = None

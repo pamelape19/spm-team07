@@ -8,7 +8,7 @@ from os import environ
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = environ.get(
-    'dbURL')or 'mysql+mysqlconnector://root@localhost:3306/lms'  
+    'dbURL') or 'mysql+mysqlconnector://root@localhost:3306/lms'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_size': 100,
                                            'pool_recycle': 280}
@@ -16,6 +16,7 @@ app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_size': 100,
 db = SQLAlchemy(app)
 
 CORS(app)
+
 
 class COURSE (db.Model):
     __tablename__ = 'COURSE'
@@ -31,7 +32,7 @@ class COURSE (db.Model):
         self.prereq_name = prereq_name
 
     def json(self):
-        return {"course_name": self.course_name, "description": self.description, "objectives": self.objectives, "prereq_name": self.prereq_name}
+        return {"course_name": self.course_name, "description": self.description, "objectives": self.objectives, "prereq_name": self.prereq_name}  # noqa: E501
 
 
 @app.route("/")
@@ -53,6 +54,7 @@ def get_all_course():
         }
     ), 404
 
+
 @app.route("/<string:course_name>")
 def get_course_desc(course_name):
     course_desc = COURSE.query.filter_by(course_name=course_name).first()
@@ -66,7 +68,7 @@ def get_course_desc(course_name):
     return jsonify(
         {
             "code": 404,
-            "message": "Course does not exist." 
+            "message": "Course does not exist."
         }
     ), 404
 

@@ -8,7 +8,7 @@ from os import environ
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = environ.get(
-    'dbURL') or 'mysql+mysqlconnector://root@localhost:3306/lms'  
+    'dbURL') or 'mysql+mysqlconnector://root@localhost:3306/lms'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_size': 100,
                                            'pool_recycle': 280}
@@ -27,7 +27,7 @@ class ENROLLMENT (db.Model):
     enrolled = db.Column(db.Boolean, nullable=False)
     completed = db.Column(db.Integer, nullable=False)
 
-    def __init__(self, engin_email, CNo, Course_name, assigned, enrolled, completed):
+    def __init__(self, engin_email, CNo, Course_name, assigned, enrolled, completed):  # noqa: E501
         self.engin_email = engin_email
         self.CNo = CNo
         self.Course_name = Course_name
@@ -36,7 +36,9 @@ class ENROLLMENT (db.Model):
         self.completed = completed
 
     def json(self):
-        return {"engin_email": self.engin_email, "CNo": self.CNo, "Course_name": self.Course_name, "assigned": self.assigned, "enrolled": self.enrolled, "completed": self.completed}
+        return {"engin_email": self.engin_email, "CNo": self.CNo,
+                "Course_name": self.Course_name, "assigned": self.assigned,
+                "enrolled": self.enrolled, "completed": self.completed}
 
 
 @app.route("/")
@@ -47,7 +49,7 @@ def get_all_enrollment():
             {
                 "code": 200,
                 "data": {
-                    "enrollment": [enrollment.json() for enrollment in enrollmentlist]
+                    "enrollment": [enrollment.json() for enrollment in enrollmentlist]  # noqa: E501
                 }
             }
         )
@@ -58,15 +60,16 @@ def get_all_enrollment():
         }
     ), 404
 
+
 @app.route("/<string:engin_email>")
 def find_enrollment_by_engin_email(engin_email):
-    enrolled_engins = ENROLLMENT.query.filter_by(engin_email=engin_email).all()
+    enrolled_engins = ENROLLMENT.query.filter_by(engin_email=engin_email).all()  # noqa: E501
     if enrolled_engins:
         return jsonify(
             {
                 "code": 200,
                 "data": {
-                    "enginClasses": [engin_classes.json() for engin_classes in enrolled_engins]
+                    "enginClasses": [engin_classes.json() for engin_classes in enrolled_engins]  # noqa: E501
                 }
             }
         )
@@ -77,15 +80,16 @@ def find_enrollment_by_engin_email(engin_email):
         }
     ), 404
 
+
 @app.route("/<string:courseName>/<int:classNum>")
 def getLearnersEnrolled(courseName, classNum):
-    currentlyEnrolled = ENROLLMENT.query.filter_by(Course_name=courseName, CNo=classNum, enrolled=1).all()
+    currentlyEnrolled = ENROLLMENT.query.filter_by(Course_name=courseName, CNo=classNum, enrolled=1).all()  # noqa: E501
     if currentlyEnrolled:
         return jsonify(
             {
                 "code": 200,
                 "data": {
-                    "enrolled": [enrolled_engins.json() for enrolled_engins in currentlyEnrolled]
+                    "enrolled": [enrolled_engins.json() for enrolled_engins in currentlyEnrolled]  # noqa: E501
                 }
             }
         )
@@ -96,10 +100,13 @@ def getLearnersEnrolled(courseName, classNum):
         }
     ), 404
 
+
 @app.route("/<string:courseName>/<int:classNum>", methods=['POST'])
 def addToEnrollmentTable(courseName, classNum):
     data = request.get_json()
-    new_row = ENROLLMENT(engin_email=data['enginEmail'], CNo=classNum, Course_name=courseName, assigned=0, enrolled=0, completed=0)
+    new_row = ENROLLMENT(engin_email=data['enginEmail'],
+                         CNo=classNum, Course_name=courseName,
+                         assigned=0, enrolled=0, completed=0)
     try:
         db.session.add(new_row)
         db.session.commit()
@@ -107,6 +114,7 @@ def addToEnrollmentTable(courseName, classNum):
         print(e)
         return "Learner's application was not successful."
     return "Learner's application was successful."
+
 
 @app.route("/manage-applications")
 def find_pending():
@@ -116,7 +124,7 @@ def find_pending():
             {
                 "code": 200,
                 "data": {
-                    "pending": [pending_engins.json() for pending_engins in pending]
+                    "pending": [pending_engins.json() for pending_engins in pending]  # noqa: E501
                 }
             }
         )
@@ -127,9 +135,12 @@ def find_pending():
         }
     ), 404
 
-@app.route("/add-enrollment/<string:engin_email>/<string:Course_name>/<int:CNo>", methods=['POST'])
+
+@app.route("/add-enrollment/<string:engin_email>/<string:Course_name>/<int:CNo>", methods=['POST'])  # noqa: E501
 def assign(engin_email, Course_name, CNo):
-    new_row = ENROLLMENT(engin_email=engin_email, Course_name=Course_name, CNo=CNo, enrolled=1, assigned=1, completed=0)
+    new_row = ENROLLMENT(engin_email=engin_email,
+                         Course_name=Course_name, CNo=CNo,
+                         enrolled=1, assigned=1, completed=0)
     try:
         db.session.add(new_row)
         print('added')
@@ -140,9 +151,12 @@ def assign(engin_email, Course_name, CNo):
         return "Learner could not be assigned."
     return "Learner has been assigned."
 
-@app.route("/update-enrollment/<string:engin_email>/<string:Course_name>/<int:CNo>", methods=['PUT'])
+
+@app.route("/update-enrollment/<string:engin_email>/<string:Course_name>/<int:CNo>", methods=['PUT'])  # noqa: E501
 def update_enrollment(engin_email, Course_name, CNo):
-    old = ENROLLMENT.query.filter_by(engin_email=engin_email, Course_name=Course_name, CNo=CNo, enrolled=0).first()
+    old = ENROLLMENT.query.filter_by(engin_email=engin_email,
+                                     Course_name=Course_name,
+                                     CNo=CNo, enrolled=0).first()
     if old:
         try:
             old.enrolled = 1
@@ -153,9 +167,12 @@ def update_enrollment(engin_email, Course_name, CNo):
         return "Learner's application was updated."
     return "No learner's application was found."
 
-@app.route("/delete-enrollment/<string:engin_email>/<string:Course_name>/<int:CNo>", methods=['DELETE'])
+
+@app.route("/delete-enrollment/<string:engin_email>/<string:Course_name>/<int:CNo>", methods=['DELETE'])  # noqa: E501
 def delete_enrollment(engin_email, Course_name, CNo):
-    old = ENROLLMENT.query.filter_by(engin_email=engin_email, Course_name=Course_name, CNo=CNo, enrolled=0).first()
+    old = ENROLLMENT.query.filter_by(engin_email=engin_email,
+                                     Course_name=Course_name,
+                                     CNo=CNo, enrolled=0).first()
     if old:
         try:
             db.session.delete(old)
@@ -165,6 +182,7 @@ def delete_enrollment(engin_email, Course_name, CNo):
             return "Learner's application could not be deleted."
         return "Learner's application was deleted."
     return "No learner's application was found."
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5004, debug=True)

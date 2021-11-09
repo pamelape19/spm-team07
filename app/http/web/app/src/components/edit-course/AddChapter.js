@@ -56,6 +56,7 @@ class AddChapter extends Component{
     }
     editCompleted(){
         this.setState({
+            // chapterNo: this.props.chapterItem,
             titleAdded: true,
             hideEditTitle: true,
             hideAddTitleBtn: false,

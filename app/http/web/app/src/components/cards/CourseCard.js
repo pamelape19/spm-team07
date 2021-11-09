@@ -1,4 +1,4 @@
-import { React, Component } from 'react';
+import {React, Component } from 'react';
 import { Card } from 'react-bootstrap';
 import bg from "../../resources/courseCardBg.png";
 
@@ -36,7 +36,7 @@ class CourseCard extends Component{
                     <Card style={{ width: '16rem', boxShadow: '0 0 10px 0 rgba(100, 100, 100, 0.26)', height: '18rem' }}>
                         <Card.Img variant="top" src={ bg } />
                         <div style={{ padding: 20 }}>
-                            <Card.Title style={{ textAlign: 'left' }}>{ name }</Card.Title>
+                            <Card.Title style={{textAlign: 'left'}}>{ name }</Card.Title>
                             <Card.Text>Classes offered - { this.state.numClasses }</Card.Text>
                         </div>
                     </Card>

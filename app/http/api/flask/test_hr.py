@@ -1,6 +1,3 @@
-# Lyndy Koo
-# 01395186
-
 import unittest
 
 from sqlalchemy.sql.expression import null
@@ -8,6 +5,7 @@ from hr import HR
 from hr import app
 import json 
 
+#Done By: Lyndy Koo
 
 app.testing = True
 

@@ -1,6 +1,3 @@
-# Shawn
-# 01389218
-
 import unittest
 
 from sqlalchemy.sql.expression import null
@@ -9,6 +6,7 @@ from quiz_results import app
 import json 
 import unittest
 # set our application to testing mode
+# Shawn
 app.testing = True
 
 class TestQuizResults(unittest.TestCase):
@@ -29,6 +27,9 @@ class TestQuizResults(unittest.TestCase):
     def test_get_all_quiz_results(self):
         Response = self.app.get("/")
         Data = json.loads(Response.get_data())['data']['quiz_results']
+        # NumberofResults = len(Data)
+        # FirstQuizResult = Data[0]["score"]
+        # LastQuizResult = Data[-1]["score"]
         self.assertEqual(Response.status_code, 200)
 
     def test_post_quiz_result(self):

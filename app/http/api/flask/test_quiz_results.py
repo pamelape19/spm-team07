@@ -24,7 +24,7 @@ class TestQuizResults(unittest.TestCase):
         JsonCheck = {'attemptNo': 1, 'score': 2, 'outcome': True, 'engin_email': 'samueltan@allinone.com', 'quizID': '1001', 'total_qns': 5}
         self.assertEqual(JsonCheck,JsonInput)
 
-    def test_get_all_quiz(self):
+    def test_get_all_quiz_results(self):
         Response = self.app.get("/")
         Data = json.loads(Response.get_data())['data']['quiz_results']
         # NumberofResults = len(Data)

@@ -29,7 +29,7 @@ class TestQuizOption(unittest.TestCase):
         self.assertEqual(Response.status_code, 200)
         self.assertEqual(116, DataLength)
 
-    def test_get_specific_quiz(self):
+    def test_get_specific_quiz_option(self):
         Response = self.app.get("/1001")
         Data = json.loads(Response.get_data())['data']['quizOptions']
         DataLength = len(Data)

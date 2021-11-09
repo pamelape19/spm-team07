@@ -60,6 +60,7 @@ class LectureModal extends Component{
                         <input type="file" 
                                 name = 'inputFile' 
                                 className="course-design-browse-btn" 
+                                // id={ 'course-design' + uploadId } 
                                 onChange={ this.changeHandler }
                         />
                         <br/>

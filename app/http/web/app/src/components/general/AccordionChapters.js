@@ -63,6 +63,7 @@ class AccordionChapters extends Component{
         else{
             checkMark = "";
             openLecture = <p>Lecture materials</p>
+            // editted out for testing 
             openQuiz = <p>Quiz</p>
         }
 
@@ -74,6 +75,8 @@ class AccordionChapters extends Component{
         else{
             lockIcon = ""
         }
+        console.log(this.state.lectureCompletionCheck)
+        console.log(this.state.quizCompletionCheck)
         if ( this.state.lectureCompletionCheck && this.state.quizCompletionCheck ){
             fetch('http://127.0.0.1:5004/update-num-completed/' + this.props.enginEmail + '/' + this.props.courseName + '/' + this.props.classNum, {
                 method: 'PUT'

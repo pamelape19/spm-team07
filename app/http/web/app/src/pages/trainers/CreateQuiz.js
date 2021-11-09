@@ -94,6 +94,8 @@ class CreateQuiz extends Component{
         for (var [key, value] of formData.entries()) { 
             
             if (key.split("_")[0] === "option"){
+                console.log(key.split("_")[2])
+                console.log("----------------")
                 let questionNo = key.split("_")[2]
                 let optionNo = key.split("_")[1]
                 if (selectedOption[questionNo] === value && optionNo === 1){

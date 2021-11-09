@@ -9,3 +9,8 @@ docker-compose up -d
 Then under spm-team07\app\http\api\flask
 Run:
 python main.py
+Powershell to run app
+Under the path \spm-team07
+Run:
+cd app/http/web/app
+npm start
